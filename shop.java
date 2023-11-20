@@ -45,42 +45,27 @@ public class shop {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(247, 186, 232));
 		frame.setBackground(new Color(184, 235, 169));
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 1400,800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("🪙: ");
-		lblNewLabel.setBounds(175, 19, 75, 36);
+		lblNewLabel.setBounds(677, 22, 75, 36);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Ability Cards for Purchase:");
-		lblNewLabel_1.setBounds(127, 8, 186, 16);
+		lblNewLabel_1.setBounds(610, 6, 186, 16);
 		frame.getContentPane().add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_13 = new JLabel("Need more coins? \n"
-				);
+	
 		//"Kill Enemy Cards !!"
-		lblNewLabel_13.setBounds(325, 16, 125, 29);
-		frame.getContentPane().add(lblNewLabel_13);
-		
-		JLabel lblNewLabel_14 = new JLabel("Kill Enemy Cards!");
-		lblNewLabel_14.setBounds(325, 43, 125, 16);
-		frame.getContentPane().add(lblNewLabel_14);
-		
-		JButton btnNewButton = new JButton("Match History");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(327, 70, 117, 185);
-		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Card info ");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_1.setBounds(6, 47, 117, 110);
+		btnNewButton_1.setBounds(6, 47, 221, 499);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Battle Arena");
@@ -88,66 +73,97 @@ public class shop {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_2.setBounds(6, 169, 117, 29);
+		btnNewButton_2.setBounds(6, 575, 221, 55);
 		frame.getContentPane().add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Forfeit ;(");
-		btnNewButton_3.setBounds(6, 199, 117, 29);
+		btnNewButton_3.setBounds(6, 634, 221, 55);
 		frame.getContentPane().add(btnNewButton_3);
 		
 		JLabel lblNewLabel_2 = new JLabel("Time Left");
 		lblNewLabel_2.setBounds(17, 22, 61, 16);
 		frame.getContentPane().add(lblNewLabel_2);
 		
-		JButton btnNewButton_4 = new JButton("Buy Card");
-		btnNewButton_4.addActionListener(new ActionListener() {
+		JButton btnNewButton_5_1_5 = new JButton("Sock Puppetry");
+		btnNewButton_5_1_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_4.setBounds(6, 226, 117, 29);
-		frame.getContentPane().add(btnNewButton_4);
+		btnNewButton_5_1_5.setBounds(324, 70, 140, 249);
+		frame.getContentPane().add(btnNewButton_5_1_5);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Sock Puppetry");
-		rdbtnNewRadioButton.setBounds(127, 48, 141, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton);
+		JButton btnNewButton_5_1_1_1 = new JButton("Inverted Reflection");
+		btnNewButton_5_1_1_1.setBounds(469, 70, 140, 249);
+		frame.getContentPane().add(btnNewButton_5_1_1_1);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Inverted Reflection\n"
-				+ "");
-		rdbtnNewRadioButton_1.setBounds(127, 67, 164, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_1);
+		JButton btnNewButton_5_1_2_1 = new JButton("Holographic Hideaway");
+		btnNewButton_5_1_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_5_1_2_1.setBounds(612, 70, 140, 249);
+		frame.getContentPane().add(btnNewButton_5_1_2_1);
 		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Holographic Hideaway");
-		rdbtnNewRadioButton_2.setBounds(127, 89, 186, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_2);
+		JButton btnNewButton_5_1_3_1 = new JButton("Malicious Mend");
+		btnNewButton_5_1_3_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_5_1_3_1.setBounds(755, 70, 140, 249);
+		frame.getContentPane().add(btnNewButton_5_1_3_1);
 		
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Malicious Mend");
-		rdbtnNewRadioButton_3.setBounds(127, 112, 141, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_3);
+		JButton btnNewButton_5_1_4_1 = new JButton("Reprehensive Rejuvenation");
+		btnNewButton_5_1_4_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_5_1_4_1.setBounds(900, 70, 140, 249);
+		frame.getContentPane().add(btnNewButton_5_1_4_1);
 		
-		JRadioButton rdbtnNewRadioButton_4 = new JRadioButton("Reprehensive Rejuvenation");
-		rdbtnNewRadioButton_4.setBounds(127, 135, 243, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_4);
+		JLabel lblNewLabel_3 = new JLabel("Need more cards?");
+		lblNewLabel_3.setBounds(1192, 32, 152, 16);
+		frame.getContentPane().add(lblNewLabel_3);
 		
-		JRadioButton rdbtnNewRadioButton_5 = new JRadioButton("Sinister Health\n"
-				+ "");
-		rdbtnNewRadioButton_5.setBounds(127, 158, 141, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_5);
+		JLabel lblNewLabel_4 = new JLabel("Defeat enemy cards!!");
+		lblNewLabel_4.setBounds(1192, 72, 140, 16);
+		frame.getContentPane().add(lblNewLabel_4);
 		
-		JRadioButton rdbtnNewRadioButton_6 = new JRadioButton("Nefarious Nibbles");
-		rdbtnNewRadioButton_6.setBounds(127, 181, 145, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_6);
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(1182, 111, 212, 604);
+		frame.getContentPane().add(textArea);
 		
-		JRadioButton rdbtnNewRadioButton_7 = new JRadioButton("Sneaky Smooch");
-		rdbtnNewRadioButton_7.setBounds(127, 200, 141, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_7);
+		JButton btnNewButton_5_1_5_1 = new JButton(" Sinister Serenity");
+		btnNewButton_5_1_5_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_5_1_5_1.setBounds(324, 349, 140, 249);
+		frame.getContentPane().add(btnNewButton_5_1_5_1);
 		
-		JRadioButton rdbtnNewRadioButton_8 = new JRadioButton("Quantum Quake");
-		rdbtnNewRadioButton_8.setBounds(127, 219, 141, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_8);
+		JButton btnNewButton_5_1_1_1_1 = new JButton("Inverted Reflection");
+		btnNewButton_5_1_1_1_1.setBounds(469, 349, 140, 249);
+		frame.getContentPane().add(btnNewButton_5_1_1_1_1);
 		
-		JRadioButton rdbtnNewRadioButton_9 = new JRadioButton("Subatomic Swap\n"
-				+ "");
-		rdbtnNewRadioButton_9.setBounds(127, 240, 141, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_9);
+		JButton btnNewButton_5_1_2_1_1 = new JButton("Nefarious Nibbles");
+		btnNewButton_5_1_2_1_1.setBounds(612, 349, 140, 249);
+		frame.getContentPane().add(btnNewButton_5_1_2_1_1);
+		
+		JButton btnNewButton_5_1_3_1_1 = new JButton("Sneaky Smooch");
+		btnNewButton_5_1_3_1_1.setBounds(755, 349, 140, 249);
+		frame.getContentPane().add(btnNewButton_5_1_3_1_1);
+		
+		JButton btnNewButton_5_1_4_1_1 = new JButton("Quantum Quake");
+		btnNewButton_5_1_4_1_1.setBounds(900, 349, 140, 249);
+		frame.getContentPane().add(btnNewButton_5_1_4_1_1);
+		
+		JButton btnNewButton_3_1 = new JButton("Buy Card");
+		btnNewButton_3_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_3_1.setBounds(6, 695, 221, 55);
+		frame.getContentPane().add(btnNewButton_3_1);
+		//using JRadioButtons so user can select card + view stats when selected
+		
 	}
 }

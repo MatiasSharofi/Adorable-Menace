@@ -79,7 +79,12 @@ public class shop {
 		JButton btnNewButton_3 = new JButton("Forfeit ;(");
 		btnNewButton_3.setBounds(6, 634, 221, 55);
 		frame.getContentPane().add(btnNewButton_3);
-		
+		btnNewButton_3.addActionListener(new ActionListener() { // adding action listen
+	           public void actionPerformed(ActionEvent e) { 
+	               System.exit(0);
+	           }
+	       });
+	 
 		JLabel lblNewLabel_2 = new JLabel("Time Left");
 		lblNewLabel_2.setBounds(17, 22, 61, 16);
 		frame.getContentPane().add(lblNewLabel_2);
@@ -129,7 +134,7 @@ public class shop {
 		frame.getContentPane().add(lblNewLabel_4);
 		
 		JTextArea textArea = new JTextArea();
-		textArea.setBounds(1182, 111, 212, 604);
+		textArea.setBounds(1164, 100, 212, 604);
 		frame.getContentPane().add(textArea);
 		
 		JButton btnNewButton_5_1_5_1 = new JButton(" Sinister Serenity");

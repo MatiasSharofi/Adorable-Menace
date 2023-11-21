@@ -1,8 +1,9 @@
-//simrit
+//Simrit
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Panel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import java.awt.Label;
 import java.awt.Color;
 import javax.swing.JTextArea;
@@ -81,7 +82,8 @@ public class shop {
 		frame.getContentPane().add(btnNewButton_3);
 		btnNewButton_3.addActionListener(new ActionListener() { // adding action listen
 	           public void actionPerformed(ActionEvent e) { 
-	               System.exit(0);
+	        	   JOptionPane.showMessageDialog(btnNewButton_3, "","Goodbye", 0);
+	        	   System.exit(0);
 	           }
 	       });
 	 
@@ -134,7 +136,7 @@ public class shop {
 		frame.getContentPane().add(lblNewLabel_4);
 		
 		JTextArea textArea = new JTextArea();
-		textArea.setBounds(1164, 100, 212, 604);
+		textArea.setBounds(1132, 100, 212, 604);
 		frame.getContentPane().add(textArea);
 		
 		JButton btnNewButton_5_1_5_1 = new JButton(" Sinister Serenity");

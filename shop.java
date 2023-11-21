@@ -1,5 +1,5 @@
+//simrit
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.Panel;
 import javax.swing.JLabel;

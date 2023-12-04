@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.*;
 import java.util.Collections;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,9 +23,11 @@ public class GameplayScreen{
 	
 	static JLabel timerLabel;
     static Timer countdownTimer;
-    static Timer countdownTimer2;
     static int secondsRemaining;
-    static int aiTimer1;
+    static Timer aiTimer1;
+    
+    static JLabel timerLabel2;
+    static int delay; 
 
 	static JFrame frame;
 	
@@ -33,6 +38,9 @@ public class GameplayScreen{
 	static String [] aiBaCards = new String [3];
 	
 	static JButton endTurn;
+	static JButton useAC1;
+	static JButton useAC2;
+	static JButton useAC3;
 	
 	static int user1Attack;
 	static int user1Health;
@@ -237,6 +245,48 @@ public class GameplayScreen{
 	    }
 	}
 	
+	public static void aiCheck1()
+	{
+		if (battleArenaCards == 3)
+		{
+			Timer delay = new Timer();
+			delay.schedule(
+					new java.util.TimerTask() {
+						@Override
+						public void run() {
+							Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							aiCard3.setEnabled(false);
+							
+							Image arenaCard5_1 = aiCard6_1.getImage();
+							Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
+							
+							aiArenaCard2 = new JButton(arenaCard5_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							aiCard6.setEnabled(false);
+							
+							Image arenaCard6_1 = aiCard7_1.getImage();
+							Image arenaCard6_2 = arenaCard6_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard6_3 = new ImageIcon(arenaCard6_2);
+							
+							aiArenaCard3 = new JButton(arenaCard6_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							aiCard7.setEnabled(false);
+						}
+					}, 
+					2000
+					);
+		}
+	}
+	
 	public static void userCountdown()
 	{
 		timerLabel = new JLabel("Time remaining: ");
@@ -246,54 +296,37 @@ public class GameplayScreen{
 	    frame.getContentPane().add(timerLabel);
 	    
 	    secondsRemaining = 30;
+
+        new Timer().schedule(new TimerTask(){
+
+               @Override
+               public void run() {
+                secondsRemaining--;
+                timerLabel.setText("Time remaining: " + secondsRemaining + " seconds");
+               }   
+           },0, 1000);
 	
-	    // Initialize the timer with 1000ms (1 second) delay and an ActionListener
-	    countdownTimer = new Timer(1000, new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            // Update the timer label
-	            timerLabel.setText("Time remaining: " + secondsRemaining + " seconds");
-	
-	            // Check if time has run out
-	            if (secondsRemaining == 0) {
-	                // Perform actions when the timer reaches zero (e.g., end the game)
-	                countdownTimer.stop(); // Stop the timer
-	                Image arenaCard4_1 = aiCard3_1.getImage();
-					Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-					ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-					
-					aiArenaCard1 = new JButton(arenaCard4_3);
-					aiArenaCard1.setBounds(528, 206, 94, 150);
-					frame.getContentPane().add(aiArenaCard1);
-					aiCard3.setEnabled(false);
-					
-					Image arenaCard5_1 = aiCard6_1.getImage();
-					Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-					ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
-					
-					aiArenaCard2 = new JButton(arenaCard5_3);
-					aiArenaCard2.setBounds(634, 206, 94, 150);
-					frame.getContentPane().add(aiArenaCard2);
-					aiCard6.setEnabled(false);
-					
-					Image arenaCard6_1 = aiCard7_1.getImage();
-					Image arenaCard6_2 = arenaCard6_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-					ImageIcon arenaCard6_3 = new ImageIcon(arenaCard6_2);
-					
-					aiArenaCard3 = new JButton(arenaCard6_3);
-					aiArenaCard3.setBounds(740, 206, 94, 150);
-					frame.getContentPane().add(aiArenaCard3);
-					aiCard7.setEnabled(false);
-	                // Your game-over logic here
-	
-	            } else {
-	                // Decrement the remaining time
-	                secondsRemaining--;
-	            }
-	        }
-	    });
-	    
-	    countdownTimer.start();
+//	    // Initialize the timer with 1000ms (1 second) delay and an ActionListener
+//	    countdownTimer = new Timer(1000, new ActionListener() {
+//	        @Override
+//	        public void actionPerformed(ActionEvent e) {
+//	            // Update the timer label
+//	            timerLabel.setText("Time remaining: " + secondsRemaining + " seconds");
+//	
+//	            // Check if time has run out
+//	            if (secondsRemaining == 0) {
+//	                // Perform actions when the timer reaches zero (e.g., end the game)
+//	                countdownTimer.stop(); // Stop the timer
+//	                // Your game-over logic here
+//	
+//	            } else {
+//	                // Decrement the remaining time
+//	                secondsRemaining--;
+//	            }
+//	        }
+//	    });
+//	    
+//	    countdownTimer.start();
     }
 	
 	public static void showCard1()
@@ -1284,12 +1317,16 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					useAC1.setVisible(true);
+					useAC1.setEnabled(true);
 				}
 				else if (battleArenaCards == 1)
 				{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					useAC2.setVisible(true);
+					useAC2.setEnabled(true);
 				}
 				else if (battleArenaCards == 2)
 				{
@@ -1298,8 +1335,25 @@ public class GameplayScreen{
 					frame.getContentPane().add(userArenaCard3);
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
+					useAC3.setVisible(true);
+					useAC3.setEnabled(true);
+					delay = 2;
+
+			        new Timer().schedule(new TimerTask(){
+
+			               @Override
+			               public void run() {
+			                delay--;
+			               }   
+			           }, 0, 1000);
+			        if (delay == 0)
+			        {
+			        	placeCards.setText("AI is choosing its battle arena cards");
+						placeCards.setVisible(true);
+			        }
 				}
 				battleArenaCards++;
+				aiCheck1();
 			}
 		});
 		
@@ -1322,12 +1376,16 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					useAC1.setVisible(true);
+					useAC1.setEnabled(true);
 				}
 				else if (battleArenaCards == 1)
 				{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					useAC2.setVisible(true);
+					useAC2.setEnabled(true);
 				}
 				else if (battleArenaCards == 2)
 				{
@@ -1336,8 +1394,11 @@ public class GameplayScreen{
 					frame.getContentPane().add(userArenaCard3);
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
+					useAC3.setVisible(true);
+					useAC3.setEnabled(true);
 				}
 				battleArenaCards++;
+				aiCheck1();
 			}
 		});
 		
@@ -1360,12 +1421,16 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					useAC1.setVisible(true);
+					useAC1.setEnabled(true);
 				}
 				else if (battleArenaCards == 1)
 				{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					useAC2.setVisible(true);
+					useAC2.setEnabled(true);
 				}
 				else if (battleArenaCards == 2)
 				{
@@ -1374,8 +1439,11 @@ public class GameplayScreen{
 					frame.getContentPane().add(userArenaCard3);
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
+					useAC3.setVisible(true);
+					useAC3.setEnabled(true);
 				}
 				battleArenaCards++;
+				aiCheck1();
 			}
 		});
 		
@@ -1398,12 +1466,16 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					useAC1.setVisible(true);
+					useAC1.setEnabled(true);
 				}
 				else if (battleArenaCards == 1)
 				{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					useAC2.setVisible(true);
+					useAC2.setEnabled(true);
 				}
 				else if (battleArenaCards == 2)
 				{
@@ -1412,8 +1484,11 @@ public class GameplayScreen{
 					frame.getContentPane().add(userArenaCard3);
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
+					useAC3.setVisible(true);
+					useAC3.setEnabled(true);
 				}
 				battleArenaCards++;
+				aiCheck1();
 			}
 		});
 		
@@ -1436,12 +1511,16 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					useAC1.setVisible(true);
+					useAC1.setEnabled(true);
 				}
 				else if (battleArenaCards == 1)
 				{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					useAC2.setVisible(true);
+					useAC2.setEnabled(true);
 				}
 				else if (battleArenaCards == 2)
 				{
@@ -1450,8 +1529,11 @@ public class GameplayScreen{
 					frame.getContentPane().add(userArenaCard3);
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
+					useAC3.setVisible(true);
+					useAC3.setEnabled(true);
 				}
 				battleArenaCards++;
+				aiCheck1();
 			}
 		});
 		
@@ -1474,12 +1556,16 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					useAC1.setVisible(true);
+					useAC1.setEnabled(true);
 				}
 				else if (battleArenaCards == 1)
 				{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					useAC2.setVisible(true);
+					useAC2.setEnabled(true);
 				}
 				else if (battleArenaCards == 2)
 				{
@@ -1488,9 +1574,11 @@ public class GameplayScreen{
 					frame.getContentPane().add(userArenaCard3);
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
+					useAC3.setVisible(true);
+					useAC3.setEnabled(true);
 				}
 				battleArenaCards++;
-				System.out.println(battleArenaCards);
+				aiCheck1();
 			}
 		});
 		
@@ -1513,12 +1601,16 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					useAC1.setVisible(true);
+					useAC1.setEnabled(true);
 				}
 				else if (battleArenaCards == 1)
 				{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					useAC2.setVisible(true);
+					useAC2.setEnabled(true);
 				}
 				else if (battleArenaCards == 2)
 				{
@@ -1527,9 +1619,11 @@ public class GameplayScreen{
 					frame.getContentPane().add(userArenaCard3);
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
+					useAC3.setVisible(true);
+					useAC3.setEnabled(true);
 				}
 				battleArenaCards++;
-				System.out.println(battleArenaCards);
+				aiCheck1();
 			}
 		});
 		
@@ -1553,12 +1647,16 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					useAC1.setVisible(true);
+					useAC1.setEnabled(true);
 				}
 				else if (battleArenaCards == 1)
 				{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					useAC2.setVisible(true);
+					useAC2.setEnabled(true);
 				}
 				else if (battleArenaCards == 2)
 				{
@@ -1568,10 +1666,14 @@ public class GameplayScreen{
 					frame.getContentPane().add(userArenaCard3);
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
+					useAC3.setVisible(true);
+					useAC3.setEnabled(true);
 				}
 				battleArenaCards++;
+				aiCheck1();
 			}
 		});
+		
 		
 		closeInfo = new JButton("CLOSE INFO");
 		closeInfo.setBounds(76, 561, 118, 21);
@@ -1597,17 +1699,31 @@ public class GameplayScreen{
 		endTurn.setVisible(false);
 		endTurn.setEnabled(false);
 		
-		JButton useAC1 = new JButton("USE");
+		useAC1 = new JButton("USE");
 		useAC1.setBounds(528, 518, 94, 13);
 		frame.getContentPane().add(useAC1);
+		useAC1.setVisible(false);
+		useAC1.setEnabled(false);
 		
-		JButton useAC2 = new JButton("USE");
+		useAC1.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				
+			}
+		});
+		
+		useAC2 = new JButton("USE");
 		useAC2.setBounds(634, 518, 94, 13);
 		frame.getContentPane().add(useAC2);
+		useAC2.setVisible(false);
+		useAC2.setEnabled(false);
 		
-		JButton useAC3 = new JButton("USE");
+		useAC3 = new JButton("USE");
 		useAC3.setBounds(740, 518, 94, 13);
 		frame.getContentPane().add(useAC3);
+		useAC3.setVisible(false);
+		useAC3.setEnabled(false);
 		
 		closeInfo.addActionListener(new ActionListener()
 		{

@@ -1,0 +1,52 @@
+JTextArea moveHistory = new JTextArea();
+		moveHistory.setBounds(1222, 427, 159, 303);
+		frame.getContentPane().add(moveHistory);
+	    
+	
+public class GameplayScreen {
+    private List<String> moveHistory;
+    private int turn;
+    private String currentPlayer;
+
+    public game() {
+        turn = 1;
+        currentPlayer = "player";
+    }
+
+    public void buyAbilityCard(String player, String cardName) {
+        moveHistory.add("[Turn " + turn + "] " + player + "'s Phase - Main Phase - " + player + " buys " + cardName + " ability card.");
+    }
+
+    public void switchTurn() {
+        moveHistory.add("[Turn " + turn + "] " + currentPlayer + "'s Phase - End Phase");
+        turn++;
+        currentPlayer = (currentPlayer.equals("Player1")) ? "Player2" : "Player1";
+        moveHistory.add("[Turn " + turn + "] " + currentPlayer + "'s Phase - Draw Phase");
+    }
+
+    public void performAIAction() {
+        moveHistory.add("[Turn " + turn + "] AI's Phase - Main Phase - AI performs an action.");
+    }
+
+    public void performCombat(String attacker, String target, int damage) {
+        moveHistory.add("[Turn " + turn + "] Combat - " + attacker + " attacks " + target + " dealing " + damage + " damage.");
+    }
+
+    public List<String> getmoveHistory() {
+        return moveHistory;
+    }
+
+    public static void main(String[] args) {
+        game game = new game();
+
+        game.buyAbilityCard();
+        game.switchTurn();
+        game.buyAbilityCard();
+        game.switchTurn();
+        game.performAIAction();
+        game.switchTurn();
+        game.performCombat();
+
+        }
+    }
+}

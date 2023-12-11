@@ -18,13 +18,18 @@ public class AttackTest {
 	static int damage1;
 	static int damage2;
 	static boolean card1Clicked = false;
+	static boolean aiAttacked = false;
+	static boolean userAttacked = false;
+	static JTextArea actionHistory;
+	static JLabel actionHistoryTitle;
+	static int turnNum = 0;
 	
 	public static void main(String[] args) {
 
-        userCard userCard = new userCard(5,3);
+        userCard userCard = new userCard(5,3, "Baleful Bald Eagle");
         userCardArray[0] = userCard;
         
-        aiCard aiCard = new aiCard(5,2);
+        aiCard aiCard = new aiCard(5,2, "Capybara of Carnage");
         aiCardArray[0] = aiCard;
 		
 		JFrame frame = new JFrame();
@@ -65,6 +70,20 @@ public class AttackTest {
         select1AI.setBounds(730,294,126,30);
         panel.add(select1AI);
         
+        actionHistoryTitle = new JLabel();
+        actionHistoryTitle.setText("Action History");
+        actionHistoryTitle.setFont(new Font("Rockwell", Font.BOLD | Font.ITALIC, 17));
+        actionHistoryTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        actionHistoryTitle.setBounds(1351, 99, 137, 45);
+        panel.add(actionHistoryTitle);
+        
+        actionHistory = new JTextArea();
+        actionHistory.setFont(new Font("Arial", Font.PLAIN, 9));
+        actionHistory.setColumns(2);
+        actionHistory.setEditable(false);
+        actionHistory.setBounds(1296,154,244,259);
+        panel.add(actionHistory);
+        
         panel.setLayout(null);
         
         frame.setVisible(true);
@@ -83,18 +102,27 @@ public class AttackTest {
 			{
 				if(card1Clicked)
 				{
+					turnNum++;
+					card1Clicked = false;
 					damage1 = userCard.getAttack();
 					health2 = aiCard.getHealth();
 					
 					health2 = health2 - damage1;
 					
-					aiCardArray[0].setHealth(health2 - damage1);
+					aiCardArray[0].setHealth(health2);
 					
 					if(health2 <= 0)
 					{
 						System.out.println("He died.");
+						actionHistory.append("Turn " + turnNum + ": " + aiCardArray[0].getName() + " was killed by " + userCardArray[0].getName());
+						actionHistory.append("\n");
 					}
-					else System.out.println("He lost " + damage1 + " health.");
+					else 
+					{
+						System.out.println("He lost " + damage1 + " health.");
+						actionHistory.append("Turn " + turnNum + ": " + userCardArray[0].getName() + " did " + userCardArray[0].getAttack() + " damage to " + aiCardArray[0].getName());
+						actionHistory.append("\n");
+					}
 				}
 			}
 		});

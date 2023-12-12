@@ -63,7 +63,7 @@ public class ShopScreen {
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JButton battleArenaButton = new JButton("Battle Arena");
-		battleArenaButton.setBounds(6, 632, 212, 49);
+		battleArenaButton.setBounds(6, 631, 212, 49);
 		frame.getContentPane().add(battleArenaButton);
 		battleArenaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -73,8 +73,15 @@ public class ShopScreen {
 			}
 		});
 		
+		JTextArea shopCardInfo = new JTextArea();
+		shopCardInfo.setBounds(6, 456, 305, 137);
+		shopCardInfo.setLineWrap(true);
+		shopCardInfo.setWrapStyleWord(true);
+		shopCardInfo.setVisible(false);
+		frame.getContentPane().add(shopCardInfo);
+		
 		JButton forfeitButton = new JButton("Forfeit");
-		forfeitButton.setBounds(6, 691, 212, 49);
+		forfeitButton.setBounds(6, 683, 212, 49);
 		frame.getContentPane().add(forfeitButton);
 		forfeitButton.addActionListener(new ActionListener() { // adding action listen
 	           public void actionPerformed(ActionEvent e) { 
@@ -113,6 +120,7 @@ public class ShopScreen {
 				abilityCard8.setEnabled(false);
 				abilityCard9.setEnabled(false);
 				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
 				
 				Image cardInfo_1 = abilityCard1_1.getImage();
 				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
@@ -120,6 +128,9 @@ public class ShopScreen {
 				
 				cardInfo = new JButton(cardInfo_3);
 				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Can control an opponent's creature for one turn and make it attack its own side. "
+						+ "Choose an opponent's creature card to apply this ability, that creature will attack another of its own creatures already in the “battle arena”, lowering its health based on the attack stats). \n"
+						+ "Cost: 6 coins");
 				frame.getContentPane().add(cardInfo);
 			}
 		});
@@ -148,6 +159,7 @@ public class ShopScreen {
 				abilityCard8.setEnabled(false);
 				abilityCard9.setEnabled(false);
 				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
 				
 				Image cardInfo_1 = abilityCard2_1.getImage();
 				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
@@ -155,6 +167,10 @@ public class ShopScreen {
 				
 				cardInfo = new JButton(cardInfo_3);
 				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Reflects all damage from the previous turn back to the source for one turn. "
+						+ "Whatever damage was done to the card by the opponent is reversed, meaning the opponent’s card will lose health and the player’s card will gain the same amount of health. "
+						+ "The selected card must still be alive to use this ability card.\n"
+						+ "Cost: 9 coins");
 				frame.getContentPane().add(cardInfo);
 			}
 		});
@@ -183,6 +199,7 @@ public class ShopScreen {
 				abilityCard8.setEnabled(false);
 				abilityCard9.setEnabled(false);
 				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
 				
 				Image cardInfo_1 = abilityCard3_1.getImage();
 				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
@@ -190,6 +207,9 @@ public class ShopScreen {
 				
 				cardInfo = new JButton(cardInfo_3);
 				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Turns completely invisible for one turn, becoming immune to attacks and abilities. "
+						+ "The user or AI’s selected card after deploying this ability will not be able to be attacked by the opponent for one turn.\n"
+						+ "Cost: 4 coins");
 				frame.getContentPane().add(cardInfo);
 			}
 		});
@@ -218,6 +238,7 @@ public class ShopScreen {
 				abilityCard8.setEnabled(false);
 				abilityCard9.setEnabled(false);
 				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
 				
 				Image cardInfo_1 = abilityCard4_1.getImage();
 				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
@@ -225,6 +246,9 @@ public class ShopScreen {
 				
 				cardInfo = new JButton(cardInfo_3);
 				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Heals selected creature in play by 3 health or until full health depending on creature stats. "
+						+ "This ability card will have a certain health stat associated with it, meaning it basically will just heal the selected card’s health for either the user or AI.\n"
+						+ "Cost: 6 coins");
 				frame.getContentPane().add(cardInfo);
 			}
 		});
@@ -253,6 +277,7 @@ public class ShopScreen {
 				abilityCard8.setEnabled(false);
 				abilityCard9.setEnabled(false);
 				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
 				
 				Image cardInfo_1 = abilityCard5_1.getImage();
 				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
@@ -260,6 +285,9 @@ public class ShopScreen {
 				
 				cardInfo = new JButton(cardInfo_3);
 				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Heals all creatures in play by 2 health levels. "
+						+ "This ability card will heal every creature in the “battle arena” for that player by 2 health.\n"
+						+ "Cost: 11 coins");
 				frame.getContentPane().add(cardInfo);
 			}
 		});
@@ -271,6 +299,7 @@ public class ShopScreen {
         
         abilityCard6 = new JButton(abilityCard6_4);
 		abilityCard6.setBounds(324, 349, 140, 249);
+		shopCardInfo.append("");
 		frame.getContentPane().add(abilityCard6);
 		
 		abilityCard6.addActionListener(new ActionListener()
@@ -288,6 +317,7 @@ public class ShopScreen {
 				abilityCard8.setEnabled(false);
 				abilityCard9.setEnabled(false);
 				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
 				
 				Image cardInfo_1 = abilityCard6_1.getImage();
 				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
@@ -295,6 +325,8 @@ public class ShopScreen {
 				
 				cardInfo = new JButton(cardInfo_3);
 				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Heals one of the player’s selected creature cards by 1 health for the next 2 turns.\n"
+						+ "Cost: 3 coins");
 				frame.getContentPane().add(cardInfo);
 			}
 		});
@@ -306,6 +338,7 @@ public class ShopScreen {
         
         abilityCard7 = new JButton(abilityCard7_4);
 		abilityCard7.setBounds(469, 349, 140, 249);
+		shopCardInfo.append("");
 		frame.getContentPane().add(abilityCard7);
 		
 		abilityCard7.addActionListener(new ActionListener()
@@ -323,6 +356,7 @@ public class ShopScreen {
 				abilityCard8.setEnabled(false);
 				abilityCard9.setEnabled(false);
 				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
 				
 				Image cardInfo_1 = abilityCard7_1.getImage();
 				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
@@ -330,6 +364,9 @@ public class ShopScreen {
 				
 				cardInfo = new JButton(cardInfo_3);
 				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Instantly takes 4 health from one of the opponent’s creatures in play. "
+						+ "User or AI will select an opponent’s card to apply this ability to. It will automatically decrease that card’s health by 4 (this will be helpful if the user has cards in the “battle arena” that do not do much damage).\n"
+						+ "Cost: 8 coins");
 				frame.getContentPane().add(cardInfo);
 			}
 		});
@@ -341,6 +378,7 @@ public class ShopScreen {
         
         abilityCard8 = new JButton(abilityCard8_4);
 		abilityCard8.setBounds(612, 349, 140, 249);
+		shopCardInfo.append("");
 		frame.getContentPane().add(abilityCard8);
 		
 		abilityCard8.addActionListener(new ActionListener()
@@ -358,6 +396,7 @@ public class ShopScreen {
 				abilityCard8.setEnabled(false);
 				abilityCard9.setEnabled(false);
 				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
 				
 				Image cardInfo_1 = abilityCard8_1.getImage();
 				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
@@ -365,6 +404,9 @@ public class ShopScreen {
 				
 				cardInfo = new JButton(cardInfo_3);
 				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Makes one of the opponent's creatures drop 2 more coins if they are killed. "
+						+ "The user or AI will select an opponent’s creature to apply this ability, and they will have 1 more turn to capitalize on this ability before it is put into the graveyard.\n"
+						+ "Cost: 9 coins");
 				frame.getContentPane().add(cardInfo);
 			}
 		});
@@ -393,6 +435,7 @@ public class ShopScreen {
 				abilityCard8.setEnabled(false);
 				abilityCard9.setEnabled(false);
 				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
 				
 				Image cardInfo_1 = abilityCard9_1.getImage();
 				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
@@ -400,6 +443,9 @@ public class ShopScreen {
 				
 				cardInfo = new JButton(cardInfo_3);
 				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Deals 3 damage to every creature in play (both user and AI). *Unable to use when there are 6 or less total cards among both players (in “battle arena” and backup hand). "
+						+ "The user or AI can easily use this ability to wipe out the opponent’s remaining cards before the next turn.\n"
+						+ "Cost: 12 coins");
 				frame.getContentPane().add(cardInfo);
 			}
 		});
@@ -428,6 +474,7 @@ public class ShopScreen {
 				abilityCard8.setEnabled(false);
 				abilityCard9.setEnabled(false);
 				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
 				
 				Image cardInfo_1 = abilityCard10_1.getImage();
 				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
@@ -435,6 +482,9 @@ public class ShopScreen {
 				
 				cardInfo = new JButton(cardInfo_3);
 				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("User or AI has an option to choose one of their creature cards (in deck) to swap with a random new creature from the creature deck (not from the graveyard). "
+						+ "The AI would choose their worst ranked card in hopes that they get a higher ranked card (not guaranteed).\n"
+						+ "Cost 8 coins");
 				frame.getContentPane().add(cardInfo);
 			}
 		});
@@ -452,7 +502,7 @@ public class ShopScreen {
 		frame.getContentPane().add(textArea);
 		
 		closeInfo = new JButton("CLOSE INFO");
-		closeInfo.setBounds(54, 458, 127, 21);
+		closeInfo.setBounds(91, 598, 127, 21);
 		frame.getContentPane().add(closeInfo);
 		
 		JButton purchase1 = new JButton("PURCHASE");
@@ -494,6 +544,7 @@ public class ShopScreen {
 		JButton purchase10 = new JButton("PURCHASE");
 		purchase10.setBounds(900, 598, 140, 21);
 		frame.getContentPane().add(purchase10);
+		
 		closeInfo.setVisible(false);
 		
 		closeInfo.addActionListener(new ActionListener()
@@ -512,6 +563,8 @@ public class ShopScreen {
 				abilityCard8.setEnabled(true);
 				abilityCard9.setEnabled(true);
 				abilityCard10.setEnabled(true);
+				shopCardInfo.setVisible(false);
+				shopCardInfo.setText("");
 			}
 		});
 		

@@ -11,15 +11,39 @@ import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class ShopScreen {
 	
 	static JFrame frame;
 	
 	static JButton closeInfo;
+	static JLabel ac1Label;
+	static JLabel ac2Label;
+	static JLabel ac3Label;
+	static JLabel ac4Label;
+	static JLabel ac5Label;
+	static JLabel ac6Label;
+	static JLabel ac7Label;
+	static JLabel ac8Label;
+	static JLabel ac9Label;
+	static JLabel ac10Label;
 	
+	static String ac1Purchased = "No";
+	static String ac2Purchased = "No";
+	static String ac3Purchased = "No";
+	static String ac4Purchased = "No";
+	static String ac5Purchased = "No";
+	static String ac6Purchased = "No";
+	static String ac7Purchased = "No";
+	static String ac8Purchased = "No";
+	static String ac9Purchased = "No";
+	static String ac10Purchased = "No";
 	static ImageIcon abilityCard1_1;
 	static ImageIcon abilityCard2_1;
 	static ImageIcon abilityCard3_1;
@@ -43,6 +67,29 @@ public class ShopScreen {
 	static JButton cardInfo;
 	
 	
+	public static void write()
+	{
+		try // Try is necessary for PrintWriter as exceptions can be generated without it
+	    {
+	      PrintWriter output; // Object to connect to file for write command
+	      output = new PrintWriter (new FileWriter("shop.txt")); // Instantiate the object and create text file "student_data.txt" 
+	      output.println(ac1Purchased);
+	      output.println(ac2Purchased);
+	      output.println(ac3Purchased);
+	      output.println(ac4Purchased);
+	      output.println(ac5Purchased);
+	      output.println(ac6Purchased);
+	      output.println(ac7Purchased);
+	      output.println(ac8Purchased);
+	      output.println(ac9Purchased);
+	      output.println(ac10Purchased);
+	      output.close(); // Close the file
+	    }
+	    catch (Exception e) // Catch is necessary for try/catch block due to exceptions
+	    {
+	      System.out.println(e); // Show error if there is one
+	    }
+	}
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -54,13 +101,11 @@ public class ShopScreen {
 		frame.setBounds(100, 100, 1400,800);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("🪙: ");
-		lblNewLabel.setBounds(677, 22, 75, 36);
-		frame.getContentPane().add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("Ability Cards for Purchase:");
-		lblNewLabel_1.setBounds(610, 6, 186, 16);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel shopScreenTitle = new JLabel("SHOP");
+		shopScreenTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		shopScreenTitle.setFont(new Font("Stencil", Font.BOLD, 16));
+		shopScreenTitle.setBounds(576, 10, 234, 32);
+		frame.getContentPane().add(shopScreenTitle);
 		
 		JButton battleArenaButton = new JButton("Battle Arena");
 		battleArenaButton.setBounds(6, 631, 212, 49);
@@ -74,6 +119,7 @@ public class ShopScreen {
 		});
 		
 		JTextArea shopCardInfo = new JTextArea();
+		shopCardInfo.setEditable(false);
 		shopCardInfo.setBounds(6, 456, 305, 137);
 		shopCardInfo.setLineWrap(true);
 		shopCardInfo.setWrapStyleWord(true);
@@ -91,10 +137,6 @@ public class ShopScreen {
 	        	   ms.showMainMenuScreen();
 	           }
 	       });
-	 
-		JLabel lblNewLabel_2 = new JLabel("Time Left");
-		lblNewLabel_2.setBounds(17, 22, 61, 16);
-		frame.getContentPane().add(lblNewLabel_2);
 		
 		abilityCard1_1 = new ImageIcon("resources/images/sock puppetry.jpg");
 		Image abilityCard1_2 = abilityCard1_1.getImage();
@@ -102,7 +144,7 @@ public class ShopScreen {
         ImageIcon abilityCard1_4 = new ImageIcon(abilityCard1_3);
         
         abilityCard1 = new JButton(abilityCard1_4);
-		abilityCard1.setBounds(324, 70, 140, 249);
+		abilityCard1.setBounds(321, 70, 140, 249);
 		frame.getContentPane().add(abilityCard1);
 		
 		abilityCard1.addActionListener(new ActionListener()
@@ -181,7 +223,7 @@ public class ShopScreen {
         ImageIcon abilityCard3_4 = new ImageIcon(abilityCard3_3);
         
         abilityCard3 = new JButton(abilityCard3_4);
-		abilityCard3.setBounds(612, 70, 140, 249);
+		abilityCard3.setBounds(623, 70, 140, 249);
 		frame.getContentPane().add(abilityCard3);
 		
 		abilityCard3.addActionListener(new ActionListener()
@@ -220,7 +262,7 @@ public class ShopScreen {
         ImageIcon abilityCard4_4 = new ImageIcon(abilityCard4_3);
         
         abilityCard4 = new JButton(abilityCard4_4);
-		abilityCard4.setBounds(755, 70, 140, 249);
+		abilityCard4.setBounds(777, 70, 140, 249);
 		frame.getContentPane().add(abilityCard4);
 		
 		abilityCard4.addActionListener(new ActionListener()
@@ -259,7 +301,7 @@ public class ShopScreen {
         ImageIcon abilityCard5_4 = new ImageIcon(abilityCard5_3);
         
         abilityCard5 = new JButton(abilityCard5_4);
-		abilityCard5.setBounds(900, 70, 140, 249);
+		abilityCard5.setBounds(927, 70, 140, 249);
 		frame.getContentPane().add(abilityCard5);
 		
 		abilityCard5.addActionListener(new ActionListener()
@@ -298,7 +340,7 @@ public class ShopScreen {
         ImageIcon abilityCard6_4 = new ImageIcon(abilityCard6_3);
         
         abilityCard6 = new JButton(abilityCard6_4);
-		abilityCard6.setBounds(324, 349, 140, 249);
+		abilityCard6.setBounds(321, 398, 140, 249);
 		shopCardInfo.append("");
 		frame.getContentPane().add(abilityCard6);
 		
@@ -337,7 +379,7 @@ public class ShopScreen {
         ImageIcon abilityCard7_4 = new ImageIcon(abilityCard7_3);
         
         abilityCard7 = new JButton(abilityCard7_4);
-		abilityCard7.setBounds(469, 349, 140, 249);
+		abilityCard7.setBounds(469, 398, 140, 249);
 		shopCardInfo.append("");
 		frame.getContentPane().add(abilityCard7);
 		
@@ -377,7 +419,7 @@ public class ShopScreen {
         ImageIcon abilityCard8_4 = new ImageIcon(abilityCard8_3);
         
         abilityCard8 = new JButton(abilityCard8_4);
-		abilityCard8.setBounds(612, 349, 140, 249);
+		abilityCard8.setBounds(623, 398, 140, 249);
 		shopCardInfo.append("");
 		frame.getContentPane().add(abilityCard8);
 		
@@ -417,7 +459,7 @@ public class ShopScreen {
         ImageIcon abilityCard9_4 = new ImageIcon(abilityCard9_3);
         
         abilityCard9 = new JButton(abilityCard9_4);
-		abilityCard9.setBounds(755, 349, 140, 249);
+		abilityCard9.setBounds(777, 398, 140, 249);
 		frame.getContentPane().add(abilityCard9);
 		
 		abilityCard9.addActionListener(new ActionListener()
@@ -456,7 +498,7 @@ public class ShopScreen {
         ImageIcon abilityCard10_4 = new ImageIcon(abilityCard10_3);
         
         abilityCard10 = new JButton(abilityCard10_4);
-		abilityCard10.setBounds(900, 349, 140, 249);
+		abilityCard10.setBounds(927, 398, 140, 249);
 		frame.getContentPane().add(abilityCard10);
 		
 		abilityCard10.addActionListener(new ActionListener()
@@ -489,61 +531,239 @@ public class ShopScreen {
 			}
 		});
 		
-		JLabel lblNewLabel_3 = new JLabel("Need more cards?");
-		lblNewLabel_3.setBounds(1192, 32, 152, 16);
-		frame.getContentPane().add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_4 = new JLabel("Defeat enemy cards!!");
-		lblNewLabel_4.setBounds(1192, 72, 140, 16);
-		frame.getContentPane().add(lblNewLabel_4);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(1132, 100, 212, 604);
-		frame.getContentPane().add(textArea);
-		
 		closeInfo = new JButton("CLOSE INFO");
 		closeInfo.setBounds(91, 598, 127, 21);
 		frame.getContentPane().add(closeInfo);
 		
 		JButton purchase1 = new JButton("PURCHASE");
-		purchase1.setBounds(324, 318, 140, 21);
+		purchase1.setBounds(321, 318, 140, 21);
 		frame.getContentPane().add(purchase1);
+		
+		purchase1.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				purchase1.setEnabled(false);
+				abilityCard1.setEnabled(false);
+				ac1Purchased = "Yes";
+				ac1Label.setVisible(true);
+				write();
+			}
+		});
 		
 		JButton purchase2 = new JButton("PURCHASE");
 		purchase2.setBounds(469, 318, 140, 21);
 		frame.getContentPane().add(purchase2);
 		
+		purchase2.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				purchase2.setEnabled(false);
+				abilityCard2.setEnabled(false);
+				ac2Purchased = "Yes";
+				ac2Label.setVisible(true);
+				write();
+			}
+		});
+		
 		JButton purchase3 = new JButton("PURCHASE");
-		purchase3.setBounds(612, 318, 140, 21);
+		purchase3.setBounds(623, 318, 140, 21);
 		frame.getContentPane().add(purchase3);
 		
+		purchase3.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				purchase3.setEnabled(false);
+				abilityCard3.setEnabled(false);
+				ac3Purchased = "Yes";
+				ac3Label.setVisible(true);
+				write();
+			}
+		});
+		
 		JButton purchase4 = new JButton("PURCHASE");
-		purchase4.setBounds(755, 318, 140, 21);
+		purchase4.setBounds(777, 318, 140, 21);
 		frame.getContentPane().add(purchase4);
 		
+		purchase4.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				purchase4.setEnabled(false);
+				abilityCard4.setEnabled(false);
+				ac4Purchased = "Yes";
+				ac4Label.setVisible(true);
+				write();
+			}
+		});
+		
 		JButton purchase5 = new JButton("PURCHASE");
-		purchase5.setBounds(900, 318, 140, 21);
+		purchase5.setBounds(927, 318, 140, 21);
 		frame.getContentPane().add(purchase5);
 		
+		purchase5.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				purchase5.setEnabled(false);
+				abilityCard5.setEnabled(false);
+				ac5Purchased = "Yes";
+				ac5Label.setVisible(true);
+				write();
+			}
+		});
+		
 		JButton purchase6 = new JButton("PURCHASE");
-		purchase6.setBounds(324, 598, 140, 21);
+		purchase6.setBounds(321, 645, 140, 21);
 		frame.getContentPane().add(purchase6);
 		
+		purchase6.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				purchase6.setEnabled(false);
+				abilityCard6.setEnabled(false);
+				ac6Purchased = "Yes";
+				ac6Label.setVisible(true);
+				write();
+			}
+		});
+		
 		JButton purchase7 = new JButton("PURCHASE");
-		purchase7.setBounds(469, 598, 140, 21);
+		purchase7.setBounds(469, 645, 140, 21);
 		frame.getContentPane().add(purchase7);
 		
+		purchase7.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				purchase7.setEnabled(false);
+				abilityCard7.setEnabled(false);
+				ac7Purchased = "Yes";
+				ac7Label.setVisible(true);
+				write();
+			}
+		});
+		
 		JButton purchase8 = new JButton("PURCHASE");
-		purchase8.setBounds(612, 598, 140, 21);
+		purchase8.setBounds(623, 645, 140, 21);
 		frame.getContentPane().add(purchase8);
 		
+		purchase8.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				purchase8.setEnabled(false);
+				abilityCard8.setEnabled(false);
+				ac8Purchased = "Yes";
+				ac8Label.setVisible(true);
+				write();
+			}
+		});
+		
 		JButton purchase9 = new JButton("PURCHASE");
-		purchase9.setBounds(755, 598, 140, 21);
+		purchase9.setBounds(777, 645, 140, 21);
 		frame.getContentPane().add(purchase9);
 		
+		purchase9.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				purchase9.setEnabled(false);
+				abilityCard9.setEnabled(false);
+				ac9Purchased = "Yes";
+				ac9Label.setVisible(true);
+				write();
+			}
+		});
+		
 		JButton purchase10 = new JButton("PURCHASE");
-		purchase10.setBounds(900, 598, 140, 21);
+		purchase10.setBounds(927, 645, 140, 21);
 		frame.getContentPane().add(purchase10);
+		
+		purchase10.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				purchase10.setEnabled(false);
+				abilityCard10.setEnabled(false);
+				ac10Purchased = "Yes";
+				ac10Label.setVisible(true);
+				write();
+			}
+		});
+		
+		ac1Label = new JLabel("Purchase complete!");
+		ac1Label.setFont(new Font("Tahoma", Font.BOLD, 10));
+		ac1Label.setHorizontalAlignment(SwingConstants.CENTER);
+		ac1Label.setBounds(321, 353, 140, 13);
+		frame.getContentPane().add(ac1Label);
+		ac1Label.setVisible(false);
+		
+		ac2Label = new JLabel("Purchase complete!");
+		ac2Label.setHorizontalAlignment(SwingConstants.CENTER);
+		ac2Label.setFont(new Font("Tahoma", Font.BOLD, 10));
+		ac2Label.setBounds(469, 352, 140, 13);
+		frame.getContentPane().add(ac2Label);
+		ac2Label.setVisible(false);
+		
+		ac3Label = new JLabel("Purchase complete!");
+		ac3Label.setHorizontalAlignment(SwingConstants.CENTER);
+		ac3Label.setFont(new Font("Tahoma", Font.BOLD, 10));
+		ac3Label.setBounds(623, 353, 140, 13);
+		frame.getContentPane().add(ac3Label);
+		ac3Label.setVisible(false);
+		
+		ac4Label = new JLabel("Purchase complete!");
+		ac4Label.setHorizontalAlignment(SwingConstants.CENTER);
+		ac4Label.setFont(new Font("Tahoma", Font.BOLD, 10));
+		ac4Label.setBounds(777, 352, 140, 13);
+		frame.getContentPane().add(ac4Label);
+		ac4Label.setVisible(false);
+		
+		ac5Label = new JLabel("Purchase complete!");
+		ac5Label.setHorizontalAlignment(SwingConstants.CENTER);
+		ac5Label.setFont(new Font("Tahoma", Font.BOLD, 10));
+		ac5Label.setBounds(927, 352, 140, 13);
+		frame.getContentPane().add(ac5Label);
+		ac5Label.setVisible(false);
+		
+		ac6Label = new JLabel("Purchase complete!");
+		ac6Label.setHorizontalAlignment(SwingConstants.CENTER);
+		ac6Label.setFont(new Font("Tahoma", Font.BOLD, 10));
+		ac6Label.setBounds(321, 683, 140, 13);
+		frame.getContentPane().add(ac6Label);
+		ac6Label.setVisible(false);
+		
+		ac7Label = new JLabel("Purchase complete!");
+		ac7Label.setHorizontalAlignment(SwingConstants.CENTER);
+		ac7Label.setFont(new Font("Tahoma", Font.BOLD, 10));
+		ac7Label.setBounds(469, 683, 140, 13);
+		frame.getContentPane().add(ac7Label);
+		ac7Label.setVisible(false);
+		
+		ac8Label = new JLabel("Purchase complete!");
+		ac8Label.setHorizontalAlignment(SwingConstants.CENTER);
+		ac8Label.setFont(new Font("Tahoma", Font.BOLD, 10));
+		ac8Label.setBounds(623, 683, 140, 13);
+		frame.getContentPane().add(ac8Label);
+		ac8Label.setVisible(false);
+		
+		ac9Label = new JLabel("Purchase complete!");
+		ac9Label.setHorizontalAlignment(SwingConstants.CENTER);
+		ac9Label.setFont(new Font("Tahoma", Font.BOLD, 10));
+		ac9Label.setBounds(777, 683, 140, 13);
+		frame.getContentPane().add(ac9Label);
+		ac9Label.setVisible(false);
+		
+		ac10Label = new JLabel("Purchase complete!");
+		ac10Label.setHorizontalAlignment(SwingConstants.CENTER);
+		ac10Label.setFont(new Font("Tahoma", Font.BOLD, 10));
+		ac10Label.setBounds(927, 683, 140, 13);
+		frame.getContentPane().add(ac10Label);
+		ac10Label.setVisible(false);
 		
 		closeInfo.setVisible(false);
 		

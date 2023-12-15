@@ -13,16 +13,19 @@ public class AttackTest {
 	static JButton card2;
 	static JButton select1;
 	static JButton select1AI;
+	static JTextArea actionHistory;
+	static JLabel actionHistoryTitle;
+	static JScrollPane sp;
+	
 	static int health1;
 	static int health2;
 	static int damage1;
 	static int damage2;
+	static int turnNum = 0;
+	
 	static boolean card1Clicked = false;
 	static boolean aiAttacked = false;
 	static boolean userAttacked = false;
-	static JTextArea actionHistory;
-	static JLabel actionHistoryTitle;
-	static int turnNum = 0;
 	
 	public static void main(String[] args) {
 
@@ -74,15 +77,20 @@ public class AttackTest {
         actionHistoryTitle.setText("Action History");
         actionHistoryTitle.setFont(new Font("Rockwell", Font.BOLD | Font.ITALIC, 17));
         actionHistoryTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        actionHistoryTitle.setBounds(1351, 99, 137, 45);
+        actionHistoryTitle.setBounds(1328, 101, 137, 45);
         panel.add(actionHistoryTitle);
         
-        actionHistory = new JTextArea();
-        actionHistory.setFont(new Font("Arial", Font.PLAIN, 9));
-        actionHistory.setColumns(2);
+        actionHistory = new JTextArea(5,20);
         actionHistory.setEditable(false);
-        actionHistory.setBounds(1296,154,244,259);
+        actionHistory.setFont(new Font("Arial", Font.PLAIN, 13));
+        actionHistory.setBounds(369,302,228,207);
         panel.add(actionHistory);
+        
+        sp = new JScrollPane(actionHistory);
+        sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        sp.setBounds(1266,154,264,113);
+        panel.add(sp, BorderLayout.CENTER);
         
         panel.setLayout(null);
         

@@ -20,8 +20,7 @@ public class MainMenuScreen {
    
         JFrame frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(80, 1, 86));
-		
-		frame.setSize(1000, 1000); // set size of frame
+		frame.setBounds(100, 100, 1400, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // close the frame when 'X' is pressed
 		frame.getContentPane().setLayout(null);
 		
@@ -30,38 +29,38 @@ public class MainMenuScreen {
 		titleLabel.setBackground(new Color(240, 240, 240));
 		titleLabel.setFont(new Font("Wide Latin", Font.BOLD | Font.ITALIC, 20));
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel.setBounds(174, 24, 637, 32);
+		titleLabel.setBounds(374, 24, 637, 32);
 		frame.getContentPane().add(titleLabel);
 		
 		JLabel titleLabel2 = new JLabel("A Strategy Card Game");
 		titleLabel2.setForeground(new Color(0, 0, 0));
 		titleLabel2.setFont(new Font("Times New Roman", Font.BOLD, 17));
 		titleLabel2.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel2.setBounds(395, 56, 196, 23);
+		titleLabel2.setBounds(595, 56, 196, 23);
 		frame.getContentPane().add(titleLabel2);
 		
 		JButton startButton = new JButton("NEW GAME");
 		startButton.setBackground(new Color(240, 240, 240));
 		startButton.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
-		startButton.setBounds(404, 128, 177, 77);
+		startButton.setBounds(604, 128, 177, 77);
 		frame.getContentPane().add(startButton);
 		
 		JButton helpButton = new JButton("HELP");
 		helpButton.setBackground(new Color(240, 240, 240));
 		helpButton.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
-		helpButton.setBounds(404, 225, 177, 77);
+		helpButton.setBounds(604, 225, 177, 77);
 		frame.getContentPane().add(helpButton);
 		
 		JButton statsButton = new JButton("STATS");
 		statsButton.setBackground(new Color(240, 240, 240));
 		statsButton.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
-		statsButton.setBounds(404, 323, 177, 77);
+		statsButton.setBounds(604, 323, 177, 77);
 		frame.getContentPane().add(statsButton);
 		
 		JButton quitButton = new JButton("QUIT");
 		quitButton.setBackground(new Color(240, 240, 240));
 		quitButton.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
-		quitButton.setBounds(404, 424, 177, 77);
+		quitButton.setBounds(604, 424, 177, 77);
 		frame.getContentPane().add(quitButton);
 		frame.setVisible(true); // show the frame
 		
@@ -69,6 +68,16 @@ public class MainMenuScreen {
 		{
 			public void actionPerformed (ActionEvent e) 
 			{
+				String message = "<html> Before the game begins, please take note of how turns will work!"
+                		+ "<br> You will have the first turn, where you must click the 'Draw 8 Cards' button"
+                		+ "<br> From there, you will select your battle arena cards and then you will be forced to attack the AI's battle arena cards before the 30-second countdown timer runs out."
+                		+ "<br> If this timer ever runs out during one of your turns, you will lose that turn."
+                		+ "<br> After this, there will be a pop-up on the screen showing you that it is the AI's turn."
+                		+ "<br> The AI will make a decision after about 2-5 seconds. After this, another pop-up will be displayed telling you that it's now your turn!"
+                		+ "<br> The timer will continue to run if you ever go to the shop screen during your turn."
+                		+ "<br> If you are truly ready to play Feral Friends, click the 'OK' button below this message!"
+                		+ "</html>";
+                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
 				frame.setVisible(false);
 				GameplayScreen gs = new GameplayScreen();
 				gs.showGameplayScreen();

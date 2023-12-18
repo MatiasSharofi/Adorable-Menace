@@ -1,0 +1,12 @@
+    ImageIcon backgroundImage = new ImageIcon("resources/images/blueBackground.jpeg");
+		JLabel backgroundLabel = new JLabel(backgroundImage);
+		
+		frame.setContentPane(backgroundLabel);
+		frame.setLayout(new FlowLayout());
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame.setBounds(100, 100, 1400, 800);
+		
+		JPanel panel =new JPanel();
+		panel.setLayout(null);		
+		frame.getContentPane().setLayout(null);

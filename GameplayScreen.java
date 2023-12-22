@@ -26,6 +26,10 @@ public class GameplayScreen{
 	static boolean ba4Used;
 	static boolean ba5Used;
 	static boolean ba6Used;
+	static int damage2;
+	static int health3;
+	static int totalUserCoins;
+	static int totalAiCoins;
 	
 	static int user1Tier;
 	static int user2Tier;
@@ -424,6 +428,7 @@ public class GameplayScreen{
 							aiArenaCard1 = new JButton(arenaCard4_3);
 							aiArenaCard1.setBounds(528, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
 							aiCard1.setEnabled(false);
 							check1 = 0;
 							totalAiCards--;
@@ -437,6 +442,7 @@ public class GameplayScreen{
 							aiArenaCard1 = new JButton(arenaCard4_3);
 							aiArenaCard1.setBounds(528, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
 							aiCard2.setEnabled(false);
 							check1 = 1;
 							totalAiCards--;
@@ -450,6 +456,7 @@ public class GameplayScreen{
 							aiArenaCard1 = new JButton(arenaCard4_3);
 							aiArenaCard1.setBounds(528, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
 							aiCard3.setEnabled(false);
 							check1 = 2;
 							totalAiCards--;
@@ -463,6 +470,7 @@ public class GameplayScreen{
 							aiArenaCard1 = new JButton(arenaCard4_3);
 							aiArenaCard1.setBounds(528, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
 							aiCard4.setEnabled(false);
 							check1 = 3;
 							totalAiCards--;
@@ -476,6 +484,7 @@ public class GameplayScreen{
 							aiArenaCard1 = new JButton(arenaCard4_3);
 							aiArenaCard1.setBounds(528, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
 							aiCard5.setEnabled(false);
 							check1 = 4;
 							totalAiCards--;
@@ -489,6 +498,7 @@ public class GameplayScreen{
 							aiArenaCard1 = new JButton(arenaCard4_3);
 							aiArenaCard1.setBounds(528, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
 							aiCard6.setEnabled(false);
 							check1 = 5;
 							totalAiCards--;
@@ -502,6 +512,7 @@ public class GameplayScreen{
 							aiArenaCard1 = new JButton(arenaCard4_3);
 							aiArenaCard1.setBounds(528, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
 							aiCard7.setEnabled(false);
 							check1 = 6;
 							totalAiCards--;
@@ -515,6 +526,7 @@ public class GameplayScreen{
 							aiArenaCard1 = new JButton(arenaCard4_3);
 							aiArenaCard1.setBounds(528, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
 							aiCard8.setEnabled(false);
 							check1 = 7;
 							totalAiCards--;
@@ -538,6 +550,7 @@ public class GameplayScreen{
 							aiArenaCard2 = new JButton(arenaCard5_3);
 							aiArenaCard2.setBounds(634, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
 							aiCard1.setEnabled(false);
 							check2 = 0;
 							totalAiCards--;
@@ -551,6 +564,7 @@ public class GameplayScreen{
 							aiArenaCard2 = new JButton(arenaCard5_3);
 							aiArenaCard2.setBounds(634, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
 							aiCard2.setEnabled(false);
 							check2 = 1;
 							totalAiCards--;
@@ -564,6 +578,7 @@ public class GameplayScreen{
 							aiArenaCard2 = new JButton(arenaCard5_3);
 							aiArenaCard2.setBounds(634, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
 							aiCard3.setEnabled(false);
 							check2 = 2;
 							totalAiCards--;
@@ -577,6 +592,7 @@ public class GameplayScreen{
 							aiArenaCard2 = new JButton(arenaCard5_3);
 							aiArenaCard2.setBounds(634, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
 							aiCard4.setEnabled(false);
 							check2 = 3;
 							totalAiCards--;
@@ -590,6 +606,7 @@ public class GameplayScreen{
 							aiArenaCard2 = new JButton(arenaCard5_3);
 							aiArenaCard2.setBounds(634, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
 							aiCard5.setEnabled(false);
 							check2 = 4;
 							totalAiCards--;
@@ -603,6 +620,7 @@ public class GameplayScreen{
 							aiArenaCard2 = new JButton(arenaCard5_3);
 							aiArenaCard2.setBounds(634, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
 							aiCard6.setEnabled(false);
 							check2 = 5;
 							totalAiCards--;
@@ -616,6 +634,7 @@ public class GameplayScreen{
 							aiArenaCard2 = new JButton(arenaCard5_3);
 							aiArenaCard2.setBounds(634, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
 							aiCard7.setEnabled(false);
 							check2 = 6;
 							totalAiCards--;
@@ -629,6 +648,7 @@ public class GameplayScreen{
 							aiArenaCard2 = new JButton(arenaCard5_3);
 							aiArenaCard2.setBounds(634, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
 							aiCard8.setEnabled(false);
 							check2 = 7;
 							totalAiCards--;
@@ -652,6 +672,7 @@ public class GameplayScreen{
 							aiArenaCard3 = new JButton(arenaCard6_3);
 							aiArenaCard3.setBounds(740, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
 							aiCard1.setEnabled(false);
 							check3 = 0;
 							totalAiCards--;
@@ -665,6 +686,7 @@ public class GameplayScreen{
 							aiArenaCard3 = new JButton(arenaCard6_3);
 							aiArenaCard3.setBounds(740, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
 							aiCard2.setEnabled(false);
 							check3 = 1;
 							totalAiCards--;
@@ -678,6 +700,7 @@ public class GameplayScreen{
 							aiArenaCard3 = new JButton(arenaCard6_3);
 							aiArenaCard3.setBounds(740, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
 							aiCard3.setEnabled(false);
 							check3 = 2;
 							totalAiCards--;
@@ -691,6 +714,7 @@ public class GameplayScreen{
 							aiArenaCard3 = new JButton(arenaCard6_3);
 							aiArenaCard3.setBounds(740, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
 							aiCard4.setEnabled(false);
 							check3 = 3;
 							totalAiCards--;
@@ -704,6 +728,7 @@ public class GameplayScreen{
 							aiArenaCard3 = new JButton(arenaCard6_3);
 							aiArenaCard3.setBounds(740, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
 							aiCard5.setEnabled(false);
 							check3 = 4;
 							totalAiCards--;
@@ -717,6 +742,7 @@ public class GameplayScreen{
 							aiArenaCard3 = new JButton(arenaCard6_3);
 							aiArenaCard3.setBounds(740, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
 							aiCard6.setEnabled(false);
 							check3 = 5;
 							totalAiCards--;
@@ -730,6 +756,7 @@ public class GameplayScreen{
 							aiArenaCard3 = new JButton(arenaCard6_3);
 							aiArenaCard3.setBounds(740, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
 							aiCard7.setEnabled(false);
 							check3 = 6;
 							totalAiCards--;
@@ -743,6 +770,7 @@ public class GameplayScreen{
 							aiArenaCard3 = new JButton(arenaCard6_3);
 							aiArenaCard3.setBounds(740, 206, 94, 150);
 							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
 							aiCard8.setEnabled(false);
 							check3 = 7;
 							totalAiCards--;
@@ -823,6 +851,7 @@ public class GameplayScreen{
         userCard1 = new JButton(userCard1_4);
 		userCard1.setBounds(370, 536, 94, 150);
 		frame.getContentPane().add(userCard1);
+		frame.repaint();
 		
 		userCard1.addActionListener(new ActionListener()
 		{
@@ -1846,37 +1875,37 @@ public class GameplayScreen{
 		baCardsArray2[1].getAttack();
 		baCardsArray2[2].getAttack();
 		placeCards.setText("AI is choosing which card it wants to attack with...");
-		if ((baCardsArray2[0].getAttack() > baCardsArray2[1].getAttack()) && (baCardsArray2[0].getAttack() > baCardsArray2[2].getAttack()))
+		if ((baCardsArray2[0].getAttack() >= baCardsArray2[1].getAttack()) && (baCardsArray2[0].getAttack() >= baCardsArray2[2].getAttack()))
 		{
 			Timer delay3 = new Timer();
 			delay3.schedule(new TimerTask() {
 					public void run() {
 						aiArenaCard1.setEnabled(false);
-						ba4Used = true;
 					}
 			}, 2000);
+			ba4Used = true;
 			System.out.println("AC 1 chosen");
 		}
-		else if ((baCardsArray2[1].getAttack() > baCardsArray2[0].getAttack()) && (baCardsArray2[1].getAttack() > baCardsArray2[2].getAttack()))
+		else if ((baCardsArray2[1].getAttack() >= baCardsArray2[0].getAttack()) && (baCardsArray2[1].getAttack() >= baCardsArray2[2].getAttack()))
 		{
 			Timer delay3 = new Timer();
 			delay3.schedule(new TimerTask() {
 					public void run() {
 						aiArenaCard2.setEnabled(false);
-						ba5Used = true;
 					}
 			}, 2000);
+			ba5Used = true;
 			System.out.println("AC 2 chosen");
 		}
-		else if ((baCardsArray2[2].getAttack() > baCardsArray2[0].getAttack()) && (baCardsArray2[2].getAttack() > baCardsArray2[1].getAttack()))
+		else if ((baCardsArray2[2].getAttack() >= baCardsArray2[0].getAttack()) && (baCardsArray2[2].getAttack() >= baCardsArray2[1].getAttack()))
 		{
 			Timer delay3 = new Timer();
 			delay3.schedule(new TimerTask() {
 					public void run() {
 						aiArenaCard3.setEnabled(false);
-						ba6Used = true;
 					}
 			}, 2000);
+			ba6Used = true;
 			System.out.println("AC 3 chosen");
 		}
 		placeCards.setVisible(false);
@@ -1889,15 +1918,22 @@ public class GameplayScreen{
 		finalResult1 = baCardsArray[0].getAttack() + baCardsArray[0].getHealth() + baCardsArray[0].getCoinsDropped() + baCardsArray[0].getTier();
 		finalResult2 = baCardsArray[1].getAttack() + baCardsArray[1].getHealth() + baCardsArray[1].getCoinsDropped() + baCardsArray[1].getTier();
 		finalResult3 = baCardsArray[2].getAttack() + baCardsArray[2].getHealth() + baCardsArray[2].getCoinsDropped() + baCardsArray[2].getTier();
+		System.out.println(finalResult1);
+		System.out.println(finalResult2);
+		System.out.println(finalResult3);
+		System.out.println(ba4Used);
+		System.out.println(ba5Used);
+		System.out.println(ba6Used);
 		if (ba4Used)
 		{
+			System.out.println("POOL");
 			if (finalResult1 <= 5 && finalResult2 > 5 && finalResult3 > 5)
 			{
 				damage1 = baCardsArray2[0].getAttack();
 				health1 = baCardsArray[0].getHealth();
 				System.out.println(health1);
 				health1 -= damage1;
-				baCardsArray2[0].setHealth(health1);
+				baCardsArray[0].setHealth(health1);
 				System.out.println(baCardsArray[0].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
 				if (health1 <= 0)
@@ -1911,6 +1947,7 @@ public class GameplayScreen{
 								userArenaCard1.setVisible(false);
 							}
 					}, 2000);	
+					totalAiCoins += baCardsArray[0].getCoinsDropped();			
 				}
 				else 
 				{
@@ -1927,7 +1964,7 @@ public class GameplayScreen{
 				health1 = baCardsArray[1].getHealth();
 				System.out.println(health1);
 				health1 -= damage1;
-				baCardsArray2[0].setHealth(health1);
+				baCardsArray[1].setHealth(health1);
 				System.out.println(baCardsArray[1].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
 				if (health1 <= 0)
@@ -1938,9 +1975,10 @@ public class GameplayScreen{
 					Timer delay2 = new Timer();
 					delay2.schedule(new TimerTask() {
 							public void run() {
-								userArenaCard1.setVisible(false);
+								userArenaCard2.setVisible(false);
 							}
 					}, 2000);	
+					totalAiCoins += baCardsArray[1].getCoinsDropped();
 				}
 				else 
 				{
@@ -1957,7 +1995,7 @@ public class GameplayScreen{
 				health1 = baCardsArray[2].getHealth();
 				System.out.println(health1);
 				health1 -= damage1;
-				baCardsArray2[0].setHealth(health1);
+				baCardsArray[2].setHealth(health1);
 				System.out.println(baCardsArray[2].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
 				if (health1 <= 0)
@@ -1968,9 +2006,10 @@ public class GameplayScreen{
 					Timer delay2 = new Timer();
 					delay2.schedule(new TimerTask() {
 							public void run() {
-								userArenaCard1.setVisible(false);
+								userArenaCard3.setVisible(false);
 							}
 					}, 2000);	
+					totalAiCoins += baCardsArray[2].getCoinsDropped();
 				}
 				else 
 				{
@@ -1987,7 +2026,7 @@ public class GameplayScreen{
 				health1 = baCardsArray[0].getHealth();
 				System.out.println(health1);
 				health1 -= damage1;
-				baCardsArray2[0].setHealth(health1);
+				baCardsArray[0].setHealth(health1);
 				System.out.println(baCardsArray[0].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
 				if (health1 <= 0)
@@ -2001,6 +2040,7 @@ public class GameplayScreen{
 								userArenaCard1.setVisible(false);
 							}
 					}, 2000);	
+					totalAiCoins += baCardsArray[0].getCoinsDropped();
 				}
 				else 
 				{
@@ -2017,7 +2057,7 @@ public class GameplayScreen{
 				health1 = baCardsArray[1].getHealth();
 				System.out.println(health1);
 				health1 -= damage1;
-				baCardsArray2[0].setHealth(health1);
+				baCardsArray[1].setHealth(health1);
 				System.out.println(baCardsArray[1].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
 				if (health1 <= 0)
@@ -2028,9 +2068,10 @@ public class GameplayScreen{
 					Timer delay2 = new Timer();
 					delay2.schedule(new TimerTask() {
 							public void run() {
-								userArenaCard1.setVisible(false);
+								userArenaCard2.setVisible(false);
 							}
 					}, 2000);	
+					totalAiCoins += baCardsArray[1].getCoinsDropped();
 				}
 				else 
 				{
@@ -2047,7 +2088,7 @@ public class GameplayScreen{
 				health1 = baCardsArray[2].getHealth();
 				System.out.println(health1);
 				health1 -= damage1;
-				baCardsArray2[0].setHealth(health1);
+				baCardsArray[2].setHealth(health1);
 				System.out.println(baCardsArray[2].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
 				if (health1 <= 0)
@@ -2058,9 +2099,10 @@ public class GameplayScreen{
 					Timer delay2 = new Timer();
 					delay2.schedule(new TimerTask() {
 							public void run() {
-								userArenaCard1.setVisible(false);
+								userArenaCard3.setVisible(false);
 							}
 					}, 2000);	
+					totalAiCoins += baCardsArray[2].getCoinsDropped();
 				}
 				else 
 				{
@@ -2080,7 +2122,7 @@ public class GameplayScreen{
 					health1 = baCardsArray[0].getHealth();
 					System.out.println(health1);
 					health1 -= damage1;
-					baCardsArray2[0].setHealth(health1);
+					baCardsArray[0].setHealth(health1);
 					System.out.println(baCardsArray[0].getHealth());
 					placeCards.setText("AI is choosing one of your cards to attack...");
 					if (health1 <= 0)
@@ -2094,6 +2136,7 @@ public class GameplayScreen{
 									userArenaCard1.setVisible(false);
 								}
 						}, 2000);	
+						totalAiCoins += baCardsArray[0].getCoinsDropped();
 					}
 					else 
 					{
@@ -2110,7 +2153,7 @@ public class GameplayScreen{
 					health1 = baCardsArray[1].getHealth();
 					System.out.println(health1);
 					health1 -= damage1;
-					baCardsArray2[0].setHealth(health1);
+					baCardsArray[1].setHealth(health1);
 					System.out.println(baCardsArray[1].getHealth());
 					placeCards.setText("AI is choosing one of your cards to attack...");
 					if (health1 <= 0)
@@ -2124,6 +2167,7 @@ public class GameplayScreen{
 									userArenaCard2.setVisible(false);
 								}
 						}, 2000);	
+						totalAiCoins += baCardsArray[1].getCoinsDropped();
 					}
 					else 
 					{
@@ -2140,7 +2184,7 @@ public class GameplayScreen{
 					health1 = baCardsArray[2].getHealth();
 					System.out.println(health1);
 					health1 -= damage1;
-					baCardsArray2[0].setHealth(health1);
+					baCardsArray[2].setHealth(health1);
 					System.out.println(baCardsArray[2].getHealth());
 					placeCards.setText("AI is choosing one of your cards to attack...");
 					if (health1 <= 0)
@@ -2154,6 +2198,7 @@ public class GameplayScreen{
 									userArenaCard3.setVisible(false);
 								}
 						}, 2000);	
+						totalAiCoins += baCardsArray[2].getCoinsDropped();
 					}
 					else 
 					{
@@ -2173,7 +2218,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2187,6 +2232,7 @@ public class GameplayScreen{
 										userArenaCard1.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
 						}
 						else 
 						{
@@ -2203,7 +2249,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2217,6 +2263,7 @@ public class GameplayScreen{
 										userArenaCard2.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
 						}
 						else 
 						{
@@ -2237,7 +2284,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2251,6 +2298,7 @@ public class GameplayScreen{
 										userArenaCard1.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
 						}
 						else 
 						{
@@ -2267,7 +2315,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2278,9 +2326,10 @@ public class GameplayScreen{
 							Timer delay2 = new Timer();
 							delay2.schedule(new TimerTask() {
 									public void run() {
-										userArenaCard2.setVisible(false);
+										userArenaCard3.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
 						}
 						else 
 						{
@@ -2301,7 +2350,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2312,9 +2361,10 @@ public class GameplayScreen{
 							Timer delay2 = new Timer();
 							delay2.schedule(new TimerTask() {
 									public void run() {
-										userArenaCard1.setVisible(false);
+										userArenaCard2.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
 						}
 						else 
 						{
@@ -2331,7 +2381,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2342,9 +2392,10 @@ public class GameplayScreen{
 							Timer delay2 = new Timer();
 							delay2.schedule(new TimerTask() {
 									public void run() {
-										userArenaCard2.setVisible(false);
+										userArenaCard3.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
 						}
 						else 
 						{
@@ -2365,7 +2416,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2378,7 +2429,8 @@ public class GameplayScreen{
 									public void run() {
 										userArenaCard1.setVisible(false);
 									}
-							}, 2000);	
+							}, 2000);
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
 						}
 						else 
 						{
@@ -2395,7 +2447,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2409,6 +2461,7 @@ public class GameplayScreen{
 										userArenaCard2.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
 						}
 						else 
 						{
@@ -2425,7 +2478,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2439,6 +2492,7 @@ public class GameplayScreen{
 										userArenaCard3.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
 						}
 						else 
 						{
@@ -2459,7 +2513,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2473,6 +2527,7 @@ public class GameplayScreen{
 										userArenaCard1.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
 						}
 						else 
 						{
@@ -2489,7 +2544,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2503,6 +2558,7 @@ public class GameplayScreen{
 										userArenaCard2.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
 						}
 						else 
 						{
@@ -2523,7 +2579,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2537,6 +2593,7 @@ public class GameplayScreen{
 										userArenaCard1.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
 						}
 						else 
 						{
@@ -2553,7 +2610,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2564,9 +2621,10 @@ public class GameplayScreen{
 							Timer delay2 = new Timer();
 							delay2.schedule(new TimerTask() {
 									public void run() {
-										userArenaCard2.setVisible(false);
+										userArenaCard3.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
 						}
 						else 
 						{
@@ -2587,7 +2645,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2598,9 +2656,10 @@ public class GameplayScreen{
 							Timer delay2 = new Timer();
 							delay2.schedule(new TimerTask() {
 									public void run() {
-										userArenaCard1.setVisible(false);
+										userArenaCard2.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
 						}
 						else 
 						{
@@ -2617,100 +2676,7 @@ public class GameplayScreen{
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
 						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
-						System.out.println(baCardsArray[2].getHealth());
-						placeCards.setText("AI is choosing one of your cards to attack...");
-						if (health1 <= 0)
-						{
-							System.out.println("Card died");
-							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[0].getName());
-							actionHistory.append("\n");
-							Timer delay2 = new Timer();
-							delay2.schedule(new TimerTask() {
-									public void run() {
-										userArenaCard2.setVisible(false);
-									}
-							}, 2000);	
-						}
-						else 
-						{
-							System.out.println("Card lost " + damage1 + " health");
-							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[2].getName());
-							actionHistory.append("\n");
-						}
-						numberOfTurns++;
-					}
-				}
-				
-				else if ((finalResult1 > 5 && finalResult1 < 15) && (finalResult2 > 5 && finalResult2 < 15) && (finalResult3 > 5 && finalResult3 < 15))
-				{
-					if ((10 - finalResult1) <= (10 - finalResult2) && (10 - finalResult1) <= (10 - finalResult3))
-					{
-						damage1 = baCardsArray2[0].getAttack();
-						health1 = baCardsArray[0].getHealth();
-						System.out.println(health1);
-						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
-						System.out.println(baCardsArray[0].getHealth());
-						placeCards.setText("AI is choosing one of your cards to attack...");
-						if (health1 <= 0)
-						{
-							System.out.println("Card died");
-							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[0].getName());
-							actionHistory.append("\n");
-							Timer delay2 = new Timer();
-							delay2.schedule(new TimerTask() {
-									public void run() {
-										userArenaCard1.setVisible(false);
-									}
-							}, 2000);	
-						}
-						else 
-						{
-							System.out.println("Card lost " + damage1 + " health");
-							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
-							actionHistory.append("\n");
-						}
-						numberOfTurns++;
-					}
-					
-					else if ((10 - finalResult2) <= (10 - finalResult1) && (10 - finalResult2) <= (10 - finalResult3))
-					{
-						damage1 = baCardsArray2[0].getAttack();
-						health1 = baCardsArray[1].getHealth();
-						System.out.println(health1);
-						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
-						System.out.println(baCardsArray[1].getHealth());
-						placeCards.setText("AI is choosing one of your cards to attack...");
-						if (health1 <= 0)
-						{
-							System.out.println("Card died");
-							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[0].getName());
-							actionHistory.append("\n");
-							Timer delay2 = new Timer();
-							delay2.schedule(new TimerTask() {
-									public void run() {
-										userArenaCard2.setVisible(false);
-									}
-							}, 2000);	
-						}
-						else 
-						{
-							System.out.println("Card lost " + damage1 + " health");
-							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[1].getName());
-							actionHistory.append("\n");
-						}
-						numberOfTurns++;
-					}
-					
-					else if ((10 - finalResult3) <= (10 - finalResult1) && (10 - finalResult3) <= (10 - finalResult2))
-					{
-						damage1 = baCardsArray2[0].getAttack();
-						health1 = baCardsArray[2].getHealth();
-						System.out.println(health1);
-						health1 -= damage1;
-						baCardsArray2[0].setHealth(health1);
+						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
 						if (health1 <= 0)
@@ -2724,11 +2690,1860 @@ public class GameplayScreen{
 										userArenaCard3.setVisible(false);
 									}
 							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
 						}
 						else 
 						{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[2].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if ((finalResult1 > 5 && finalResult1 < 15) && (finalResult2 > 5 && finalResult2 < 15) && (finalResult3 > 5 && finalResult3 < 15))
+				{
+					if ((10 - finalResult1) <= (10 - finalResult2) || (finalResult1 - 10) <= (finalResult2 - 10) && (10 - finalResult1) <= (10 - finalResult3) || (finalResult1 - 10) <= (finalResult3 - 10))
+					{
+						damage1 = baCardsArray2[0].getAttack();
+						health1 = baCardsArray[0].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[0].setHealth(health1);
+						System.out.println(baCardsArray[0].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[0].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard1.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if ((10 - finalResult2) <= (10 - finalResult1) || (finalResult2 - 10) <= (finalResult1 - 10) && (10 - finalResult2) <= (10 - finalResult3) || (finalResult2 - 10) <= (finalResult3 - 10))
+					{
+						damage1 = baCardsArray2[0].getAttack();
+						health1 = baCardsArray[1].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[1].setHealth(health1);
+						System.out.println(baCardsArray[1].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[0].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard2.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[1].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if ((10 - finalResult3) <= (10 - finalResult1) || (finalResult3 - 10) <= (finalResult1 - 10) && (10 - finalResult3) <= (10 - finalResult2) || (finalResult3 - 10) <= (finalResult2 - 10))
+					{
+						damage1 = baCardsArray2[0].getAttack();
+						health1 = baCardsArray[2].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[2].setHealth(health1);
+						System.out.println(baCardsArray[2].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[0].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard3.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[2].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+			}
+		}
+		
+		else if (ba5Used)
+		{
+			System.out.println("POOL2");
+			if (finalResult1 <= 5 && finalResult2 > 5 && finalResult3 > 5)
+			{
+				damage1 = baCardsArray2[1].getAttack();
+				health1 = baCardsArray[0].getHealth();
+				System.out.println(health1);
+				health1 -= damage1;
+				baCardsArray[0].setHealth(health1);
+				System.out.println(baCardsArray[0].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[1].getName());
+					actionHistory.append("\n");
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard1.setVisible(false);
+							}
+					}, 2000);
+					totalAiCoins += baCardsArray[0].getCoinsDropped();
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
+					actionHistory.append("\n");
+				}
+				numberOfTurns++;
+			}
+			
+			else if (finalResult1 > 5 && finalResult2 <= 5 && finalResult3 > 5)
+			{
+				damage1 = baCardsArray2[1].getAttack();
+				health1 = baCardsArray[1].getHealth();
+				System.out.println(health1);
+				health1 -= damage1;
+				baCardsArray[1].setHealth(health1);
+				System.out.println(baCardsArray[1].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[1].getName());
+					actionHistory.append("\n");
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard2.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[1].getCoinsDropped();
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
+					actionHistory.append("\n");
+				}
+				numberOfTurns++;
+			}
+			
+			else if (finalResult1 > 5 && finalResult2 > 5 && finalResult3 <= 5)
+			{
+				damage1 = baCardsArray2[1].getAttack();
+				health1 = baCardsArray[2].getHealth();
+				System.out.println(health1);
+				health1 -= damage1;
+				baCardsArray[2].setHealth(health1);
+				System.out.println(baCardsArray[2].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[1].getName());
+					actionHistory.append("\n");
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard3.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[2].getCoinsDropped();
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
+					actionHistory.append("\n");
+				}
+				numberOfTurns++;
+			}
+			
+			else if (finalResult1 >= 15 && finalResult2 < 15 && finalResult3 < 15)
+			{
+				damage1 = baCardsArray2[1].getAttack();
+				health1 = baCardsArray[0].getHealth();
+				System.out.println(health1);
+				health1 -= damage1;
+				baCardsArray[0].setHealth(health1);
+				System.out.println(baCardsArray[0].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[1].getName());
+					actionHistory.append("\n");
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard1.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[0].getCoinsDropped();
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
+					actionHistory.append("\n");
+				}
+				numberOfTurns++;
+			}
+			
+			else if (finalResult1 < 15 && finalResult2 >= 15 && finalResult3 < 15)
+			{
+				damage1 = baCardsArray2[1].getAttack();
+				health1 = baCardsArray[1].getHealth();
+				System.out.println(health1);
+				health1 -= damage1;
+				baCardsArray[1].setHealth(health1);
+				System.out.println(baCardsArray[1].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[1].getName());
+					actionHistory.append("\n");
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard2.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[1].getCoinsDropped();
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
+					actionHistory.append("\n");
+				}
+				numberOfTurns++;
+			}
+			
+			else if (finalResult1 < 15 && finalResult2 < 15 && finalResult3 >= 15)
+			{
+				damage1 = baCardsArray2[1].getAttack();
+				health1 = baCardsArray[2].getHealth();
+				System.out.println(health1);
+				health1 -= damage1;
+				baCardsArray[2].setHealth(health1);
+				System.out.println(baCardsArray[2].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[1].getName());
+					actionHistory.append("\n");
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard3.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[2].getCoinsDropped();
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
+					actionHistory.append("\n");
+				}
+				numberOfTurns++;
+			}
+			
+			else if (finalResult1 <= 5 && finalResult2 <= 5 && finalResult3 <= 5)
+			{
+				int randomSelection = (int)(Math.random() * 2);
+				if (randomSelection == 0)
+				{
+					damage1 = baCardsArray2[1].getAttack();
+					health1 = baCardsArray[0].getHealth();
+					System.out.println(health1);
+					health1 -= damage1;
+					baCardsArray[0].setHealth(health1);
+					System.out.println(baCardsArray[0].getHealth());
+					placeCards.setText("AI is choosing one of your cards to attack...");
+					if (health1 <= 0)
+					{
+						System.out.println("Card died");
+						actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[1].getName());
+						actionHistory.append("\n");
+						Timer delay2 = new Timer();
+						delay2.schedule(new TimerTask() {
+								public void run() {
+									userArenaCard1.setVisible(false);
+								}
+						}, 2000);	
+						totalAiCoins += baCardsArray[0].getCoinsDropped();
+					}
+					else 
+					{
+						System.out.println("Card lost " + damage1 + " health");
+						actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
+						actionHistory.append("\n");
+					}
+					numberOfTurns++;
+				}
+				
+				else if (randomSelection == 1)
+				{
+					damage1 = baCardsArray2[1].getAttack();
+					health1 = baCardsArray[1].getHealth();
+					System.out.println(health1);
+					health1 -= damage1;
+					baCardsArray[1].setHealth(health1);
+					System.out.println(baCardsArray[1].getHealth());
+					placeCards.setText("AI is choosing one of your cards to attack...");
+					if (health1 <= 0)
+					{
+						System.out.println("Card died");
+						actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[1].getName());
+						actionHistory.append("\n");
+						Timer delay2 = new Timer();
+						delay2.schedule(new TimerTask() {
+								public void run() {
+									userArenaCard2.setVisible(false);
+								}
+						}, 2000);	
+						totalAiCoins += baCardsArray[1].getCoinsDropped();
+					}
+					else 
+					{
+						System.out.println("Card lost " + damage1 + " health");
+						actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
+						actionHistory.append("\n");
+					}
+					numberOfTurns++;
+				}
+				
+				else if (randomSelection == 2)
+				{
+					damage1 = baCardsArray2[1].getAttack();
+					health1 = baCardsArray[2].getHealth();
+					System.out.println(health1);
+					health1 -= damage1;
+					baCardsArray[2].setHealth(health1);
+					System.out.println(baCardsArray[2].getHealth());
+					placeCards.setText("AI is choosing one of your cards to attack...");
+					if (health1 <= 0)
+					{
+						System.out.println("Card died");
+						actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[1].getName());
+						actionHistory.append("\n");
+						Timer delay2 = new Timer();
+						delay2.schedule(new TimerTask() {
+								public void run() {
+									userArenaCard3.setVisible(false);
+								}
+						}, 2000);	
+						totalAiCoins += baCardsArray[2].getCoinsDropped();
+					}
+					else 
+					{
+						System.out.println("Card lost " + damage1 + " health");
+						actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
+						actionHistory.append("\n");
+					}
+					numberOfTurns++;
+				}
+				
+				else if (finalResult1 <= 5 && finalResult2 <= 5 && finalResult3 > 5)
+				{
+					int randomSelection2 = (int)(Math.random() * 1);
+					if (randomSelection2 == 0)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[0].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[0].setHealth(health1);
+						System.out.println(baCardsArray[0].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard1.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection2 == 1)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[1].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[1].setHealth(health1);
+						System.out.println(baCardsArray[1].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard2.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if (finalResult1 <= 5 && finalResult2 > 5 && finalResult3 <= 5)
+				{
+					int randomSelection2 = (int)(Math.random() * 1);
+					if (randomSelection2 == 0)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[0].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[0].setHealth(health1);
+						System.out.println(baCardsArray[0].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard1.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection2 == 1)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[2].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[2].setHealth(health1);
+						System.out.println(baCardsArray[2].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard3.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if (finalResult1 > 5 && finalResult2 <= 5 && finalResult3 <= 5)
+				{
+					int randomSelection2 = (int)(Math.random() * 1);
+					if (randomSelection2 == 0)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[1].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[1].setHealth(health1);
+						System.out.println(baCardsArray[1].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard2.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection2 == 1)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[2].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[2].setHealth(health1);
+						System.out.println(baCardsArray[2].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard3.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if (finalResult1 >= 15 && finalResult2 >= 15 && finalResult3 >= 15)
+				{
+					int randomSelection3 = (int)(Math.random() * 2);
+					if (randomSelection3 == 0)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[0].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[0].setHealth(health1);
+						System.out.println(baCardsArray[0].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard1.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection3 == 1)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[1].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[1].setHealth(health1);
+						System.out.println(baCardsArray[1].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard2.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection3 == 2)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[2].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[2].setHealth(health1);
+						System.out.println(baCardsArray[2].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard3.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if (finalResult1 >= 15 && finalResult2 >= 15 && finalResult3 < 15)
+				{
+					int randomSelection3 = (int)(Math.random() * 1);
+					if (randomSelection3 == 0)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[0].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[0].setHealth(health1);
+						System.out.println(baCardsArray[0].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard1.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection3 == 1)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[1].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[1].setHealth(health1);
+						System.out.println(baCardsArray[1].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard2.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if (finalResult1 >= 15 && finalResult2 < 15 && finalResult3 >= 15)
+				{
+					int randomSelection3 = (int)(Math.random() * 1);
+					if (randomSelection3 == 0)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[0].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[0].setHealth(health1);
+						System.out.println(baCardsArray[0].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard1.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection3 == 1)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[2].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[2].setHealth(health1);
+						System.out.println(baCardsArray[2].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard3.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if (finalResult1 < 15 && finalResult2 >= 15 && finalResult3 >= 15)
+				{
+					int randomSelection3 = (int)(Math.random() * 1);
+					if (randomSelection3 == 0)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[1].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[1].setHealth(health1);
+						System.out.println(baCardsArray[1].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard2.setVisible(false);
+									}
+							}, 2000);
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection3 == 1)
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[2].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[2].setHealth(health1);
+						System.out.println(baCardsArray[2].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard3.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if ((finalResult1 > 5 && finalResult1 < 15) && (finalResult2 > 5 && finalResult2 < 15) && (finalResult3 > 5 && finalResult3 < 15))
+				{
+					if ((10 - finalResult1) <= (10 - finalResult2) || (finalResult1 - 10) <= (finalResult2 - 10)  && (10 - finalResult1) <= (10 - finalResult3) || (finalResult1 - 10) <= (finalResult3 - 10))
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[0].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[0].setHealth(health1);
+						System.out.println(baCardsArray[0].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard1.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if ((10 - finalResult2) <= (10 - finalResult1) || (finalResult2 - 10) <= (finalResult1 - 10) && (10 - finalResult2) <= (10 - finalResult3) || (finalResult2 - 10) <= (finalResult3 - 10))
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[1].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[1].setHealth(health1);
+						System.out.println(baCardsArray[1].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard2.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if ((10 - finalResult3) <= (10 - finalResult1) || (finalResult3 - 10) <= (finalResult1 - 10) && (10 - finalResult3) <= (10 - finalResult2) || (finalResult3 - 10) <= (finalResult2 - 10))
+					{
+						damage1 = baCardsArray2[1].getAttack();
+						health1 = baCardsArray[2].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[2].setHealth(health1);
+						System.out.println(baCardsArray[2].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[1].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard3.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+			}
+		}
+		
+		else if (ba6Used)
+		{
+			System.out.println("POOL3");
+			if (finalResult1 <= 5 && finalResult2 > 5 && finalResult3 > 5)
+			{
+				damage1 = baCardsArray2[2].getAttack();
+				health1 = baCardsArray[0].getHealth();
+				System.out.println(health1);
+				health1 -= damage1;
+				baCardsArray[0].setHealth(health1);
+				System.out.println(baCardsArray[0].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[2].getName());
+					actionHistory.append("\n");
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard1.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[0].getCoinsDropped();
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
+					actionHistory.append("\n");
+				}
+				numberOfTurns++;
+			}
+			
+			else if (finalResult1 > 5 && finalResult2 <= 5 && finalResult3 > 5)
+			{
+				damage1 = baCardsArray2[2].getAttack();
+				health1 = baCardsArray[1].getHealth();
+				System.out.println(health1);
+				health1 -= damage1;
+				baCardsArray[1].setHealth(health1);
+				System.out.println(baCardsArray[1].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[2].getName());
+					actionHistory.append("\n");
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard2.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[1].getCoinsDropped();
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
+					actionHistory.append("\n");
+				}
+				numberOfTurns++;
+			}
+			
+			else if (finalResult1 > 5 && finalResult2 > 5 && finalResult3 <= 5)
+			{
+				damage1 = baCardsArray2[2].getAttack();
+				health1 = baCardsArray[2].getHealth();
+				System.out.println(health1);
+				health1 -= damage1;
+				baCardsArray[2].setHealth(health1);
+				System.out.println(baCardsArray[2].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[2].getName());
+					actionHistory.append("\n");
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard3.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[2].getCoinsDropped();
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
+					actionHistory.append("\n");
+				}
+				numberOfTurns++;
+			}
+			
+			else if (finalResult1 >= 15 && finalResult2 < 15 && finalResult3 < 15)
+			{
+				damage1 = baCardsArray2[2].getAttack();
+				health1 = baCardsArray[0].getHealth();
+				System.out.println(health1);
+				health1 -= damage1;
+				baCardsArray[0].setHealth(health1);
+				System.out.println(baCardsArray[0].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[2].getName());
+					actionHistory.append("\n");
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard1.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[0].getCoinsDropped();
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
+					actionHistory.append("\n");
+				}
+				numberOfTurns++;
+			}
+			
+			else if (finalResult1 < 15 && finalResult2 >= 15 && finalResult3 < 15)
+			{
+				damage1 = baCardsArray2[2].getAttack();
+				health1 = baCardsArray[1].getHealth();
+				System.out.println(health1);
+				health1 -= damage1;
+				baCardsArray[1].setHealth(health1);
+				System.out.println(baCardsArray[1].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[2].getName());
+					actionHistory.append("\n");
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard2.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[1].getCoinsDropped();
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
+					actionHistory.append("\n");
+				}
+				numberOfTurns++;
+			}
+			
+			else if (finalResult1 < 15 && finalResult2 < 15 && finalResult3 >= 15)
+			{
+				damage1 = baCardsArray2[2].getAttack();
+				health1 = baCardsArray[2].getHealth();
+				System.out.println(health1);
+				health1 -= damage1;
+				baCardsArray[2].setHealth(health1);
+				System.out.println(baCardsArray[2].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[2].getName());
+					actionHistory.append("\n");
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard3.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[2].getCoinsDropped();
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
+					actionHistory.append("\n");
+				}
+				numberOfTurns++;
+			}
+			
+			else if (finalResult1 <= 5 && finalResult2 <= 5 && finalResult3 <= 5)
+			{
+				int randomSelection = (int)(Math.random() * 2);
+				if (randomSelection == 0)
+				{
+					damage1 = baCardsArray2[2].getAttack();
+					health1 = baCardsArray[0].getHealth();
+					System.out.println(health1);
+					health1 -= damage1;
+					baCardsArray[0].setHealth(health1);
+					System.out.println(baCardsArray[0].getHealth());
+					placeCards.setText("AI is choosing one of your cards to attack...");
+					if (health1 <= 0)
+					{
+						System.out.println("Card died");
+						actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[2].getName());
+						actionHistory.append("\n");
+						Timer delay2 = new Timer();
+						delay2.schedule(new TimerTask() {
+								public void run() {
+									userArenaCard1.setVisible(false);
+								}
+						}, 2000);	
+						totalAiCoins += baCardsArray[0].getCoinsDropped();
+					}
+					else 
+					{
+						System.out.println("Card lost " + damage1 + " health");
+						actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
+						actionHistory.append("\n");
+					}
+					numberOfTurns++;
+				}
+				
+				else if (randomSelection == 1)
+				{
+					damage1 = baCardsArray2[2].getAttack();
+					health1 = baCardsArray[1].getHealth();
+					System.out.println(health1);
+					health1 -= damage1;
+					baCardsArray[1].setHealth(health1);
+					System.out.println(baCardsArray[1].getHealth());
+					placeCards.setText("AI is choosing one of your cards to attack...");
+					if (health1 <= 0)
+					{
+						System.out.println("Card died");
+						actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[2].getName());
+						actionHistory.append("\n");
+						Timer delay2 = new Timer();
+						delay2.schedule(new TimerTask() {
+								public void run() {
+									userArenaCard2.setVisible(false);
+								}
+						}, 2000);	
+						totalAiCoins += baCardsArray[1].getCoinsDropped();
+					}
+					else 
+					{
+						System.out.println("Card lost " + damage1 + " health");
+						actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
+						actionHistory.append("\n");
+					}
+					numberOfTurns++;
+				}
+				
+				else if (randomSelection == 2)
+				{
+					damage1 = baCardsArray2[2].getAttack();
+					health1 = baCardsArray[2].getHealth();
+					System.out.println(health1);
+					health1 -= damage1;
+					baCardsArray[2].setHealth(health1);
+					System.out.println(baCardsArray[2].getHealth());
+					placeCards.setText("AI is choosing one of your cards to attack...");
+					if (health1 <= 0)
+					{
+						System.out.println("Card died");
+						actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[2].getName());
+						actionHistory.append("\n");
+						Timer delay2 = new Timer();
+						delay2.schedule(new TimerTask() {
+								public void run() {
+									userArenaCard3.setVisible(false);
+								}
+						}, 2000);	
+						totalAiCoins += baCardsArray[2].getCoinsDropped();
+					}
+					else 
+					{
+						System.out.println("Card lost " + damage1 + " health");
+						actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
+						actionHistory.append("\n");
+					}
+					numberOfTurns++;
+				}
+				
+				else if (finalResult1 <= 5 && finalResult2 <= 5 && finalResult3 > 5)
+				{
+					int randomSelection2 = (int)(Math.random() * 1);
+					if (randomSelection2 == 0)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[0].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[0].setHealth(health1);
+						System.out.println(baCardsArray[0].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard1.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection2 == 1)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[1].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[1].setHealth(health1);
+						System.out.println(baCardsArray[1].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard2.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if (finalResult1 <= 5 && finalResult2 > 5 && finalResult3 <= 5)
+				{
+					int randomSelection2 = (int)(Math.random() * 1);
+					if (randomSelection2 == 0)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[0].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[0].setHealth(health1);
+						System.out.println(baCardsArray[0].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard1.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection2 == 1)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[2].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[2].setHealth(health1);
+						System.out.println(baCardsArray[2].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard3.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if (finalResult1 > 5 && finalResult2 <= 5 && finalResult3 <= 5)
+				{
+					int randomSelection2 = (int)(Math.random() * 1);
+					if (randomSelection2 == 0)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[1].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[1].setHealth(health1);
+						System.out.println(baCardsArray[1].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard2.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection2 == 1)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[2].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[2].setHealth(health1);
+						System.out.println(baCardsArray[2].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard3.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if (finalResult1 >= 15 && finalResult2 >= 15 && finalResult3 >= 15)
+				{
+					int randomSelection3 = (int)(Math.random() * 2);
+					if (randomSelection3 == 0)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[0].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[0].setHealth(health1);
+						System.out.println(baCardsArray[0].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard1.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection3 == 1)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[1].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[1].setHealth(health1);
+						System.out.println(baCardsArray[1].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard2.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection3 == 2)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[2].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[2].setHealth(health1);
+						System.out.println(baCardsArray[2].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard3.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if (finalResult1 >= 15 && finalResult2 >= 15 && finalResult3 < 15)
+				{
+					int randomSelection3 = (int)(Math.random() * 1);
+					if (randomSelection3 == 0)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[0].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[0].setHealth(health1);
+						System.out.println(baCardsArray[0].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard1.setVisible(false);
+									}
+							}, 2000);
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection3 == 1)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[1].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[1].setHealth(health1);
+						System.out.println(baCardsArray[1].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard2.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if (finalResult1 >= 15 && finalResult2 < 15 && finalResult3 >= 15)
+				{
+					int randomSelection3 = (int)(Math.random() * 1);
+					if (randomSelection3 == 0)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[0].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[0].setHealth(health1);
+						System.out.println(baCardsArray[0].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard1.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection3 == 1)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[2].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[2].setHealth(health1);
+						System.out.println(baCardsArray[2].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard3.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if (finalResult1 < 15 && finalResult2 >= 15 && finalResult3 >= 15)
+				{
+					int randomSelection3 = (int)(Math.random() * 1);
+					if (randomSelection3 == 0)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[1].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[1].setHealth(health1);
+						System.out.println(baCardsArray[1].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard2.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if (randomSelection3 == 1)
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[2].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[2].setHealth(health1);
+						System.out.println(baCardsArray[2].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard3.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+				}
+				
+				else if ((finalResult1 > 5 && finalResult1 < 15) && (finalResult2 > 5 && finalResult2 < 15) && (finalResult3 > 5 && finalResult3 < 15))
+				{
+					if ((10 - finalResult1) <= (10 - finalResult2) || (finalResult1 - 10) <= (finalResult2 - 10) && (10 - finalResult1) <= (10 - finalResult3) || (finalResult1 - 10) <= (finalResult3 - 10))
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[0].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[0].setHealth(health1);
+						System.out.println(baCardsArray[0].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard1.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[0].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if ((10 - finalResult2) <= (10 - finalResult1) || (finalResult2 - 10) <= (finalResult1 - 10) && (10 - finalResult2) <= (10 - finalResult3) || (finalResult2 - 10) <= (finalResult3 - 10))
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[1].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[1].setHealth(health1);
+						System.out.println(baCardsArray[1].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard2.setVisible(false);
+									}
+							}, 2000);
+							totalAiCoins += baCardsArray[1].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
+							actionHistory.append("\n");
+						}
+						numberOfTurns++;
+					}
+					
+					else if ((10 - finalResult3) <= (10 - finalResult1) || (finalResult3 - 10) <= (finalResult1 - 10) && (10 - finalResult3) <= (10 - finalResult2) || (finalResult3 - 10) <= (finalResult2 - 10))
+					{
+						damage1 = baCardsArray2[2].getAttack();
+						health1 = baCardsArray[2].getHealth();
+						System.out.println(health1);
+						health1 -= damage1;
+						baCardsArray[2].setHealth(health1);
+						System.out.println(baCardsArray[2].getHealth());
+						placeCards.setText("AI is choosing one of your cards to attack...");
+						if (health1 <= 0)
+						{
+							System.out.println("Card died");
+							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[2].getName());
+							actionHistory.append("\n");
+							Timer delay2 = new Timer();
+							delay2.schedule(new TimerTask() {
+									public void run() {
+										userArenaCard3.setVisible(false);
+									}
+							}, 2000);	
+							totalAiCoins += baCardsArray[2].getCoinsDropped();
+						}
+						else 
+						{
+							System.out.println("Card lost " + damage1 + " health");
+							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
 						}
 						numberOfTurns++;
@@ -2754,19 +4569,6 @@ public class GameplayScreen{
 		battleArenaCards = 0;
 		
 		frame = new JFrame();
-		frame.getContentPane().setLayout(null);
-		
-	    ImageIcon backgroundImage = new ImageIcon("resources/images/blueBackground.jpeg");
-		JLabel backgroundLabel = new JLabel(backgroundImage);
-		
-		frame.setContentPane(backgroundLabel);
-		frame.setLayout(new FlowLayout());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		frame.setBounds(100, 100, 1400, 800);
-		
-		JPanel panel =new JPanel();
-		panel.setLayout(null);		
 		frame.getContentPane().setLayout(null);
 		
 		if (ac1Purchased.equals("Yes"))
@@ -2962,6 +4764,7 @@ public class GameplayScreen{
 					{
 						System.out.println("Card died");
 						actionHistory.append(baCardsArray2[0].getName() + " was killed by " + baCardsArray[0].getName());
+						totalUserCoins += baCardsArray2[0].getCoinsDropped();
 						actionHistory.append("\n");
 						aiArenaCard1.setVisible(false);
 		                userArenaCard1.setEnabled(true);
@@ -2992,6 +4795,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard1.setEnabled(false);
 										check1 = 0;
 										totalAiCards--;
@@ -3005,6 +4809,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard2.setEnabled(false);
 										check1 = 1;
 										totalAiCards--;
@@ -3018,6 +4823,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard3.setEnabled(false);
 										check1 = 2;
 										totalAiCards--;
@@ -3031,6 +4837,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard4.setEnabled(false);
 										check1 = 3;
 										totalAiCards--;
@@ -3044,6 +4851,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard5.setEnabled(false);
 										check1 = 4;
 										totalAiCards--;
@@ -3057,6 +4865,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard6.setEnabled(false);
 										check1 = 5;
 										totalAiCards--;
@@ -3070,6 +4879,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard7.setEnabled(false);
 										check1 = 6;
 										totalAiCards--;
@@ -3083,6 +4893,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard8.setEnabled(false);
 										check1 = 7;
 										totalAiCards--;
@@ -3143,6 +4954,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard1.setEnabled(false);
 										check1 = 0;
 										totalAiCards--;
@@ -3156,6 +4968,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard2.setEnabled(false);
 										check1 = 1;
 										totalAiCards--;
@@ -3169,6 +4982,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard3.setEnabled(false);
 										check1 = 2;
 										totalAiCards--;
@@ -3182,6 +4996,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard4.setEnabled(false);
 										check1 = 3;
 										totalAiCards--;
@@ -3195,6 +5010,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard5.setEnabled(false);
 										check1 = 4;
 										totalAiCards--;
@@ -3208,6 +5024,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard6.setEnabled(false);
 										check1 = 5;
 										totalAiCards--;
@@ -3221,6 +5038,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard7.setEnabled(false);
 										check1 = 6;
 										totalAiCards--;
@@ -3234,6 +5052,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard8.setEnabled(false);
 										check1 = 7;
 										totalAiCards--;
@@ -3280,6 +5099,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard1.setEnabled(false);
 										check1 = 0;
 										totalAiCards--;
@@ -3293,6 +5113,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard2.setEnabled(false);
 										check1 = 1;
 										totalAiCards--;
@@ -3306,6 +5127,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard3.setEnabled(false);
 										check1 = 2;
 										totalAiCards--;
@@ -3319,6 +5141,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard4.setEnabled(false);
 										check1 = 3;
 										totalAiCards--;
@@ -3332,6 +5155,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard5.setEnabled(false);
 										check1 = 4;
 										totalAiCards--;
@@ -3345,6 +5169,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard6.setEnabled(false);
 										check1 = 5;
 										totalAiCards--;
@@ -3358,6 +5183,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard7.setEnabled(false);
 										check1 = 6;
 										totalAiCards--;
@@ -3371,6 +5197,7 @@ public class GameplayScreen{
 										aiArenaCard1 = new JButton(arenaCard4_3);
 										aiArenaCard1.setBounds(528, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard1);
+										frame.repaint();
 										aiCard8.setEnabled(false);
 										check1 = 7;
 										totalAiCards--;
@@ -3430,6 +5257,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard1.setEnabled(false);
 										check2 = 0;
 										totalAiCards--;
@@ -3443,6 +5271,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard2.setEnabled(false);
 										check2 = 1;
 										totalAiCards--;
@@ -3456,6 +5285,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard3.setEnabled(false);
 										check2 = 2;
 										totalAiCards--;
@@ -3469,6 +5299,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard4.setEnabled(false);
 										check2 = 3;
 										totalAiCards--;
@@ -3482,6 +5313,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard5.setEnabled(false);
 										check2 = 4;
 										totalAiCards--;
@@ -3495,6 +5327,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard6.setEnabled(false);
 										check2 = 5;
 										totalAiCards--;
@@ -3508,6 +5341,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard7.setEnabled(false);
 										check2 = 6;
 										totalAiCards--;
@@ -3521,6 +5355,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard8.setEnabled(false);
 										check2 = 7;
 										totalAiCards--;
@@ -3566,6 +5401,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard1.setEnabled(false);
 										check2 = 0;
 										totalAiCards--;
@@ -3579,6 +5415,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard2.setEnabled(false);
 										check2 = 1;
 										totalAiCards--;
@@ -3592,6 +5429,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard3.setEnabled(false);
 										check2 = 2;
 										totalAiCards--;
@@ -3605,6 +5443,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard4.setEnabled(false);
 										check2 = 3;
 										totalAiCards--;
@@ -3618,6 +5457,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard5.setEnabled(false);
 										check2 = 4;
 										totalAiCards--;
@@ -3631,6 +5471,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard6.setEnabled(false);
 										check2 = 5;
 										totalAiCards--;
@@ -3644,6 +5485,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard7.setEnabled(false);
 										check2 = 6;
 										totalAiCards--;
@@ -3657,6 +5499,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard8.setEnabled(false);
 										check2 = 7;
 										totalAiCards--;
@@ -3702,6 +5545,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard1.setEnabled(false);
 										check2 = 0;
 										totalAiCards--;
@@ -3715,6 +5559,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard2.setEnabled(false);
 										check2 = 1;
 										totalAiCards--;
@@ -3728,6 +5573,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard3.setEnabled(false);
 										check2 = 2;
 										totalAiCards--;
@@ -3741,6 +5587,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard4.setEnabled(false);
 										check2 = 3;
 										totalAiCards--;
@@ -3754,6 +5601,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard5.setEnabled(false);
 										check2 = 4;
 										totalAiCards--;
@@ -3767,6 +5615,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard6.setEnabled(false);
 										check2 = 5;
 										totalAiCards--;
@@ -3780,6 +5629,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard7.setEnabled(false);
 										check2 = 6;
 										totalAiCards--;
@@ -3793,6 +5643,7 @@ public class GameplayScreen{
 										aiArenaCard2 = new JButton(arenaCard4_3);
 										aiArenaCard2.setBounds(634, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard2);
+										frame.repaint();
 										aiCard8.setEnabled(false);
 										check2 = 7;
 										totalAiCards--;
@@ -3851,6 +5702,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard1.setEnabled(false);
 										check1 = 0;
 										totalAiCards--;
@@ -3864,6 +5716,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard2.setEnabled(false);
 										check1 = 1;
 										totalAiCards--;
@@ -3877,6 +5730,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard3.setEnabled(false);
 										check1 = 2;
 										totalAiCards--;
@@ -3890,6 +5744,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard4.setEnabled(false);
 										check1 = 3;
 										totalAiCards--;
@@ -3903,6 +5758,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard5.setEnabled(false);
 										check1 = 4;
 										totalAiCards--;
@@ -3916,6 +5772,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard6.setEnabled(false);
 										check1 = 5;
 										totalAiCards--;
@@ -3929,6 +5786,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard7.setEnabled(false);
 										check1 = 6;
 										totalAiCards--;
@@ -3942,6 +5800,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard8.setEnabled(false);
 										check1 = 7;
 										totalAiCards--;
@@ -3987,6 +5846,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard1.setEnabled(false);
 										check1 = 0;
 										totalAiCards--;
@@ -4000,6 +5860,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard2.setEnabled(false);
 										check1 = 1;
 										totalAiCards--;
@@ -4013,6 +5874,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard3.setEnabled(false);
 										check1 = 2;
 										totalAiCards--;
@@ -4026,6 +5888,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard4.setEnabled(false);
 										check1 = 3;
 										totalAiCards--;
@@ -4039,6 +5902,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard5.setEnabled(false);
 										check1 = 4;
 										totalAiCards--;
@@ -4052,6 +5916,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard6.setEnabled(false);
 										check1 = 5;
 										totalAiCards--;
@@ -4065,6 +5930,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard7.setEnabled(false);
 										check1 = 6;
 										totalAiCards--;
@@ -4078,6 +5944,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard8.setEnabled(false);
 										check1 = 7;
 										totalAiCards--;
@@ -4123,6 +5990,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard1.setEnabled(false);
 										check1 = 0;
 										totalAiCards--;
@@ -4136,6 +6004,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard2.setEnabled(false);
 										check1 = 1;
 										totalAiCards--;
@@ -4149,6 +6018,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard3.setEnabled(false);
 										check1 = 2;
 										totalAiCards--;
@@ -4162,6 +6032,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard4.setEnabled(false);
 										check1 = 3;
 										totalAiCards--;
@@ -4175,6 +6046,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard5.setEnabled(false);
 										check1 = 4;
 										totalAiCards--;
@@ -4188,6 +6060,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard6.setEnabled(false);
 										check1 = 5;
 										totalAiCards--;
@@ -4201,6 +6074,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard7.setEnabled(false);
 										check1 = 6;
 										totalAiCards--;
@@ -4214,6 +6088,7 @@ public class GameplayScreen{
 										aiArenaCard3 = new JButton(arenaCard4_3);
 										aiArenaCard3.setBounds(740, 206, 94, 150);
 										frame.getContentPane().add(aiArenaCard3);
+										frame.repaint();
 										aiCard8.setEnabled(false);
 										check1 = 7;
 										totalAiCards--;
@@ -4266,6 +6141,7 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					frame.repaint();
 					useAC1.setVisible(true);
 					useAC1.setEnabled(false);
 					health = user1Health;
@@ -4280,6 +6156,7 @@ public class GameplayScreen{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					frame.repaint();
 					useAC2.setVisible(true);
 					useAC2.setEnabled(false);
 					health = user1Health;
@@ -4294,6 +6171,7 @@ public class GameplayScreen{
 					userArenaCard3 = new JButton(arenaCard_3);
 					userArenaCard3.setBounds(740, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard3);
+					frame.repaint();
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
 					useAC3.setVisible(true);
@@ -4331,6 +6209,7 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					frame.repaint();
 					useAC1.setVisible(true);
 					useAC1.setEnabled(false);
 					health = user2Health;
@@ -4345,6 +6224,7 @@ public class GameplayScreen{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					frame.repaint();
 					useAC2.setVisible(true);
 					useAC2.setEnabled(false);
 					health = user2Health;
@@ -4359,6 +6239,7 @@ public class GameplayScreen{
 					userArenaCard3 = new JButton(arenaCard_3);
 					userArenaCard3.setBounds(740, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard3);
+					frame.repaint();
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
 					useAC3.setVisible(true);
@@ -4396,6 +6277,7 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					frame.repaint();
 					useAC1.setVisible(true);
 					useAC1.setEnabled(false);
 					health = user3Health;
@@ -4410,6 +6292,7 @@ public class GameplayScreen{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					frame.repaint();
 					useAC2.setVisible(true);
 					useAC2.setEnabled(false);
 					health = user3Health;
@@ -4424,6 +6307,7 @@ public class GameplayScreen{
 					userArenaCard3 = new JButton(arenaCard_3);
 					userArenaCard3.setBounds(740, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard3);
+					frame.repaint();
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
 					useAC3.setVisible(true);
@@ -4461,6 +6345,7 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					frame.repaint();
 					useAC1.setVisible(true);
 					useAC1.setEnabled(false);
 					health = user4Health;
@@ -4475,6 +6360,7 @@ public class GameplayScreen{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					frame.repaint();
 					useAC2.setVisible(true);
 					useAC2.setEnabled(false);
 					health = user4Health;
@@ -4489,6 +6375,7 @@ public class GameplayScreen{
 					userArenaCard3 = new JButton(arenaCard_3);
 					userArenaCard3.setBounds(740, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard3);
+					frame.repaint();
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
 					useAC3.setVisible(true);
@@ -4526,6 +6413,7 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					frame.repaint();
 					useAC1.setVisible(true);
 					useAC1.setEnabled(false);
 					health = user5Health;
@@ -4540,6 +6428,7 @@ public class GameplayScreen{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					frame.repaint();
 					useAC2.setVisible(true);
 					useAC2.setEnabled(false);
 					health = user5Health;
@@ -4554,6 +6443,7 @@ public class GameplayScreen{
 					userArenaCard3 = new JButton(arenaCard_3);
 					userArenaCard3.setBounds(740, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard3);
+					frame.repaint();
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
 					useAC3.setVisible(true);
@@ -4591,6 +6481,7 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					frame.repaint();
 					useAC1.setVisible(true);
 					useAC1.setEnabled(false);
 					health = user6Health;
@@ -4605,6 +6496,7 @@ public class GameplayScreen{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					frame.repaint();
 					useAC2.setVisible(true);
 					useAC2.setEnabled(false);
 					health = user6Health;
@@ -4619,6 +6511,7 @@ public class GameplayScreen{
 					userArenaCard3 = new JButton(arenaCard_3);
 					userArenaCard3.setBounds(740, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard3);
+					frame.repaint();
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
 					useAC3.setVisible(true);
@@ -4656,6 +6549,7 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					frame.repaint();
 					useAC1.setVisible(true);
 					useAC1.setEnabled(false);
 					health = user7Health;
@@ -4670,6 +6564,7 @@ public class GameplayScreen{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					frame.repaint();
 					useAC2.setVisible(true);
 					useAC2.setEnabled(false);
 					health = user7Health;
@@ -4684,6 +6579,7 @@ public class GameplayScreen{
 					userArenaCard3 = new JButton(arenaCard_3);
 					userArenaCard3.setBounds(740, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard3);
+					frame.repaint();
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
 					useAC3.setVisible(true);
@@ -4721,6 +6617,7 @@ public class GameplayScreen{
 					userArenaCard1 = new JButton(arenaCard_3);
 					userArenaCard1.setBounds(528, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard1);
+					frame.repaint();
 					useAC1.setVisible(true);
 					useAC1.setEnabled(false);
 					health = user8Health;
@@ -4735,6 +6632,7 @@ public class GameplayScreen{
 					userArenaCard2 = new JButton(arenaCard_3);
 					userArenaCard2.setBounds(634, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard2);
+					frame.repaint();
 					useAC2.setVisible(true);
 					useAC2.setEnabled(false);
 					health = user8Health;
@@ -4749,6 +6647,7 @@ public class GameplayScreen{
 					userArenaCard3 = new JButton(arenaCard_3);
 					userArenaCard3.setBounds(740, 368, 94, 150);
 					frame.getContentPane().add(userArenaCard3);
+					frame.repaint();
 					endTurn.setEnabled(true);
 					placeCards.setVisible(false);
 					useAC3.setVisible(true);
@@ -4771,15 +6670,21 @@ public class GameplayScreen{
         actionHistoryTitle.setText("Action History");
         actionHistoryTitle.setFont(new Font("Rockwell", Font.BOLD | Font.ITALIC, 17));
         actionHistoryTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        actionHistoryTitle.setBounds(1351, 99, 137, 45);
+        actionHistoryTitle.setBounds(1340, 99, 137, 45);
         frame.getContentPane().add(actionHistoryTitle);
         
         actionHistory = new JTextArea();
         actionHistory.setFont(new Font("Arial", Font.PLAIN, 9));
         actionHistory.setColumns(2);
         actionHistory.setEditable(false);
-        actionHistory.setBounds(1296,154,244,259);
+        actionHistory.setBounds(1285, 154, 244, 259);
         frame.getContentPane().add(actionHistory);
+        
+        JScrollPane scroll = new JScrollPane(actionHistory);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scroll.setBounds(1285, 154, 244, 259);
+        frame.getContentPane().add(scroll);
 		
 		closeInfo = new JButton("CLOSE INFO");
 		closeInfo.setBounds(76, 561, 118, 21);
@@ -8587,6 +10492,8 @@ public class GameplayScreen{
 			}
 		});
 		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(0, 0, 1920, 1080);
 		frame.setVisible(true);
 	}
 }

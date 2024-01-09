@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 public class GameplayScreen{
 	
+	static int nn2Health;
 	static int ss2Turn = 0;
 	static int ss2Health;
 	static int rp2Health1;
@@ -341,7 +342,7 @@ public class GameplayScreen{
 	static int subatomicSwapCards[] = new int [4];
 	static int userCards[] = new int [8];
 	static int aiCards[] = new int [8];
-	static int totalCards[] = new int [16];
+	static int totalCards[] = new int [20];
 	static int availableAiCards[] = new int [8];
 	static String drawableCards[] = {"Razor Rabbit", "Spike the Squirrel", "Toxic Turtle", "Fangtail Fox", "Raging Raccoon", "Killer Koala", "Chainsaw Chinchilla", 
 	"Slaughter Seahorse", "Mauler Meerkat", "Venomous Vulture", "Bloodthirsty Badger", "Capybara of Carnage", "Homicide Hamster", "Deathbeak Duckling",
@@ -3548,7 +3549,90 @@ public class GameplayScreen{
 		} 
 		else // AI turn
 		{
-			
+			if (totalAiBaHealth < 5 && baCardsArray[0].getTier() >= 5)
+			{
+				nn2Health = baCardsArray[0].getHealth() - 4;
+				baCardsArray[0].setHealth(nn2Health);
+				if (nn2Health <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Nefarious Nibbles killed " + baCardsArray[0].getName());
+					actionHistory.append("\n");
+					numberOfUserBaCards--;
+					userBa1Taken = false;
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard1.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[0].getCoinsDropped();
+					aiCoinsLabel.setText("" + totalAiCoins);
+				}
+				else 
+				{
+					System.out.println("Card lost " + nn2Health + " health");
+					actionHistory.append("Nefarious Nibbles did not kill " + baCardsArray[0].getName());
+					actionHistory.append("\n");
+				}
+				
+			}
+			else if (totalAiBaHealth < 5 && baCardsArray[1].getTier() >= 5)
+			{
+				nn2Health = baCardsArray[1].getHealth() - 4;
+				baCardsArray[1].setHealth(nn2Health);
+				if (nn2Health <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Nefarious Nibbles killed " + baCardsArray[1].getName());
+					actionHistory.append("\n");
+					numberOfUserBaCards--;
+					userBa2Taken = false;
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard2.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[1].getCoinsDropped();
+					aiCoinsLabel.setText("" + totalAiCoins);
+				}
+				else 
+				{
+					System.out.println("Card lost " + nn2Health + " health");
+					actionHistory.append("Nefarious Nibbles did not kill " + baCardsArray[1].getName());
+					actionHistory.append("\n");
+				}
+			}
+			else if (totalAiBaHealth < 5 && baCardsArray[2].getTier() >= 5)
+			{
+				nn2Health = baCardsArray[2].getHealth() - 4;
+				baCardsArray[2].setHealth(nn2Health);
+				if (nn2Health <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Nefarious Nibbles killed " + baCardsArray[2].getName());
+					actionHistory.append("\n");
+					numberOfUserBaCards--;
+					userBa3Taken = false;
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard3.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[2].getCoinsDropped();
+					aiCoinsLabel.setText("" + totalAiCoins);
+				}
+				else 
+				{
+					System.out.println("Card lost " + nn2Health + " health");
+					actionHistory.append("Nefarious Nibbles did not kill " + baCardsArray[2].getName());
+					actionHistory.append("\n");
+				}
+			}
+			numberOfTurns++;
+			userTurns();
 		}
 	}
 	
@@ -4323,6 +4407,10 @@ public class GameplayScreen{
 		if (holographicHideaway3Used == true)
 		{
 			finalResult3 = 6; // temporary
+		}
+		if (ss2Turn == 1)
+		{
+			useSinisterSerenity();
 		}
 		System.out.println(finalResult1);
 		System.out.println(finalResult2);
@@ -10503,7 +10591,7 @@ public class GameplayScreen{
 	        		count3++;
 	        	}
 	        	int count5 = 16;
-	        	for (int count6 = 0; count6 < 5; count6++)
+	        	for (int count6 = 0; count6 < 4; count6++)
 	        	{
 	        		subatomicSwapCards[count6] = totalCards[count5];
 	        		count5++;

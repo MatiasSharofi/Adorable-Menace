@@ -17,6 +17,24 @@ import javax.swing.border.EmptyBorder;
 
 public class GameplayScreen{
 	
+	static JButton shopButton;
+	static int readUserCoins = 0;
+	static int readAiCoins = 0;
+	
+	static boolean ai3AttackedBa1;
+	static boolean ai3AttackedBa2;
+	static boolean ai3AttackedBa3;
+	static boolean ai2AttackedBa1;
+	static boolean ai2AttackedBa2;
+	static boolean ai2AttackedBa3;
+	static boolean ai1AttackedBa1;
+	static boolean ai1AttackedBa2;
+	static boolean ai1AttackedBa3;
+	static int irHealth;
+	static int irAttack;
+	static int ir2Health;
+	static int ir2Attack;
+	static int ss2CoinsDropped2;
 	static int nn2Health;
 	static int ss2Turn = 0;
 	static int ss2Health;
@@ -61,6 +79,7 @@ public class GameplayScreen{
 	static JLabel userCoinsLabel;
 	static JLabel aiCoinsLabel;
 	static JButton userAbility;
+	static JButton aiAbility;
 	static JButton useAbility1;
 	static int finalResult1;
 	static int finalResult2;
@@ -71,8 +90,8 @@ public class GameplayScreen{
 	static boolean ba6Used;
 	static int damage2;
 	static int health3;
-	static int totalUserCoins;
-	static int totalAiCoins;
+	static int totalUserCoins = 0;
+	static int totalAiCoins = 0;
 	static boolean purchaseAbilityCard = false;
 	static int totalUserHealth = 0;
 	static int totalUserBaHealth = 0;
@@ -137,6 +156,7 @@ public class GameplayScreen{
 	static String ac10Purchased = "";
 	
 	static ImageIcon abilityCard1_1;
+	static ImageIcon abilityCard2_1;
 	
 	static int check1;
 	static int check2;
@@ -179,8 +199,8 @@ public class GameplayScreen{
 	
 	static int updateTime = 30;
 	
-	static String cardsDrawn;
-	static String cardsDrawnCheck;
+	static String cardsDrawn = "";
+	static String cardsDrawnCheck = "";
 	
 	static JLabel placeCards;
 	static String [] aiBaCards = new String [3];
@@ -373,6 +393,8 @@ public class GameplayScreen{
 	      output.println(card16);
 	      output.println(cardsDrawn);
 	      output.println(secondsRemaining);
+	      output.println(totalUserCoins);
+	      output.println(totalAiCoins);
 	      output.close(); // Close the file
 	    }
 	    catch (Exception e) // Catch is necessary for try/catch block due to exceptions
@@ -431,6 +453,8 @@ public class GameplayScreen{
 	    	 newCard16 = input.readLine();
 	    	 cardsDrawnCheck = input.readLine();
 	    	 updateTime = Integer.parseInt(input.readLine());
+	    	 readUserCoins = Integer.parseInt(input.readLine());
+	    	 readAiCoins = Integer.parseInt(input.readLine());
 	      }
 	        input.close(); // Close the file
 	    }
@@ -853,9 +877,13 @@ public class GameplayScreen{
             public void run() {
                 secondsRemaining--;
                 timerLabel.setText("Time remaining: " + secondsRemaining + " seconds");
-                if (secondsRemaining <= 0) {
+                if (secondsRemaining <= 0) 
+                {
                     timer.cancel();
+                    String message = "You did not make a move or place a card in the battle arena within 30 seconds. You have lost your turn!";
+        			JOptionPane.showMessageDialog(frame, message, "User Lost Turn", JOptionPane.INFORMATION_MESSAGE);
                     secondsRemaining = 30;
+                    firstAiDecision();
                 }
             }   
         }, 0, 1000);
@@ -1715,6 +1743,17 @@ public class GameplayScreen{
 		useAbility1.setVisible(true);
 	}
 	
+	public static void showAiAbilityCard()
+	{
+		Image abilityCard1_2 = abilityCard2_1.getImage();
+        Image abilityCard1_3 = abilityCard1_2.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+        ImageIcon abilityCard1_4 = new ImageIcon(abilityCard1_3);
+        
+        aiAbility = new JButton(abilityCard1_4);
+		aiAbility.setBounds(264, 44, 94, 150);
+		frame.getContentPane().add(aiAbility);
+	}
+	
 	public static void setAiValues()
 	{
 		if (check1 == 0)
@@ -1724,7 +1763,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai1CoinsDropped;
 			name2 = ai1Name;
 			tier2 = ai1Tier;
-			baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[0].setHealth(health2);
+				baCardsArray2[0].setAttack(attack2);
+				baCardsArray2[0].setCoinsDropped(coinsDropped2);
+				baCardsArray2[0].setName(name2);
+				baCardsArray2[0].setTier(tier2);
+			}
 		}
 		else if (check1 == 1)
 		{
@@ -1733,7 +1783,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai2CoinsDropped;
 			name2 = ai2Name;
 			tier2 = ai2Tier;
-			baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[0].setHealth(health2);
+				baCardsArray2[0].setAttack(attack2);
+				baCardsArray2[0].setCoinsDropped(coinsDropped2);
+				baCardsArray2[0].setName(name2);
+				baCardsArray2[0].setTier(tier2);
+			}
 		}
 		else if (check1 == 2)
 		{
@@ -1742,7 +1803,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai3CoinsDropped;
 			name2 = ai3Name;
 			tier2 = ai3Tier;
-			baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[0].setHealth(health2);
+				baCardsArray2[0].setAttack(attack2);
+				baCardsArray2[0].setCoinsDropped(coinsDropped2);
+				baCardsArray2[0].setName(name2);
+				baCardsArray2[0].setTier(tier2);
+			}
 		}
 		else if (check1 == 3)
 		{
@@ -1751,7 +1823,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai4CoinsDropped;
 			name2 = ai4Name;
 			tier2 = ai4Tier;
-			baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[0].setHealth(health2);
+				baCardsArray2[0].setAttack(attack2);
+				baCardsArray2[0].setCoinsDropped(coinsDropped2);
+				baCardsArray2[0].setName(name2);
+				baCardsArray2[0].setTier(tier2);
+			}
 		}
 		else if (check1 == 4)
 		{
@@ -1760,7 +1843,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai5CoinsDropped;
 			name2 = ai5Name;
 			tier2 = ai5Tier;
-			baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[0].setHealth(health2);
+				baCardsArray2[0].setAttack(attack2);
+				baCardsArray2[0].setCoinsDropped(coinsDropped2);
+				baCardsArray2[0].setName(name2);
+				baCardsArray2[0].setTier(tier2);
+			}
 		}
 		else if (check1 == 5)
 		{
@@ -1769,7 +1863,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai6CoinsDropped;
 			name2 = ai6Name;
 			tier2 = ai6Tier;
-			baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[0].setHealth(health2);
+				baCardsArray2[0].setAttack(attack2);
+				baCardsArray2[0].setCoinsDropped(coinsDropped2);
+				baCardsArray2[0].setName(name2);
+				baCardsArray2[0].setTier(tier2);
+			}
 		}
 		else if (check1 == 6)
 		{
@@ -1778,7 +1883,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai7CoinsDropped;
 			name2 = ai7Name;
 			tier2 = ai7Tier;
-			baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[0].setHealth(health2);
+				baCardsArray2[0].setAttack(attack2);
+				baCardsArray2[0].setCoinsDropped(coinsDropped2);
+				baCardsArray2[0].setName(name2);
+				baCardsArray2[0].setTier(tier2);
+			}
 		}
 		else if (check1 == 7)
 		{
@@ -1787,7 +1903,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai8CoinsDropped;
 			name2 = ai8Name;
 			tier2 = ai8Tier;
-			baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[0].setHealth(health2);
+				baCardsArray2[0].setAttack(attack2);
+				baCardsArray2[0].setCoinsDropped(coinsDropped2);
+				baCardsArray2[0].setName(name2);
+				baCardsArray2[0].setTier(tier2);
+			}
 		}
 		totalAiBaHealth += baCardsArray2[0].getHealth();
 		
@@ -1798,7 +1925,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai1CoinsDropped;
 			name2 = ai1Name;
 			tier2 = ai1Tier;
-			baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[1].setHealth(health2);
+				baCardsArray2[1].setAttack(attack2);
+				baCardsArray2[1].setCoinsDropped(coinsDropped2);
+				baCardsArray2[1].setName(name2);
+				baCardsArray2[1].setTier(tier2);
+			}
 		}
 		else if (check2 == 1)
 		{
@@ -1807,7 +1945,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai2CoinsDropped;
 			name2 = ai2Name;
 			tier2 = ai2Tier;
-			baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[1].setHealth(health2);
+				baCardsArray2[1].setAttack(attack2);
+				baCardsArray2[1].setCoinsDropped(coinsDropped2);
+				baCardsArray2[1].setName(name2);
+				baCardsArray2[1].setTier(tier2);
+			}
 		}
 		else if (check2 == 2)
 		{
@@ -1816,7 +1965,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai3CoinsDropped;
 			name2 = ai3Name;
 			tier2 = ai3Tier;
-			baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[1].setHealth(health2);
+				baCardsArray2[1].setAttack(attack2);
+				baCardsArray2[1].setCoinsDropped(coinsDropped2);
+				baCardsArray2[1].setName(name2);
+				baCardsArray2[1].setTier(tier2);
+			}
 		}
 		else if (check2 == 3)
 		{
@@ -1825,7 +1985,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai4CoinsDropped;
 			name2 = ai4Name;
 			tier2 = ai4Tier;
-			baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[1].setHealth(health2);
+				baCardsArray2[1].setAttack(attack2);
+				baCardsArray2[1].setCoinsDropped(coinsDropped2);
+				baCardsArray2[1].setName(name2);
+				baCardsArray2[1].setTier(tier2);
+			}
 		}
 		else if (check2 == 4)
 		{
@@ -1834,7 +2005,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai5CoinsDropped;
 			name2 = ai5Name;
 			tier2 = ai5Tier;
-			baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[1].setHealth(health2);
+				baCardsArray2[1].setAttack(attack2);
+				baCardsArray2[1].setCoinsDropped(coinsDropped2);
+				baCardsArray2[1].setName(name2);
+				baCardsArray2[1].setTier(tier2);
+			}
 		}
 		else if (check2 == 5)
 		{
@@ -1843,7 +2025,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai6CoinsDropped;
 			name2 = ai6Name;
 			tier2 = ai6Tier;
-			baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[1].setHealth(health2);
+				baCardsArray2[1].setAttack(attack2);
+				baCardsArray2[1].setCoinsDropped(coinsDropped2);
+				baCardsArray2[1].setName(name2);
+				baCardsArray2[1].setTier(tier2);
+			}
 		}
 		else if (check2 == 6)
 		{
@@ -1852,7 +2045,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai7CoinsDropped;
 			name2 = ai7Name;
 			tier2 = ai7Tier;
-			baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[1].setHealth(health2);
+				baCardsArray2[1].setAttack(attack2);
+				baCardsArray2[1].setCoinsDropped(coinsDropped2);
+				baCardsArray2[1].setName(name2);
+				baCardsArray2[1].setTier(tier2);
+			}
 		}
 		else if (check2 == 7)
 		{
@@ -1861,7 +2065,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai8CoinsDropped;
 			name2 = ai8Name;
 			tier2 = ai8Tier;
-			baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[1].setHealth(health2);
+				baCardsArray2[1].setAttack(attack2);
+				baCardsArray2[1].setCoinsDropped(coinsDropped2);
+				baCardsArray2[1].setName(name2);
+				baCardsArray2[1].setTier(tier2);
+			}
 		}
 		totalAiBaHealth += baCardsArray2[1].getHealth();
 		
@@ -1872,7 +2087,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai1CoinsDropped;
 			name2 = ai1Name;
 			tier2 = ai1Tier;
-			baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[2].setHealth(health2);
+				baCardsArray2[2].setAttack(attack2);
+				baCardsArray2[2].setCoinsDropped(coinsDropped2);
+				baCardsArray2[2].setName(name2);
+				baCardsArray2[2].setTier(tier2);
+			}
 		}
 		else if (check3 == 1)
 		{
@@ -1881,7 +2107,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai2CoinsDropped;
 			name2 = ai2Name;
 			tier2 = ai2Tier;
-			baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[2].setHealth(health2);
+				baCardsArray2[2].setAttack(attack2);
+				baCardsArray2[2].setCoinsDropped(coinsDropped2);
+				baCardsArray2[2].setName(name2);
+				baCardsArray2[2].setTier(tier2);
+			}
 		}
 		else if (check3 == 2)
 		{
@@ -1890,7 +2127,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai3CoinsDropped;
 			name2 = ai3Name;
 			tier2 = ai3Tier;
-			baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[2].setHealth(health2);
+				baCardsArray2[2].setAttack(attack2);
+				baCardsArray2[2].setCoinsDropped(coinsDropped2);
+				baCardsArray2[2].setName(name2);
+				baCardsArray2[2].setTier(tier2);
+			}
 		}
 		else if (check3 == 3)
 		{
@@ -1899,7 +2147,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai4CoinsDropped;
 			name2 = ai4Name;
 			tier2 = ai4Tier;
-			baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[2].setHealth(health2);
+				baCardsArray2[2].setAttack(attack2);
+				baCardsArray2[2].setCoinsDropped(coinsDropped2);
+				baCardsArray2[2].setName(name2);
+				baCardsArray2[2].setTier(tier2);
+			}
 		}
 		else if (check3 == 4)
 		{
@@ -1908,7 +2167,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai5CoinsDropped;
 			name2 = ai5Name;
 			tier2 = ai5Tier;
-			baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[2].setHealth(health2);
+				baCardsArray2[2].setAttack(attack2);
+				baCardsArray2[2].setCoinsDropped(coinsDropped2);
+				baCardsArray2[2].setName(name2);
+				baCardsArray2[2].setTier(tier2);
+			}
 		}
 		else if (check3 == 5)
 		{
@@ -1917,7 +2187,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai6CoinsDropped;
 			name2 = ai6Name;
 			tier2 = ai6Tier;
-			baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[2].setHealth(health2);
+				baCardsArray2[2].setAttack(attack2);
+				baCardsArray2[2].setCoinsDropped(coinsDropped2);
+				baCardsArray2[2].setName(name2);
+				baCardsArray2[2].setTier(tier2);
+			}
 		}
 		else if (check3 == 6)
 		{
@@ -1926,7 +2207,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai7CoinsDropped;
 			name2 = ai7Name;
 			tier2 = ai7Tier;
-			baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[2].setHealth(health2);
+				baCardsArray2[2].setAttack(attack2);
+				baCardsArray2[2].setCoinsDropped(coinsDropped2);
+				baCardsArray2[2].setName(name2);
+				baCardsArray2[2].setTier(tier2);
+			}
 		}
 		else if (check3 == 7)
 		{
@@ -1935,7 +2227,18 @@ public class GameplayScreen{
 			coinsDropped2 = ai8CoinsDropped;
 			name2 = ai8Name;
 			tier2 = ai8Tier;
-			baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			if (numberOfTurns == 0)
+			{
+				baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else 
+			{
+				baCardsArray2[2].setHealth(health2);
+				baCardsArray2[2].setAttack(attack2);
+				baCardsArray2[2].setCoinsDropped(coinsDropped2);
+				baCardsArray2[2].setName(name2);
+				baCardsArray2[2].setTier(tier2);
+			}
 		}
 		totalAiBaHealth += baCardsArray2[2].getHealth();
 	}
@@ -1948,11 +2251,11 @@ public class GameplayScreen{
 		userArenaCard1.setVisible(true);
 		userArenaCard2.setVisible(true);
 		userArenaCard3.setVisible(true);
-		if (totalAiCards < totalUserCards)
+		if (totalAiCards < totalUserCards && totalAiCoins >= 3)
 		{
 			purchaseAbilityCard = true;
 		}
-		else if (totalAiCards == totalUserCards)
+		else if (totalAiCards == totalUserCards && totalAiCoins >= 3)
 		{
 			if (totalAiHealth < totalUserHealth)
 			{
@@ -1966,45 +2269,54 @@ public class GameplayScreen{
 		
 		if (purchaseAbilityCard)
 		{
-			if (baCardsArray[0].getAttack() >= 3 || baCardsArray[1].getAttack() >= 3 || baCardsArray[2].getAttack() >= 3 && (baCardsArray[0].getHealth() <= 3 || baCardsArray[1].getHealth() <= 3 || baCardsArray[2].getHealth() <= 3) && (totalAiBaHealth < 6))		
+			if (totalAiCoins <= 7)
 			{
-				purchaseSockPuppetry = true;
+				if (baCardsArray2[0].getHealth() >= 2 || baCardsArray2[1].getHealth() >= 2 || baCardsArray2[2].getHealth() >= 2)
+				{
+					purchaseSinisterSerenity = true;
+				}
+				else if ((baCardsArray2[0].getTier() >= 5 && baCardsArray2[0].getHealth() <= 2) || (baCardsArray2[1].getTier() >= 5 && baCardsArray2[1].getHealth() <= 2) || (baCardsArray2[2].getTier() >= 5 && baCardsArray2[2].getHealth() <= 2))
+				{
+					purchaseHolographicHideaway = true;
+				}
+				else if (baCardsArray[0].getAttack() >= 3 || baCardsArray[1].getAttack() >= 3 || baCardsArray[2].getAttack() >= 3 && (baCardsArray[0].getHealth() <= 3 || baCardsArray[1].getHealth() <= 3 || baCardsArray[2].getHealth() <= 3) && (totalAiBaHealth < 6))		
+				{
+					purchaseSockPuppetry = true;
+				}
+				else if ((baCardsArray2[0].getHealth() <= 2 && health2 >= 5) || (baCardsArray2[1].getHealth() <= 2 && health2 >= 5) || (baCardsArray2[2].getHealth() <= 2 && health2 >= 5))
+				{
+					purchaseMaliciousMend = true;
+				}
 			}
-			else if ((baCardsArray2[0].getHealth() == 1 && baCardsArray[0].getTier() >= 4 && userAttackedBa1 == true) || (baCardsArray2[1].getHealth() == 1 && baCardsArray[1].getTier() >= 4 && userAttackedBa2 == true) || (baCardsArray2[2].getHealth() == 1 && baCardsArray[2].getTier() >= 4 && userAttackedBa3 == true))
+			else if (totalAiCoins >= 8 && totalAiCoins <= 10)
 			{
-				purchaseInvertedReflection = true;
+				if ((totalAiBaHealth < 5 && baCardsArray[0].getTier() >= 5) || (totalAiBaHealth < 5 && baCardsArray[1].getTier() >= 5) || (totalAiBaHealth < 5 && baCardsArray[2].getTier() >= 5))
+				{
+					purchaseNefariousNibbles = true;
+				}
+				else if ((baCardsArray2[0].getHealth() == 1 && baCardsArray2[0].getTier() <= 2) || (baCardsArray2[1].getHealth() == 1 && baCardsArray2[1].getTier() <= 2) || (baCardsArray2[2].getHealth() == 1 && baCardsArray2[2].getTier() <= 2))
+				{
+					purchaseSubatomicSwap = true;
+				}
+				else if ((baCardsArray2[0].getHealth() == 1 && baCardsArray[0].getTier() >= 4 && userAttackedBa1 == true) || (baCardsArray2[1].getHealth() == 1 && baCardsArray[1].getTier() >= 4 && userAttackedBa2 == true) || (baCardsArray2[2].getHealth() == 1 && baCardsArray[2].getTier() >= 4 && userAttackedBa3 == true))
+				{
+					purchaseInvertedReflection = true;
+				}
+				else if (baCardsArray[0].getCoinsDropped() <= 3 || baCardsArray[1].getCoinsDropped() <= 3 || baCardsArray[2].getCoinsDropped() <= 3)
+				{
+					purchaseSneakySmooch = true;
+				}
 			}
-			else if ((baCardsArray2[0].getTier() >= 5 && baCardsArray2[0].getHealth() <= 2) || (baCardsArray2[1].getTier() >= 5 && baCardsArray2[1].getHealth() <= 2) || (baCardsArray2[2].getTier() >= 5 && baCardsArray2[2].getHealth() <= 2))
+			else if (totalAiCoins > 10) 
 			{
-				purchaseHolographicHideaway = true;
-			}
-			else if ((baCardsArray2[0].getHealth() <= 2 && health2 >= 5) || (baCardsArray2[1].getHealth() <= 2 && health2 >= 5) || (baCardsArray2[2].getHealth() <= 2 && health2 >= 5))
-			{
-				purchaseMaliciousMend = true;
-			}
-			else if (numberOfAiBaCards > 0)
-			{
-				purchaseReprehensiveRejuvenation = true;
-			}
-			else if (baCardsArray2[0].getHealth() >= 2 || baCardsArray2[1].getHealth() >= 2 || baCardsArray2[2].getHealth() >= 2)
-			{
-				purchaseSinisterSerenity = true;
-			}
-			else if ((totalAiBaHealth < 5 && baCardsArray[0].getTier() >= 5) || (totalAiBaHealth < 5 && baCardsArray[1].getTier() >= 5) || (totalAiBaHealth < 5 && baCardsArray[2].getTier() >= 5))
-			{
-				purchaseNefariousNibbles = true;
-			}
-			else if (baCardsArray[0].getCoinsDropped() <= 3 || baCardsArray[1].getCoinsDropped() <= 3 || baCardsArray[2].getCoinsDropped() <= 3)
-			{
-				purchaseSneakySmooch = true;
-			}
-			else if ((totalUserCards - totalAiCards >= 2) && (totalAiBaHealth >= 10) && (totalUserBaHealth <= 9))
-			{
-				purchaseQuantumQuake = true;
-			}
-			else if ((baCardsArray2[0].getHealth() == 1 && baCardsArray2[0].getTier() <= 2) || (baCardsArray2[1].getHealth() == 1 && baCardsArray2[1].getTier() <= 2) || (baCardsArray2[2].getHealth() == 1 && baCardsArray2[2].getTier() <= 2))
-			{
-				purchaseSubatomicSwap = true;
+				if ((totalUserCards - totalAiCards >= 2) && (totalAiBaHealth >= 10) && (totalUserBaHealth <= 9))
+				{
+					purchaseQuantumQuake = true;
+				}
+				else if (numberOfAiBaCards > 0)
+				{
+					purchaseReprehensiveRejuvenation = true;
+				}
 			}
 		}
 	}
@@ -2048,7 +2360,7 @@ public class GameplayScreen{
 				public void actionPerformed (ActionEvent e) 
 				{
 					spHealth = baCardsArray2[0].getHealth();	
-					spHealth -= spAttack;
+					spHealth = spHealth - spAttack;
 					baCardsArray2[0].setHealth(spHealth);
 					System.out.println(baCardsArray[0].getHealth());
 					if (spHealth <= 0)
@@ -2069,132 +2381,121 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard4_1 = aiCard1_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check1 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check1 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check1 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check1 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check1 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check1 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check1 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check1 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+						shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard4_1 = aiCard1_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check1 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check1 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check1 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check1 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check1 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check1 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check1 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check1 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -2210,13 +2511,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 					}
 				}
 			});
@@ -2225,7 +2520,7 @@ public class GameplayScreen{
 				public void actionPerformed (ActionEvent e) 
 				{
 					spHealth = baCardsArray2[1].getHealth();
-					spHealth -= spAttack;
+					spHealth = spHealth - spAttack;
 					baCardsArray2[1].setHealth(spHealth);
 					System.out.println(baCardsArray[1].getHealth());
 					if (spHealth <= 0)
@@ -2246,132 +2541,121 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard5_1 = aiCard1_1.getImage();
-										Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
-										
-										aiArenaCard2 = new JButton(arenaCard5_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check2 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check2 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check2 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check2 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check2 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check2 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check2 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check2 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+						shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard5_1 = aiCard1_1.getImage();
+							Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
+							
+							aiArenaCard2 = new JButton(arenaCard5_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check2 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check2 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check2 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check2 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check2 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check2 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check2 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check2 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -2387,13 +2671,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 					}
 				}
 			});
@@ -2402,7 +2680,7 @@ public class GameplayScreen{
 				public void actionPerformed (ActionEvent e) 
 				{
 					spHealth = baCardsArray2[2].getHealth();	
-					spHealth -= spAttack;
+					spHealth = spHealth - spAttack;
 					baCardsArray2[2].setHealth(spHealth);
 					System.out.println(baCardsArray[2].getHealth());
 					if (spHealth <= 0)
@@ -2423,132 +2701,121 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard5_1 = aiCard1_1.getImage();
-										Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
-										
-										aiArenaCard3 = new JButton(arenaCard5_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check3 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check3 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check3 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check3 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check3 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check3 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check3 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check3 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+						shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard5_1 = aiCard1_1.getImage();
+							Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
+							
+							aiArenaCard3 = new JButton(arenaCard5_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check3 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check3 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check3 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check3 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check3 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check3 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check3 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check3 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -2564,13 +2831,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 					}
 				}
 			});
@@ -2587,7 +2848,7 @@ public class GameplayScreen{
 				if (sp2Health1 <= sp2Health2)
 				{
 					sp2Attack = baCardsArray[0].getAttack();
-					sp2Health1 -= sp2Attack;
+					sp2Health1 = sp2Health1 - sp2Attack;
 					baCardsArray[1].setHealth(sp2Health1);
 					if (sp2Health1 <= 0)
 					{
@@ -2615,7 +2876,7 @@ public class GameplayScreen{
 				else if (sp2Health2 <= sp2Health1)
 				{
 					sp2Attack = baCardsArray[0].getAttack();
-					sp2Health2 -= sp2Attack;
+					sp2Health2 = sp2Health2 - sp2Attack;
 					baCardsArray[2].setHealth(sp2Health2);
 					if (sp2Health2 <= 0)
 					{
@@ -2649,7 +2910,7 @@ public class GameplayScreen{
 				if (sp2Health1 <= sp2Health2)
 				{
 					sp2Attack = baCardsArray[1].getAttack();
-					sp2Health1 -= sp2Attack;
+					sp2Health1 = sp2Health1 - sp2Attack;
 					baCardsArray[0].setHealth(sp2Health1);
 					if (sp2Health1 <= 0)
 					{
@@ -2677,7 +2938,7 @@ public class GameplayScreen{
 				else if (sp2Health2 <= sp2Health1)
 				{
 					sp2Attack = baCardsArray[1].getAttack();
-					sp2Health2 -= sp2Attack;
+					sp2Health2 = sp2Health2 - sp2Attack;
 					baCardsArray[2].setHealth(sp2Health2);
 					if (sp2Health2 <= 0)
 					{
@@ -2710,7 +2971,7 @@ public class GameplayScreen{
 				if (sp2Health1 <= sp2Health2)
 				{
 					sp2Attack = baCardsArray[2].getAttack();
-					sp2Health1 -= sp2Attack;
+					sp2Health1 = sp2Health1 - sp2Attack;
 					baCardsArray[0].setHealth(sp2Health1);
 					if (sp2Health1 <= 0)
 					{
@@ -2738,7 +2999,7 @@ public class GameplayScreen{
 				else if (sp2Health2 <= sp2Health1)
 				{
 					sp2Attack = baCardsArray[2].getAttack();
-					sp2Health2 -= sp2Attack;
+					sp2Health2 = sp2Health2 - sp2Attack;
 					baCardsArray[1].setHealth(sp2Health2);
 					if (sp2Health2 <= 0)
 					{
@@ -2771,7 +3032,1529 @@ public class GameplayScreen{
 	
 	public static void useInvertedReflection()
 	{
-		
+		if (numberOfTurns % 2 == 0)
+		{
+			if (ai1AttackedBa1)
+			{
+				irAttack = baCardsArray2[0].getHealth() - baCardsArray2[0].getAttack();	
+				baCardsArray2[0].setHealth(irAttack);
+				irHealth = baCardsArray[0].getHealth() + baCardsArray2[0].getAttack();
+				baCardsArray[0].setHealth(irHealth);
+				if (irAttack <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Inverted Reflection killed " + baCardsArray2[0].getName());
+					actionHistory.append("\n");
+					numberOfAiBaCards--;
+					totalUserCoins += baCardsArray2[0].getCoinsDropped();
+					userCoinsLabel.setText("" + totalUserCoins);
+					aiArenaCard1.setVisible(false);
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+					if (availableAiCards[aiCardsUsed] == 0)
+			        {
+			        	Image arenaCard4_1 = aiCard1_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard1.setEnabled(false);
+						check1 = 0;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 1)
+			        {
+			        	Image arenaCard4_1 = aiCard2_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard2.setEnabled(false);
+						check1 = 1;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 2)
+			        {
+			        	Image arenaCard4_1 = aiCard3_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard3.setEnabled(false);
+						check1 = 2;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 3)
+			        {
+			        	Image arenaCard4_1 = aiCard4_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard4.setEnabled(false);
+						check1 = 3;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 4)
+			        {
+			        	Image arenaCard4_1 = aiCard5_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard5.setEnabled(false);
+						check1 = 4;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 5)
+			        {
+			        	Image arenaCard4_1 = aiCard6_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard6.setEnabled(false);
+						check1 = 5;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 6)
+			        {
+			        	Image arenaCard4_1 = aiCard7_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard7.setEnabled(false);
+						check1 = 6;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 7)
+			        {
+			        	Image arenaCard4_1 = aiCard8_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard8.setEnabled(false);
+						check1 = 7;
+						totalAiCards--;
+			        }
+					aiCardsUsed++;
+					setAiValues();
+				}
+				else 
+				{
+					System.out.println("Card lost " + irAttack + " health");
+					actionHistory.append("nverted Reflection did not kill " + baCardsArray2[0].getName());				
+					actionHistory.append("\n");
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+				}	
+			}
+			else if (ai1AttackedBa2)
+			{
+				irAttack = baCardsArray2[0].getHealth() - baCardsArray2[0].getAttack();	
+				baCardsArray2[0].setHealth(irAttack);
+				irHealth = baCardsArray[1].getHealth() + baCardsArray2[0].getAttack();
+				baCardsArray[1].setHealth(irHealth);
+				if (irAttack <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Inverted Reflection killed " + baCardsArray2[0].getName());
+					actionHistory.append("\n");
+					numberOfAiBaCards--;
+					totalUserCoins += baCardsArray2[0].getCoinsDropped();
+					userCoinsLabel.setText("" + totalUserCoins);
+					aiArenaCard1.setVisible(false);
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+					if (availableAiCards[aiCardsUsed] == 0)
+			        {
+			        	Image arenaCard4_1 = aiCard1_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard1.setEnabled(false);
+						check1 = 0;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 1)
+			        {
+			        	Image arenaCard4_1 = aiCard2_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard2.setEnabled(false);
+						check1 = 1;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 2)
+			        {
+			        	Image arenaCard4_1 = aiCard3_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard3.setEnabled(false);
+						check1 = 2;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 3)
+			        {
+			        	Image arenaCard4_1 = aiCard4_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard4.setEnabled(false);
+						check1 = 3;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 4)
+			        {
+			        	Image arenaCard4_1 = aiCard5_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard5.setEnabled(false);
+						check1 = 4;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 5)
+			        {
+			        	Image arenaCard4_1 = aiCard6_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard6.setEnabled(false);
+						check1 = 5;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 6)
+			        {
+			        	Image arenaCard4_1 = aiCard7_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard7.setEnabled(false);
+						check1 = 6;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 7)
+			        {
+			        	Image arenaCard4_1 = aiCard8_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard8.setEnabled(false);
+						check1 = 7;
+						totalAiCards--;
+			        }
+					aiCardsUsed++;
+					setAiValues();
+				}
+				else 
+				{
+					System.out.println("Card lost " + irAttack + " health");
+					actionHistory.append("nverted Reflection did not kill " + baCardsArray2[0].getName());				
+					actionHistory.append("\n");
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+				}	
+			}
+			else if (ai1AttackedBa3)
+			{
+				irAttack = baCardsArray2[0].getHealth() - baCardsArray2[0].getAttack();	
+				baCardsArray2[0].setHealth(irAttack);
+				irHealth = baCardsArray[2].getHealth() + baCardsArray2[0].getAttack();
+				baCardsArray[2].setHealth(irHealth);
+				if (irAttack <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Inverted Reflection killed " + baCardsArray2[0].getName());
+					actionHistory.append("\n");
+					numberOfAiBaCards--;
+					totalUserCoins += baCardsArray2[0].getCoinsDropped();
+					userCoinsLabel.setText("" + totalUserCoins);
+					aiArenaCard1.setVisible(false);
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+					if (availableAiCards[aiCardsUsed] == 0)
+			        {
+			        	Image arenaCard4_1 = aiCard1_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard1.setEnabled(false);
+						check1 = 0;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 1)
+			        {
+			        	Image arenaCard4_1 = aiCard2_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard2.setEnabled(false);
+						check1 = 1;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 2)
+			        {
+			        	Image arenaCard4_1 = aiCard3_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard3.setEnabled(false);
+						check1 = 2;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 3)
+			        {
+			        	Image arenaCard4_1 = aiCard4_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard4.setEnabled(false);
+						check1 = 3;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 4)
+			        {
+			        	Image arenaCard4_1 = aiCard5_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard5.setEnabled(false);
+						check1 = 4;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 5)
+			        {
+			        	Image arenaCard4_1 = aiCard6_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard6.setEnabled(false);
+						check1 = 5;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 6)
+			        {
+			        	Image arenaCard4_1 = aiCard7_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard7.setEnabled(false);
+						check1 = 6;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 7)
+			        {
+			        	Image arenaCard4_1 = aiCard8_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard1 = new JButton(arenaCard4_3);
+						aiArenaCard1.setBounds(528, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard1);
+						frame.repaint();
+						aiCard8.setEnabled(false);
+						check1 = 7;
+						totalAiCards--;
+			        }
+					aiCardsUsed++;
+					setAiValues();
+				}
+				else 
+				{
+					System.out.println("Card lost " + irAttack + " health");
+					actionHistory.append("Inverted Reflection did not kill " + baCardsArray2[0].getName());				
+					actionHistory.append("\n");
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+				}
+				
+			}
+			else if (ai2AttackedBa1)
+			{
+				irAttack = baCardsArray2[1].getHealth() - baCardsArray2[1].getAttack();	
+				baCardsArray2[1].setHealth(irAttack);
+				irHealth = baCardsArray[0].getHealth() + baCardsArray2[1].getAttack();
+				baCardsArray[0].setHealth(irHealth);
+				if (irAttack <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Inverted Reflection killed " + baCardsArray2[1].getName());
+					actionHistory.append("\n");
+					numberOfAiBaCards--;
+					totalUserCoins += baCardsArray2[1].getCoinsDropped();
+					userCoinsLabel.setText("" + totalUserCoins);
+					aiArenaCard2.setVisible(false);
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+					if (availableAiCards[aiCardsUsed] == 0)
+			        {
+			        	Image arenaCard5_1 = aiCard1_1.getImage();
+						Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
+						
+						aiArenaCard2 = new JButton(arenaCard5_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard1.setEnabled(false);
+						check2 = 0;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 1)
+			        {
+			        	Image arenaCard4_1 = aiCard2_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard2.setEnabled(false);
+						check2 = 1;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 2)
+			        {
+			        	Image arenaCard4_1 = aiCard3_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard3.setEnabled(false);
+						check2 = 2;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 3)
+			        {
+			        	Image arenaCard4_1 = aiCard4_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard4.setEnabled(false);
+						check2 = 3;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 4)
+			        {
+			        	Image arenaCard4_1 = aiCard5_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard5.setEnabled(false);
+						check2 = 4;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 5)
+			        {
+			        	Image arenaCard4_1 = aiCard6_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard6.setEnabled(false);
+						check2 = 5;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 6)
+			        {
+			        	Image arenaCard4_1 = aiCard7_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard7.setEnabled(false);
+						check2 = 6;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 7)
+			        {
+			        	Image arenaCard4_1 = aiCard8_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard8.setEnabled(false);
+						check2 = 7;
+						totalAiCards--;
+			        }
+					aiCardsUsed++;
+					setAiValues();
+				}
+				else 
+				{
+					System.out.println("Card lost " + irAttack + " health");
+					actionHistory.append("Inverted Reflection did not kill " + baCardsArray2[1].getName());				
+					actionHistory.append("\n");
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+				}
+			}
+			else if (ai2AttackedBa2)
+			{
+				irAttack = baCardsArray2[1].getHealth() - baCardsArray2[1].getAttack();	
+				baCardsArray2[1].setHealth(irAttack);
+				irHealth = baCardsArray[1].getHealth() + baCardsArray2[1].getAttack();
+				baCardsArray[1].setHealth(irHealth);
+				if (irAttack <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Inverted Reflection killed " + baCardsArray2[1].getName());
+					actionHistory.append("\n");
+					numberOfAiBaCards--;
+					totalUserCoins += baCardsArray2[1].getCoinsDropped();
+					userCoinsLabel.setText("" + totalUserCoins);
+					aiArenaCard2.setVisible(false);
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+					if (availableAiCards[aiCardsUsed] == 0)
+			        {
+			        	Image arenaCard5_1 = aiCard1_1.getImage();
+						Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
+						
+						aiArenaCard2 = new JButton(arenaCard5_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard1.setEnabled(false);
+						check2 = 0;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 1)
+			        {
+			        	Image arenaCard4_1 = aiCard2_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard2.setEnabled(false);
+						check2 = 1;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 2)
+			        {
+			        	Image arenaCard4_1 = aiCard3_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard3.setEnabled(false);
+						check2 = 2;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 3)
+			        {
+			        	Image arenaCard4_1 = aiCard4_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard4.setEnabled(false);
+						check2 = 3;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 4)
+			        {
+			        	Image arenaCard4_1 = aiCard5_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard5.setEnabled(false);
+						check2 = 4;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 5)
+			        {
+			        	Image arenaCard4_1 = aiCard6_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard6.setEnabled(false);
+						check2 = 5;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 6)
+			        {
+			        	Image arenaCard4_1 = aiCard7_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard7.setEnabled(false);
+						check2 = 6;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 7)
+			        {
+			        	Image arenaCard4_1 = aiCard8_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard8.setEnabled(false);
+						check2 = 7;
+						totalAiCards--;
+			        }
+					aiCardsUsed++;
+					setAiValues();
+				}
+				else 
+				{
+					System.out.println("Card lost " + irAttack + " health");
+					actionHistory.append("Inverted Reflection did not kill " + baCardsArray2[1].getName());				
+					actionHistory.append("\n");
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+				}
+			}
+			else if (ai2AttackedBa3)
+			{
+				irAttack = baCardsArray2[1].getHealth() - baCardsArray2[1].getAttack();	
+				baCardsArray2[1].setHealth(irAttack);
+				irHealth = baCardsArray[2].getHealth() + baCardsArray2[1].getAttack();
+				baCardsArray[2].setHealth(irHealth);
+				if (irAttack <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Inverted Reflection killed " + baCardsArray2[1].getName());
+					actionHistory.append("\n");
+					numberOfAiBaCards--;
+					totalUserCoins += baCardsArray2[1].getCoinsDropped();
+					userCoinsLabel.setText("" + totalUserCoins);
+					aiArenaCard2.setVisible(false);
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+					if (availableAiCards[aiCardsUsed] == 0)
+			        {
+			        	Image arenaCard5_1 = aiCard1_1.getImage();
+						Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
+						
+						aiArenaCard2 = new JButton(arenaCard5_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard1.setEnabled(false);
+						check2 = 0;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 1)
+			        {
+			        	Image arenaCard4_1 = aiCard2_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard2.setEnabled(false);
+						check2 = 1;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 2)
+			        {
+			        	Image arenaCard4_1 = aiCard3_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard3.setEnabled(false);
+						check2 = 2;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 3)
+			        {
+			        	Image arenaCard4_1 = aiCard4_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard4.setEnabled(false);
+						check2 = 3;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 4)
+			        {
+			        	Image arenaCard4_1 = aiCard5_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard5.setEnabled(false);
+						check2 = 4;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 5)
+			        {
+			        	Image arenaCard4_1 = aiCard6_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard6.setEnabled(false);
+						check2 = 5;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 6)
+			        {
+			        	Image arenaCard4_1 = aiCard7_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard7.setEnabled(false);
+						check2 = 6;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 7)
+			        {
+			        	Image arenaCard4_1 = aiCard8_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard2 = new JButton(arenaCard4_3);
+						aiArenaCard2.setBounds(634, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard2);
+						frame.repaint();
+						aiCard8.setEnabled(false);
+						check2 = 7;
+						totalAiCards--;
+			        }
+					aiCardsUsed++;
+					setAiValues();
+				}
+				else 
+				{
+					System.out.println("Card lost " + irAttack + " health");
+					actionHistory.append("Inverted Reflection did not kill " + baCardsArray2[1].getName());				
+					actionHistory.append("\n");
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+				}
+			}
+			else if (ai3AttackedBa1)
+			{
+				irAttack = baCardsArray2[2].getHealth() - baCardsArray2[2].getAttack();	
+				baCardsArray2[2].setHealth(irAttack);
+				irHealth = baCardsArray[0].getHealth() + baCardsArray2[2].getAttack();
+				baCardsArray[0].setHealth(irHealth);
+				if (irAttack <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Inverted Reflection killed " + baCardsArray2[2].getName());
+					actionHistory.append("\n");
+					numberOfAiBaCards--;
+					totalUserCoins += baCardsArray2[2].getCoinsDropped();
+					userCoinsLabel.setText("" + totalUserCoins);
+					aiArenaCard3.setVisible(false);
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+					if (availableAiCards[aiCardsUsed] == 0)
+			        {
+			        	Image arenaCard5_1 = aiCard1_1.getImage();
+						Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
+						
+						aiArenaCard3 = new JButton(arenaCard5_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard1.setEnabled(false);
+						check3 = 0;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 1)
+			        {
+			        	Image arenaCard4_1 = aiCard2_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard2.setEnabled(false);
+						check3 = 1;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 2)
+			        {
+			        	Image arenaCard4_1 = aiCard3_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard3.setEnabled(false);
+						check3 = 2;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 3)
+			        {
+			        	Image arenaCard4_1 = aiCard4_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard4.setEnabled(false);
+						check3 = 3;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 4)
+			        {
+			        	Image arenaCard4_1 = aiCard5_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard5.setEnabled(false);
+						check3 = 4;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 5)
+			        {
+			        	Image arenaCard4_1 = aiCard6_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard6.setEnabled(false);
+						check3 = 5;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 6)
+			        {
+			        	Image arenaCard4_1 = aiCard7_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard7.setEnabled(false);
+						check3 = 6;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 7)
+			        {
+			        	Image arenaCard4_1 = aiCard8_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard8.setEnabled(false);
+						check3 = 7;
+						totalAiCards--;
+			        }
+					aiCardsUsed++;
+					setAiValues();
+				}
+				else 
+				{
+					System.out.println("Card lost " + irAttack + " health");
+					actionHistory.append("Inverted Reflection did not kill " + baCardsArray2[2].getName());				
+					actionHistory.append("\n");
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+				}
+			}
+			else if (ai3AttackedBa2)
+			{
+				irAttack = baCardsArray2[2].getHealth() - baCardsArray2[2].getAttack();	
+				baCardsArray2[2].setHealth(irAttack);
+				irHealth = baCardsArray[1].getHealth() + baCardsArray2[2].getAttack();
+				baCardsArray[1].setHealth(irHealth);
+				if (irAttack <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Inverted Reflection killed " + baCardsArray2[2].getName());
+					actionHistory.append("\n");
+					numberOfAiBaCards--;
+					totalUserCoins += baCardsArray2[2].getCoinsDropped();
+					userCoinsLabel.setText("" + totalUserCoins);
+					aiArenaCard3.setVisible(false);
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+					if (availableAiCards[aiCardsUsed] == 0)
+			        {
+			        	Image arenaCard5_1 = aiCard1_1.getImage();
+						Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
+						
+						aiArenaCard3 = new JButton(arenaCard5_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard1.setEnabled(false);
+						check3 = 0;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 1)
+			        {
+			        	Image arenaCard4_1 = aiCard2_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard2.setEnabled(false);
+						check3 = 1;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 2)
+			        {
+			        	Image arenaCard4_1 = aiCard3_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard3.setEnabled(false);
+						check3 = 2;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 3)
+			        {
+			        	Image arenaCard4_1 = aiCard4_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard4.setEnabled(false);
+						check3 = 3;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 4)
+			        {
+			        	Image arenaCard4_1 = aiCard5_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard5.setEnabled(false);
+						check3 = 4;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 5)
+			        {
+			        	Image arenaCard4_1 = aiCard6_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard6.setEnabled(false);
+						check3 = 5;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 6)
+			        {
+			        	Image arenaCard4_1 = aiCard7_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard7.setEnabled(false);
+						check3 = 6;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 7)
+			        {
+			        	Image arenaCard4_1 = aiCard8_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard8.setEnabled(false);
+						check3 = 7;
+						totalAiCards--;
+			        }
+					aiCardsUsed++;
+					setAiValues();
+				}
+				else 
+				{
+					System.out.println("Card lost " + irAttack + " health");
+					actionHistory.append("Inverted Reflection did not kill " + baCardsArray2[2].getName());				
+					actionHistory.append("\n");
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+				}
+			}
+			else if (ai3AttackedBa3)
+			{
+				irAttack = baCardsArray2[2].getHealth() - baCardsArray2[2].getAttack();	
+				baCardsArray2[2].setHealth(irAttack);
+				irHealth = baCardsArray[2].getHealth() + baCardsArray2[2].getAttack();
+				baCardsArray[2].setHealth(irHealth);
+				if (irAttack <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Inverted Reflection killed " + baCardsArray2[2].getName());
+					actionHistory.append("\n");
+					numberOfAiBaCards--;
+					totalUserCoins += baCardsArray2[2].getCoinsDropped();
+					userCoinsLabel.setText("" + totalUserCoins);
+					aiArenaCard3.setVisible(false);
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+					if (availableAiCards[aiCardsUsed] == 0)
+			        {
+			        	Image arenaCard5_1 = aiCard1_1.getImage();
+						Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
+						
+						aiArenaCard3 = new JButton(arenaCard5_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard1.setEnabled(false);
+						check3 = 0;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 1)
+			        {
+			        	Image arenaCard4_1 = aiCard2_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard2.setEnabled(false);
+						check3 = 1;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 2)
+			        {
+			        	Image arenaCard4_1 = aiCard3_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard3.setEnabled(false);
+						check3 = 2;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 3)
+			        {
+			        	Image arenaCard4_1 = aiCard4_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard4.setEnabled(false);
+						check3 = 3;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 4)
+			        {
+			        	Image arenaCard4_1 = aiCard5_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard5.setEnabled(false);
+						check3 = 4;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 5)
+			        {
+			        	Image arenaCard4_1 = aiCard6_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard6.setEnabled(false);
+						check3 = 5;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 6)
+			        {
+			        	Image arenaCard4_1 = aiCard7_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard7.setEnabled(false);
+						check3 = 6;
+						totalAiCards--;
+			        }
+					else if (availableAiCards[aiCardsUsed] == 7)
+			        {
+			        	Image arenaCard4_1 = aiCard8_1.getImage();
+						Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+						ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+						
+						aiArenaCard3 = new JButton(arenaCard4_3);
+						aiArenaCard3.setBounds(740, 206, 94, 150);
+						frame.getContentPane().add(aiArenaCard3);
+						frame.repaint();
+						aiCard8.setEnabled(false);
+						check3 = 7;
+						totalAiCards--;
+			        }
+					aiCardsUsed++;
+					setAiValues();
+				}
+				else 
+				{
+					System.out.println("Card lost " + irAttack + " health");
+					actionHistory.append("Inverted Reflection did not kill " + baCardsArray2[2].getName());				
+					actionHistory.append("\n");
+	                userArenaCard1.setEnabled(true);
+	                userArenaCard2.setEnabled(true);
+	                userArenaCard3.setEnabled(true);
+					attackAiAC1.setVisible(false);
+					attackAiAC1.setEnabled(false);
+					attackAiAC2.setVisible(false);
+					attackAiAC2.setEnabled(false);
+					attackAiAC3.setVisible(false);
+					attackAiAC3.setEnabled(false);
+					shopButton.setEnabled(false);
+				}
+			}
+			ai1AttackedBa1 = false;
+			ai1AttackedBa2 = false;
+			ai1AttackedBa3 = false;
+			ai2AttackedBa1 = false;
+			ai2AttackedBa2 = false;
+			ai2AttackedBa3 = false;
+			ai3AttackedBa1 = false;
+			ai3AttackedBa2 = false;
+			ai3AttackedBa3 = false;
+			numberOfTurns++;
+			firstAiDecision();
+		}
+		else // AI turn
+		{
+			if (baCardsArray2[0].getHealth() == 1 && baCardsArray[0].getTier() >= 4 && userAttackedBa1 == true)
+			{
+				ir2Attack = baCardsArray[0].getHealth() - baCardsArray[0].getAttack();	
+				baCardsArray[0].setHealth(ir2Attack);
+				ir2Health = baCardsArray2[0].getHealth() + baCardsArray[0].getAttack();
+				baCardsArray2[0].setHealth(ir2Health);
+				if (ir2Attack <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Inverted Reflection killed " + baCardsArray[0].getName());
+					actionHistory.append("\n");
+					numberOfUserBaCards--;
+					userBa1Taken = false;
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard1.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[0].getCoinsDropped();
+					aiCoinsLabel.setText("" + totalAiCoins);
+				}
+				else 
+				{
+					System.out.println("Card lost " + ir2Attack + " health");
+					actionHistory.append("Inverted Reflection did not kill " + baCardsArray[0].getName());
+					actionHistory.append("\n");
+				}	
+			}
+			else if (baCardsArray2[1].getHealth() == 1 && baCardsArray[1].getTier() >= 4 && userAttackedBa2 == true)
+			{
+				ir2Attack = baCardsArray[1].getHealth() - baCardsArray[1].getAttack();	
+				baCardsArray[1].setHealth(ir2Attack);
+				ir2Health = baCardsArray2[1].getHealth() + baCardsArray[1].getAttack();
+				baCardsArray2[1].setHealth(ir2Health);
+				if (ir2Attack <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Inverted Reflection killed " + baCardsArray[1].getName());
+					actionHistory.append("\n");
+					numberOfUserBaCards--;
+					userBa2Taken = false;
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard2.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[1].getCoinsDropped();
+					aiCoinsLabel.setText("" + totalAiCoins);
+				}
+				else 
+				{
+					System.out.println("Card lost " + ir2Attack + " health");
+					actionHistory.append("Inverted Reflection did not kill " + baCardsArray[1].getName());
+					actionHistory.append("\n");
+				}	
+			}
+			else if (baCardsArray2[2].getHealth() == 1 && baCardsArray[2].getTier() >= 4 && userAttackedBa3 == true)
+			{
+				ir2Attack = baCardsArray[2].getHealth() - baCardsArray[2].getAttack();	
+				baCardsArray[2].setHealth(ir2Attack);
+				ir2Health = baCardsArray2[2].getHealth() + baCardsArray[2].getAttack();
+				baCardsArray2[2].setHealth(ir2Health);
+				if (ir2Attack <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append("Inverted Reflection killed " + baCardsArray[2].getName());
+					actionHistory.append("\n");
+					numberOfUserBaCards--;
+					userBa3Taken = false;
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard3.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[2].getCoinsDropped();
+					aiCoinsLabel.setText("" + totalAiCoins);
+				}
+				else 
+				{
+					System.out.println("Card lost " + ir2Attack + " health");
+					actionHistory.append("Inverted Reflection did not kill " + baCardsArray[2].getName());
+					actionHistory.append("\n");
+				}	
+			}
+			numberOfTurns++;
+			userAttackedBa1 = false;
+			userAttackedBa2 = false;
+			userAttackedBa3 = false;
+			userTurns();
+		}
 	}
 	
 	public static void useHolographicHideaway()
@@ -3018,7 +4801,7 @@ public class GameplayScreen{
 				public void actionPerformed (ActionEvent e) 
 				{
 					nnHealth = baCardsArray2[0].getHealth();	
-					nnHealth -= 4;
+					nnHealth = nnHealth - 4;
 					baCardsArray2[0].setHealth(nnHealth);
 					System.out.println(baCardsArray2[0].getHealth());
 					if (nnHealth <= 0)
@@ -3039,132 +4822,121 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard4_1 = aiCard1_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check1 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check1 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check1 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check1 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check1 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check1 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check1 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check1 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+						shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard4_1 = aiCard1_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check1 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check1 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check1 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check1 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check1 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check1 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check1 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check1 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -3180,13 +4952,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 					}
 				}
 			});
@@ -3195,7 +4961,7 @@ public class GameplayScreen{
 				public void actionPerformed (ActionEvent e) 
 				{
 					nnHealth = baCardsArray2[1].getHealth();
-					nnHealth -= 4;
+					nnHealth = nnHealth - 4;
 					baCardsArray2[1].setHealth(nnHealth);
 					System.out.println(baCardsArray2[1].getHealth());
 					if (nnHealth <= 0)
@@ -3216,132 +4982,121 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard5_1 = aiCard1_1.getImage();
-										Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
-										
-										aiArenaCard2 = new JButton(arenaCard5_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check2 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check2 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check2 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check2 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check2 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check2 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check2 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check2 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+						shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard5_1 = aiCard1_1.getImage();
+							Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
+							
+							aiArenaCard2 = new JButton(arenaCard5_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check2 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check2 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check2 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check2 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check2 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check2 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check2 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check2 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -3357,13 +5112,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 					}
 				}
 			});
@@ -3372,7 +5121,7 @@ public class GameplayScreen{
 				public void actionPerformed (ActionEvent e) 
 				{
 					nnHealth = baCardsArray2[2].getHealth();	
-					nnHealth -= 4;
+					nnHealth = nnHealth - 4;
 					baCardsArray2[2].setHealth(nnHealth);
 					System.out.println(baCardsArray2[2].getHealth());
 					if (nnHealth <= 0)
@@ -3393,132 +5142,121 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard5_1 = aiCard1_1.getImage();
-										Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
-										
-										aiArenaCard3 = new JButton(arenaCard5_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check3 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check3 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check3 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check3 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check3 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check3 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check3 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check3 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+						shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard5_1 = aiCard1_1.getImage();
+							Image arenaCard5_2 = arenaCard5_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard5_3 = new ImageIcon(arenaCard5_2);
+							
+							aiArenaCard3 = new JButton(arenaCard5_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check3 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check3 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check3 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check3 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check3 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check3 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check3 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check3 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -3534,13 +5272,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 					}
 				}
 			});
@@ -3677,7 +5409,29 @@ public class GameplayScreen{
 		}
 		else // AI turn
 		{
-			
+			if (baCardsArray[0].getCoinsDropped() <= 3)
+			{
+				ss2CoinsDropped2 = baCardsArray[0].getCoinsDropped() + 2;
+				baCardsArray[0].setCoinsDropped(ss2CoinsDropped2);
+				actionHistory.append("Sneaky Smooch applied to " + baCardsArray[0].getName());				
+				actionHistory.append("\n");
+			}
+			else if (baCardsArray[1].getCoinsDropped() <= 3)
+			{
+				ss2CoinsDropped2 = baCardsArray[1].getCoinsDropped() + 2;
+				baCardsArray[1].setCoinsDropped(ss2CoinsDropped2);
+				actionHistory.append("Sneaky Smooch applied to " + baCardsArray[1].getName());				
+				actionHistory.append("\n");
+			}
+			else if (baCardsArray[2].getCoinsDropped() <= 3)
+			{
+				ss2CoinsDropped2 = baCardsArray[2].getCoinsDropped() + 2;
+				baCardsArray[2].setCoinsDropped(ss2CoinsDropped2);
+				actionHistory.append("Sneaky Smooch applied to " + baCardsArray[2].getName());				
+				actionHistory.append("\n");
+			}
+			numberOfTurns++;
+			userTurns();
 		}
 	}
 	
@@ -3686,22 +5440,22 @@ public class GameplayScreen{
 		if (numberOfTurns % 2 == 0)
 		{
 			qqDamage1 = baCardsArray[0].getHealth();
-			qqDamage1 -= 3;
+			qqDamage1 = qqDamage1 - 3;
 			baCardsArray[0].setHealth(qqDamage1);
 			qqDamage2 = baCardsArray[1].getHealth();
-			qqDamage2 -= 3;
+			qqDamage2 = qqDamage2 - 3;
 			baCardsArray[1].setHealth(qqDamage2);
 			qqDamage3 = baCardsArray[2].getHealth();
-			qqDamage3 -= 3;
+			qqDamage3 = qqDamage3 - 3;
 			baCardsArray[2].setHealth(qqDamage3);
 			qqDamage4 = baCardsArray2[0].getHealth();
-			qqDamage4 -= 3;
+			qqDamage4 = qqDamage4 - 3;
 			baCardsArray2[0].setHealth(qqDamage4);
 			qqDamage5 = baCardsArray2[1].getHealth();
-			qqDamage5 -= 3;
+			qqDamage5 = qqDamage5 - 3;
 			baCardsArray2[1].setHealth(qqDamage5);
 			qqDamage6 = baCardsArray2[2].getHealth();
-			qqDamage6 -= 3;
+			qqDamage6 = qqDamage6 - 3;
 			baCardsArray2[2].setHealth(qqDamage6);
 			actionHistory.append("Quantum Quake used");				
 			actionHistory.append("\n");
@@ -3711,7 +5465,28 @@ public class GameplayScreen{
 		}
 		else // AI turn
 		{
-			
+			qqDamage1 = baCardsArray[0].getHealth();
+			qqDamage1 = qqDamage1 - 3;
+			baCardsArray[0].setHealth(qqDamage1);
+			qqDamage2 = baCardsArray[1].getHealth();
+			qqDamage2 = qqDamage2 - 3;
+			baCardsArray[1].setHealth(qqDamage2);
+			qqDamage3 = baCardsArray[2].getHealth();
+			qqDamage3 = qqDamage3 - 3;
+			baCardsArray[2].setHealth(qqDamage3);
+			qqDamage4 = baCardsArray2[0].getHealth();
+			qqDamage4 = qqDamage4 - 3;
+			baCardsArray2[0].setHealth(qqDamage4);
+			qqDamage5 = baCardsArray2[1].getHealth();
+			qqDamage5 = qqDamage5 - 3;
+			baCardsArray2[1].setHealth(qqDamage5);
+			qqDamage6 = baCardsArray2[2].getHealth();
+			qqDamage6 = qqDamage6 - 3;
+			baCardsArray2[2].setHealth(qqDamage6);
+			actionHistory.append("Quantum Quake used");				
+			actionHistory.append("\n");
+			numberOfTurns++;
+			userTurns();
 		}
 	}
 	
@@ -4339,52 +6114,803 @@ public class GameplayScreen{
 					userBa2Taken = true;
 				}
 			});
+	        numberOfTurns++;
+	        firstAiDecision();
 		}
 		else // AI turn
 		{
-			
+			if (baCardsArray2[0].getHealth() == 1 && baCardsArray2[0].getTier() <= 2)
+			{
+				aiArenaCard1.setVisible(false);
+				if (subatomicSwapCards[1] == 0)
+				{
+					subCard1_1 = new ImageIcon("resources/images/razer rabbit.jpg");
+			        sub1Attack = 2;
+			        sub1Health = 1;
+			        sub1CoinsDropped = 1;
+			        sub1Name = "Razor Rabbit";
+			        sub1Tier = 1;
+				}
+				else if (subatomicSwapCards[1] == 1)
+				{
+					subCard1_1 = new ImageIcon("resources/images/squirrel.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 1;
+			        sub1Name = "Spike The Squirrel";
+			        sub1Tier = 2;
+				}
+				else if (subatomicSwapCards[1] == 2)
+				{
+					subCard1_1 = new ImageIcon("resources/images/toxicturtle.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 5;
+			        sub1CoinsDropped = 2;
+			        sub1Name = "Toxic Turtle";
+			        sub1Tier = 3;
+				}
+				else if (subatomicSwapCards[1] == 3)
+				{
+					subCard1_1 = new ImageIcon("resources/images/fangtail fox card.jpg");
+			        sub1Attack = 3;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Fangtail Fox";
+			        sub1Tier = 4;
+				}
+				else if (subatomicSwapCards[1] == 4)
+				{
+					subCard1_1 = new ImageIcon("resources/images/raging raccoon.jpg");
+			        sub1Attack = 4;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 4;
+			        sub1Name = "Raging Raccoon";
+			        sub1Tier = 5;
+				}
+				else if (subatomicSwapCards[1] == 5)
+				{
+					subCard1_1 = new ImageIcon("resources/images/killer koala.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 2;
+			        sub1Name = "Killer Koala";
+			        sub1Tier = 2;
+				}
+				else if (subatomicSwapCards[1] == 6)
+				{
+					subCard1_1 = new ImageIcon("resources/images/chainsaw chinchilla.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 1;
+			        sub1CoinsDropped = 1;
+			        sub1Name = "Chainsaw Chinchilla";
+			        sub1Tier = 1;
+				}
+				else if (subatomicSwapCards[1] == 7)
+				{
+					subCard1_1 = new ImageIcon("resources/images/slaughter seahorse.jpg");
+			        sub1Attack = 2;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 2;
+			        sub1Name = "Slaughter Seahorse";
+			        sub1Tier = 2;
+				}
+				else if (subatomicSwapCards[1] == 8)
+				{
+					subCard1_1 = new ImageIcon("resources/images/mauler meerkat.jpg");
+			        sub1Attack = 2;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Mauler Meerkat";
+			        sub1Tier = 3;
+				}
+				else if (subatomicSwapCards[1] == 9)
+				{
+					subCard1_1 = new ImageIcon("resources/images/venemous vulture.jpg");
+			        sub1Attack = 3;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Venomous Vulture";
+			        sub1Tier = 4;
+				}
+				else if (subatomicSwapCards[1] == 10)
+				{
+					subCard1_1 = new ImageIcon("resources/images/bloodthirsty badger.jpg");
+			        sub1Attack = 6;
+			        sub1Health = 2;
+			        sub1CoinsDropped = 5;
+			        sub1Name = "Bloodthirsty Badger";
+			        sub1Tier = 5;
+				}
+				else if (subatomicSwapCards[1] == 11)
+				{
+					subCard1_1 = new ImageIcon("resources/images/capybara of carnage.jpg");
+			        sub1Attack = 7;
+			        sub1Health = 5;
+			        sub1CoinsDropped = 8;
+			        sub1Name = "Capybara of Carnage";
+			        sub1Tier = 6;
+				}
+				else if (subatomicSwapCards[1] == 12)
+				{
+					subCard1_1 = new ImageIcon("resources/images/homicide hamster.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 1;
+			        sub1CoinsDropped = 1;
+			        sub1Name = "Homicide Hamster";
+			        sub1Tier = 1;
+				}
+				else if (subatomicSwapCards[1] == 13)
+				{
+					subCard1_1 = new ImageIcon("resources/images/deathbeak duckling.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 2;
+			        sub1Tier = 2;
+			        sub1Name = "Deathbeak Duckling";
+				}
+				else if (subatomicSwapCards[1] == 14)
+				{
+					subCard1_1 = new ImageIcon("resources/images/razerback rottweiler.jpg");
+			        sub1Attack = 2;
+			        sub1Health = 4;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Razorback Rottweiler";
+			        sub1Tier = 3;
+				}
+				else if (subatomicSwapCards[1] == 15)
+				{
+					subCard1_1 = new ImageIcon("resources/images/grevious gorilla.jpg");
+			        sub1Attack = 3;
+			        sub1Health = 4;
+			        sub1CoinsDropped = 4;
+			        sub1Name = "Grievous Gorilla";
+			        sub1Tier = 4;
+				}
+				else if (subatomicSwapCards[1] == 16)
+				{
+					subCard1_1 = new ImageIcon("resources/images/pernicious porcupine.jpg");
+			        sub1Attack = 5;
+			        sub1Health = 2;
+			        sub1CoinsDropped = 5;
+			        sub1Name = "Pernicuous Porcupine";
+			        sub1Tier = 5;
+				}
+				else if (subatomicSwapCards[1] == 17)
+				{
+					subCard1_1 = new ImageIcon("resources/images/malevolent mongoose.jpg");
+			        sub1Attack = 6;
+			        sub1Health = 6;
+			        sub1CoinsDropped = 8;
+			        sub1Name = "Malevolent Mongoose";
+			        sub1Tier = 6;
+				}
+				else if (subatomicSwapCards[1] == 18)
+				{
+					subCard1_1 = new ImageIcon("resources/images/baleful bald eagle.jpg");
+			        sub1Attack = 5;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 4;
+			        sub1Name = "Baleful Bald Eagle";
+			        sub1Tier = 4;
+				}
+				else if (subatomicSwapCards[1] == 19)
+				{
+					subCard1_1 = new ImageIcon("resources/images/Mecha-monkey (1).jpg");
+			        sub1Attack = 2;
+			        sub1Health = 5;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Murderous Mecha-Monkey";
+			        sub1Tier = 3;
+				}
+				actionHistory.append("Subatomic Swap used on " + baCardsArray2[0].getName());				
+				actionHistory.append("\n");
+				totalAiHealth += sub1Health;
+				Image arenaCard_1 = subCard1_1.getImage();
+				Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+				ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+				aiArenaCard1 = new JButton(arenaCard_3);
+				aiArenaCard1.setBounds(528, 206, 94, 150);
+				frame.getContentPane().add(aiArenaCard1);
+				frame.repaint();
+				health2 = sub1Health;
+				attack2 = sub1Attack;
+				coinsDropped2 = sub1CoinsDropped;
+				name2 = sub1Name;
+				tier2 = sub1Tier;
+				baCardsArray2[0] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else if (baCardsArray2[1].getHealth() == 1 && baCardsArray2[1].getTier() <= 2)
+			{
+				aiArenaCard2.setVisible(false);
+				if (subatomicSwapCards[1] == 0)
+				{
+					subCard1_1 = new ImageIcon("resources/images/razer rabbit.jpg");
+			        sub1Attack = 2;
+			        sub1Health = 1;
+			        sub1CoinsDropped = 1;
+			        sub1Name = "Razor Rabbit";
+			        sub1Tier = 1;
+				}
+				else if (subatomicSwapCards[1] == 1)
+				{
+					subCard1_1 = new ImageIcon("resources/images/squirrel.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 1;
+			        sub1Name = "Spike The Squirrel";
+			        sub1Tier = 2;
+				}
+				else if (subatomicSwapCards[1] == 2)
+				{
+					subCard1_1 = new ImageIcon("resources/images/toxicturtle.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 5;
+			        sub1CoinsDropped = 2;
+			        sub1Name = "Toxic Turtle";
+			        sub1Tier = 3;
+				}
+				else if (subatomicSwapCards[1] == 3)
+				{
+					subCard1_1 = new ImageIcon("resources/images/fangtail fox card.jpg");
+			        sub1Attack = 3;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Fangtail Fox";
+			        sub1Tier = 4;
+				}
+				else if (subatomicSwapCards[1] == 4)
+				{
+					subCard1_1 = new ImageIcon("resources/images/raging raccoon.jpg");
+			        sub1Attack = 4;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 4;
+			        sub1Name = "Raging Raccoon";
+			        sub1Tier = 5;
+				}
+				else if (subatomicSwapCards[1] == 5)
+				{
+					subCard1_1 = new ImageIcon("resources/images/killer koala.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 2;
+			        sub1Name = "Killer Koala";
+			        sub1Tier = 2;
+				}
+				else if (subatomicSwapCards[1] == 6)
+				{
+					subCard1_1 = new ImageIcon("resources/images/chainsaw chinchilla.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 1;
+			        sub1CoinsDropped = 1;
+			        sub1Name = "Chainsaw Chinchilla";
+			        sub1Tier = 1;
+				}
+				else if (subatomicSwapCards[1] == 7)
+				{
+					subCard1_1 = new ImageIcon("resources/images/slaughter seahorse.jpg");
+			        sub1Attack = 2;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 2;
+			        sub1Name = "Slaughter Seahorse";
+			        sub1Tier = 2;
+				}
+				else if (subatomicSwapCards[1] == 8)
+				{
+					subCard1_1 = new ImageIcon("resources/images/mauler meerkat.jpg");
+			        sub1Attack = 2;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Mauler Meerkat";
+			        sub1Tier = 3;
+				}
+				else if (subatomicSwapCards[1] == 9)
+				{
+					subCard1_1 = new ImageIcon("resources/images/venemous vulture.jpg");
+			        sub1Attack = 3;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Venomous Vulture";
+			        sub1Tier = 4;
+				}
+				else if (subatomicSwapCards[1] == 10)
+				{
+					subCard1_1 = new ImageIcon("resources/images/bloodthirsty badger.jpg");
+			        sub1Attack = 6;
+			        sub1Health = 2;
+			        sub1CoinsDropped = 5;
+			        sub1Name = "Bloodthirsty Badger";
+			        sub1Tier = 5;
+				}
+				else if (subatomicSwapCards[1] == 11)
+				{
+					subCard1_1 = new ImageIcon("resources/images/capybara of carnage.jpg");
+			        sub1Attack = 7;
+			        sub1Health = 5;
+			        sub1CoinsDropped = 8;
+			        sub1Name = "Capybara of Carnage";
+			        sub1Tier = 6;
+				}
+				else if (subatomicSwapCards[1] == 12)
+				{
+					subCard1_1 = new ImageIcon("resources/images/homicide hamster.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 1;
+			        sub1CoinsDropped = 1;
+			        sub1Name = "Homicide Hamster";
+			        sub1Tier = 1;
+				}
+				else if (subatomicSwapCards[1] == 13)
+				{
+					subCard1_1 = new ImageIcon("resources/images/deathbeak duckling.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 2;
+			        sub1Tier = 2;
+			        sub1Name = "Deathbeak Duckling";
+				}
+				else if (subatomicSwapCards[1] == 14)
+				{
+					subCard1_1 = new ImageIcon("resources/images/razerback rottweiler.jpg");
+			        sub1Attack = 2;
+			        sub1Health = 4;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Razorback Rottweiler";
+			        sub1Tier = 3;
+				}
+				else if (subatomicSwapCards[1] == 15)
+				{
+					subCard1_1 = new ImageIcon("resources/images/grevious gorilla.jpg");
+			        sub1Attack = 3;
+			        sub1Health = 4;
+			        sub1CoinsDropped = 4;
+			        sub1Name = "Grievous Gorilla";
+			        sub1Tier = 4;
+				}
+				else if (subatomicSwapCards[1] == 16)
+				{
+					subCard1_1 = new ImageIcon("resources/images/pernicious porcupine.jpg");
+			        sub1Attack = 5;
+			        sub1Health = 2;
+			        sub1CoinsDropped = 5;
+			        sub1Name = "Pernicuous Porcupine";
+			        sub1Tier = 5;
+				}
+				else if (subatomicSwapCards[1] == 17)
+				{
+					subCard1_1 = new ImageIcon("resources/images/malevolent mongoose.jpg");
+			        sub1Attack = 6;
+			        sub1Health = 6;
+			        sub1CoinsDropped = 8;
+			        sub1Name = "Malevolent Mongoose";
+			        sub1Tier = 6;
+				}
+				else if (subatomicSwapCards[1] == 18)
+				{
+					subCard1_1 = new ImageIcon("resources/images/baleful bald eagle.jpg");
+			        sub1Attack = 5;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 4;
+			        sub1Name = "Baleful Bald Eagle";
+			        sub1Tier = 4;
+				}
+				else if (subatomicSwapCards[1] == 19)
+				{
+					subCard1_1 = new ImageIcon("resources/images/Mecha-monkey (1).jpg");
+			        sub1Attack = 2;
+			        sub1Health = 5;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Murderous Mecha-Monkey";
+			        sub1Tier = 3;
+				}
+				actionHistory.append("Subatomic Swap used on " + baCardsArray2[1].getName());				
+				actionHistory.append("\n");
+				totalAiHealth += sub1Health;
+				Image arenaCard_1 = subCard1_1.getImage();
+				Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+				ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+				aiArenaCard2 = new JButton(arenaCard_3);
+				aiArenaCard2.setBounds(634, 206, 94, 150);
+				frame.getContentPane().add(aiArenaCard2);
+				frame.repaint();
+				health2 = sub1Health;
+				attack2 = sub1Attack;
+				coinsDropped2 = sub1CoinsDropped;
+				name2 = sub1Name;
+				tier2 = sub1Tier;
+				baCardsArray2[1] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
+			else if (baCardsArray2[2].getHealth() == 1 && baCardsArray2[2].getTier() <= 2)
+			{
+				aiArenaCard3.setVisible(false);
+				if (subatomicSwapCards[1] == 0)
+				{
+					subCard1_1 = new ImageIcon("resources/images/razer rabbit.jpg");
+			        sub1Attack = 2;
+			        sub1Health = 1;
+			        sub1CoinsDropped = 1;
+			        sub1Name = "Razor Rabbit";
+			        sub1Tier = 1;
+				}
+				else if (subatomicSwapCards[1] == 1)
+				{
+					subCard1_1 = new ImageIcon("resources/images/squirrel.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 1;
+			        sub1Name = "Spike The Squirrel";
+			        sub1Tier = 2;
+				}
+				else if (subatomicSwapCards[1] == 2)
+				{
+					subCard1_1 = new ImageIcon("resources/images/toxicturtle.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 5;
+			        sub1CoinsDropped = 2;
+			        sub1Name = "Toxic Turtle";
+			        sub1Tier = 3;
+				}
+				else if (subatomicSwapCards[1] == 3)
+				{
+					subCard1_1 = new ImageIcon("resources/images/fangtail fox card.jpg");
+			        sub1Attack = 3;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Fangtail Fox";
+			        sub1Tier = 4;
+				}
+				else if (subatomicSwapCards[1] == 4)
+				{
+					subCard1_1 = new ImageIcon("resources/images/raging raccoon.jpg");
+			        sub1Attack = 4;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 4;
+			        sub1Name = "Raging Raccoon";
+			        sub1Tier = 5;
+				}
+				else if (subatomicSwapCards[1] == 5)
+				{
+					subCard1_1 = new ImageIcon("resources/images/killer koala.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 2;
+			        sub1Name = "Killer Koala";
+			        sub1Tier = 2;
+				}
+				else if (subatomicSwapCards[1] == 6)
+				{
+					subCard1_1 = new ImageIcon("resources/images/chainsaw chinchilla.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 1;
+			        sub1CoinsDropped = 1;
+			        sub1Name = "Chainsaw Chinchilla";
+			        sub1Tier = 1;
+				}
+				else if (subatomicSwapCards[1] == 7)
+				{
+					subCard1_1 = new ImageIcon("resources/images/slaughter seahorse.jpg");
+			        sub1Attack = 2;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 2;
+			        sub1Name = "Slaughter Seahorse";
+			        sub1Tier = 2;
+				}
+				else if (subatomicSwapCards[1] == 8)
+				{
+					subCard1_1 = new ImageIcon("resources/images/mauler meerkat.jpg");
+			        sub1Attack = 2;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Mauler Meerkat";
+			        sub1Tier = 3;
+				}
+				else if (subatomicSwapCards[1] == 9)
+				{
+					subCard1_1 = new ImageIcon("resources/images/venemous vulture.jpg");
+			        sub1Attack = 3;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Venomous Vulture";
+			        sub1Tier = 4;
+				}
+				else if (subatomicSwapCards[1] == 10)
+				{
+					subCard1_1 = new ImageIcon("resources/images/bloodthirsty badger.jpg");
+			        sub1Attack = 6;
+			        sub1Health = 2;
+			        sub1CoinsDropped = 5;
+			        sub1Name = "Bloodthirsty Badger";
+			        sub1Tier = 5;
+				}
+				else if (subatomicSwapCards[1] == 11)
+				{
+					subCard1_1 = new ImageIcon("resources/images/capybara of carnage.jpg");
+			        sub1Attack = 7;
+			        sub1Health = 5;
+			        sub1CoinsDropped = 8;
+			        sub1Name = "Capybara of Carnage";
+			        sub1Tier = 6;
+				}
+				else if (subatomicSwapCards[1] == 12)
+				{
+					subCard1_1 = new ImageIcon("resources/images/homicide hamster.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 1;
+			        sub1CoinsDropped = 1;
+			        sub1Name = "Homicide Hamster";
+			        sub1Tier = 1;
+				}
+				else if (subatomicSwapCards[1] == 13)
+				{
+					subCard1_1 = new ImageIcon("resources/images/deathbeak duckling.jpg");
+			        sub1Attack = 1;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 2;
+			        sub1Tier = 2;
+			        sub1Name = "Deathbeak Duckling";
+				}
+				else if (subatomicSwapCards[1] == 14)
+				{
+					subCard1_1 = new ImageIcon("resources/images/razerback rottweiler.jpg");
+			        sub1Attack = 2;
+			        sub1Health = 4;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Razorback Rottweiler";
+			        sub1Tier = 3;
+				}
+				else if (subatomicSwapCards[1] == 15)
+				{
+					subCard1_1 = new ImageIcon("resources/images/grevious gorilla.jpg");
+			        sub1Attack = 3;
+			        sub1Health = 4;
+			        sub1CoinsDropped = 4;
+			        sub1Name = "Grievous Gorilla";
+			        sub1Tier = 4;
+				}
+				else if (subatomicSwapCards[1] == 16)
+				{
+					subCard1_1 = new ImageIcon("resources/images/pernicious porcupine.jpg");
+			        sub1Attack = 5;
+			        sub1Health = 2;
+			        sub1CoinsDropped = 5;
+			        sub1Name = "Pernicuous Porcupine";
+			        sub1Tier = 5;
+				}
+				else if (subatomicSwapCards[1] == 17)
+				{
+					subCard1_1 = new ImageIcon("resources/images/malevolent mongoose.jpg");
+			        sub1Attack = 6;
+			        sub1Health = 6;
+			        sub1CoinsDropped = 8;
+			        sub1Name = "Malevolent Mongoose";
+			        sub1Tier = 6;
+				}
+				else if (subatomicSwapCards[1] == 18)
+				{
+					subCard1_1 = new ImageIcon("resources/images/baleful bald eagle.jpg");
+			        sub1Attack = 5;
+			        sub1Health = 3;
+			        sub1CoinsDropped = 4;
+			        sub1Name = "Baleful Bald Eagle";
+			        sub1Tier = 4;
+				}
+				else if (subatomicSwapCards[1] == 19)
+				{
+					subCard1_1 = new ImageIcon("resources/images/Mecha-monkey (1).jpg");
+			        sub1Attack = 2;
+			        sub1Health = 5;
+			        sub1CoinsDropped = 3;
+			        sub1Name = "Murderous Mecha-Monkey";
+			        sub1Tier = 3;
+				}
+				actionHistory.append("Subatomic Swap used on " + baCardsArray2[2].getName());				
+				actionHistory.append("\n");
+				totalAiHealth += sub1Health;
+				Image arenaCard_1 = subCard1_1.getImage();
+				Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+				ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+				aiArenaCard3 = new JButton(arenaCard_3);
+				aiArenaCard3.setBounds(740, 206, 94, 150);
+				frame.getContentPane().add(aiArenaCard3);
+				frame.repaint();
+				health2 = sub1Health;
+				attack2 = sub1Attack;
+				coinsDropped2 = sub1CoinsDropped;
+				name2 = sub1Name;
+				tier2 = sub1Tier;
+				baCardsArray2[2] = new aiCard (health2, attack2, coinsDropped2, name2, tier2);
+			}
 		}
 	}
 	
 	public static void firstAiDecision()
 	{
+		Timer delay1 = new Timer();
+		delay1.schedule(new TimerTask() {
+				public void run() {
+					String message = "It's the AI's turn!";
+	                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
+				}
+		}, 1000);
+		if (totalAiCards == 0 && numberOfAiBaCards == 0)
+		{
+			String message = "Congratulations. You won! The main menu screen will now open once you press OK...";
+	        JOptionPane.showMessageDialog(frame, message, "User Win", JOptionPane.INFORMATION_MESSAGE);
+	        frame.setVisible(false);
+			MainMenuScreen ms = new MainMenuScreen();
+			ms.showMainMenuScreen();
+		}
+		else if (totalUserCards == 0 && numberOfUserBaCards == 0)
+		{
+			String message = "Oh no. Unfortunately, you have lost! The main menu screen will now open once you press OK...";
+	        JOptionPane.showMessageDialog(frame, message, "AI Win", JOptionPane.INFORMATION_MESSAGE);
+	        frame.setVisible(false);
+			MainMenuScreen ms = new MainMenuScreen();
+			ms.showMainMenuScreen();
+		}
 		timerLabel.setVisible(false);
 		baCardsArray2[0].getAttack();
 		baCardsArray2[1].getAttack();
 		baCardsArray2[2].getAttack();
-		placeCards.setText("AI is choosing which card it wants to attack with...");
-		if ((baCardsArray2[0].getAttack() >= baCardsArray2[1].getAttack()) && (baCardsArray2[0].getAttack() >= baCardsArray2[2].getAttack()))
+		firstAiAbilityDecision();
+		if (purchaseSockPuppetry)
 		{
-			Timer delay3 = new Timer();
-			delay3.schedule(new TimerTask() {
+			placeCards.setText("AI is purchasing an ability card...");
+			abilityCard2_1 = new ImageIcon("resources/images/sock puppetry.jpg");
+			showAiAbilityCard();
+			Timer delay = new Timer();
+			delay.schedule(new TimerTask() {
 					public void run() {
-						aiArenaCard1.setEnabled(false);
+						useSockPuppetry();
 					}
-			}, 2000);
-			ba4Used = true;
-			System.out.println("AC 1 chosen");
+			}, 4000);
+			purchaseSockPuppetry = false;
 		}
-		else if ((baCardsArray2[1].getAttack() >= baCardsArray2[0].getAttack()) && (baCardsArray2[1].getAttack() >= baCardsArray2[2].getAttack()))
+		else if (purchaseInvertedReflection)
 		{
-			Timer delay3 = new Timer();
-			delay3.schedule(new TimerTask() {
+			placeCards.setText("AI is purchasing an ability card...");
+			abilityCard2_1 = new ImageIcon("resources/images/inverted reflection.jpg");
+			showAiAbilityCard();
+			Timer delay = new Timer();
+			delay.schedule(new TimerTask() {
 					public void run() {
-						aiArenaCard2.setEnabled(false);
+						useInvertedReflection();
 					}
-			}, 2000);
-			ba5Used = true;
-			System.out.println("AC 2 chosen");
+			}, 4000);
+			purchaseInvertedReflection = false;
 		}
-		else if ((baCardsArray2[2].getAttack() >= baCardsArray2[0].getAttack()) && (baCardsArray2[2].getAttack() >= baCardsArray2[1].getAttack()))
+		else if (purchaseHolographicHideaway)
 		{
-			Timer delay3 = new Timer();
-			delay3.schedule(new TimerTask() {
+			placeCards.setText("AI is purchasing an ability card...");
+			abilityCard2_1 = new ImageIcon("resources/images/holographic hideaway.jpg");
+			showAiAbilityCard();
+			Timer delay = new Timer();
+			delay.schedule(new TimerTask() {
 					public void run() {
-						aiArenaCard3.setEnabled(false);
+						useHolographicHideaway();
 					}
-			}, 2000);
-			ba6Used = true;
-			System.out.println("AC 3 chosen");
+			}, 4000);
+			purchaseHolographicHideaway = false;
+		}
+		else if (purchaseMaliciousMend)
+		{
+			placeCards.setText("AI is purchasing an ability card...");
+			abilityCard2_1 = new ImageIcon("resources/images/malicious mend.jpg");
+			Timer delay = new Timer();
+			delay.schedule(new TimerTask() {
+					public void run() {
+						useMaliciousMend();
+					}
+			}, 4000);
+			purchaseMaliciousMend = false;
+		}
+		else if (purchaseReprehensiveRejuvenation)
+		{
+			placeCards.setText("AI is purchasing an ability card...");
+			abilityCard2_1 = new ImageIcon("resources/images/reprehensive rejuvenation.jpg");
+			Timer delay = new Timer();
+			delay.schedule(new TimerTask() {
+					public void run() {
+						useReprehensiveRejuvenation();
+					}
+			}, 4000);
+			purchaseReprehensiveRejuvenation = false;
+		}
+		else if (purchaseSinisterSerenity)
+		{
+			placeCards.setText("AI is purchasing an ability card...");
+			abilityCard2_1 = new ImageIcon("resources/images/sinister serenity.jpg");
+			Timer delay = new Timer();
+			delay.schedule(new TimerTask() {
+					public void run() {
+						useSinisterSerenity();
+					}
+			}, 4000);
+			purchaseSinisterSerenity = false;
+		}
+		else if (purchaseNefariousNibbles)
+		{
+			placeCards.setText("AI is purchasing an ability card...");
+			abilityCard2_1 = new ImageIcon("resources/images/nefarious nibbles.jpg");
+			Timer delay = new Timer();
+			delay.schedule(new TimerTask() {
+					public void run() {
+						useNefariousNibbles();
+					}
+			}, 4000);
+			purchaseNefariousNibbles = false;
+		}
+		else if (purchaseSneakySmooch)
+		{
+			placeCards.setText("AI is purchasing an ability card...");
+			abilityCard2_1 = new ImageIcon("resources/images/sneaky smooch.jpg");
+			Timer delay = new Timer();
+			delay.schedule(new TimerTask() {
+					public void run() {
+						useSneakySmooch();
+					}
+			}, 4000);
+			purchaseSneakySmooch = false;
+		}
+		else if (purchaseQuantumQuake)
+		{
+			placeCards.setText("AI is purchasing an ability card...");
+			abilityCard2_1 = new ImageIcon("resources/images/quantum quake.jpg");
+			Timer delay = new Timer();
+			delay.schedule(new TimerTask() {
+					public void run() {
+						useQuantumQuake();
+					}
+			}, 4000);
+			purchaseQuantumQuake = false;
+		}
+		else if (purchaseSubatomicSwap)
+		{
+			placeCards.setText("AI is purchasing an ability card...");
+			abilityCard2_1 = new ImageIcon("resources/images/subatomic swap.jpg");
+			Timer delay = new Timer();
+			delay.schedule(new TimerTask() {
+					public void run() {
+						useSubatomicSwap();
+					}
+			}, 4000);
+			purchaseSubatomicSwap = false;
+		}
+		else 
+		{
+			placeCards.setText("AI is choosing which card it wants to attack with...");
+			if ((baCardsArray2[0].getAttack() >= baCardsArray2[1].getAttack()) && (baCardsArray2[0].getAttack() >= baCardsArray2[2].getAttack()))
+			{
+				Timer delay3 = new Timer();
+				delay3.schedule(new TimerTask() {
+						public void run() {
+							aiArenaCard1.setEnabled(false);
+						}
+				}, 2000);
+				ba4Used = true;
+				System.out.println("AC 1 chosen");
+			}
+			else if ((baCardsArray2[1].getAttack() >= baCardsArray2[0].getAttack()) && (baCardsArray2[1].getAttack() >= baCardsArray2[2].getAttack()))
+			{
+				Timer delay3 = new Timer();
+				delay3.schedule(new TimerTask() {
+						public void run() {
+							aiArenaCard2.setEnabled(false);
+						}
+				}, 2000);
+				ba5Used = true;
+				System.out.println("AC 2 chosen");
+			}
+			else if ((baCardsArray2[2].getAttack() >= baCardsArray2[0].getAttack()) && (baCardsArray2[2].getAttack() >= baCardsArray2[1].getAttack()))
+			{
+				Timer delay3 = new Timer();
+				delay3.schedule(new TimerTask() {
+						public void run() {
+							aiArenaCard3.setEnabled(false);
+						}
+				}, 2000);
+				ba6Used = true;
+				System.out.println("AC 3 chosen");
+			}
 		}
 		placeCards.setVisible(false);
 		secondAiDecision();
@@ -4421,12 +6947,13 @@ public class GameplayScreen{
 		if (ba4Used)
 		{
 			System.out.println("POOL");
-			if (finalResult1 <= 5 && finalResult2 > 5 && finalResult3 > 5)
+			if (finalResult1 == finalResult2 && finalResult1 == finalResult3)
 			{
+				System.out.println("1");				
 				damage1 = baCardsArray2[0].getAttack();
 				health1 = baCardsArray[0].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[0].setHealth(health1);
 				System.out.println(baCardsArray[0].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -4451,16 +6978,53 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
 					actionHistory.append("\n");
+					ai1AttackedBa1 = true;
+				}
+				numberOfTurns++;
+			}
+			else if (finalResult1 <= 5 && finalResult2 > 5 && finalResult3 > 5)
+			{
+				System.out.println("2");	
+				damage1 = baCardsArray2[0].getAttack();
+				health1 = baCardsArray[0].getHealth();
+				System.out.println(health1);
+				health1 = health1 - damage1;
+				baCardsArray[0].setHealth(health1);
+				System.out.println(baCardsArray[0].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[0].getName());
+					actionHistory.append("\n");
+					numberOfUserBaCards--;
+					userBa1Taken = false;
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard1.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[0].getCoinsDropped();
+					aiCoinsLabel.setText("" + totalAiCoins);
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
+					actionHistory.append("\n");
+					ai1AttackedBa1 = true;
 				}
 				numberOfTurns++;
 			}
 			
 			else if (finalResult1 > 5 && finalResult2 <= 5 && finalResult3 > 5)
 			{
+				System.out.println("3");	
 				damage1 = baCardsArray2[0].getAttack();
 				health1 = baCardsArray[1].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[1].setHealth(health1);
 				System.out.println(baCardsArray[1].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -4485,16 +7049,18 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[1].getName());
 					actionHistory.append("\n");
+					ai1AttackedBa2 = true;
 				}
 				numberOfTurns++;
 			}
 			
 			else if (finalResult1 > 5 && finalResult2 > 5 && finalResult3 <= 5)
 			{
+				System.out.println("4");	
 				damage1 = baCardsArray2[0].getAttack();
 				health1 = baCardsArray[2].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[2].setHealth(health1);
 				System.out.println(baCardsArray[2].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -4519,16 +7085,18 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[2].getName());
 					actionHistory.append("\n");
+					ai1AttackedBa3 = true;
 				}
 				numberOfTurns++;
 			}
 			
 			else if (finalResult1 >= 15 && finalResult2 < 15 && finalResult3 < 15)
 			{
+				System.out.println("5");	
 				damage1 = baCardsArray2[0].getAttack();
 				health1 = baCardsArray[0].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[0].setHealth(health1);
 				System.out.println(baCardsArray[0].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -4553,16 +7121,18 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
 					actionHistory.append("\n");
+					ai1AttackedBa1 = true;
 				}
 				numberOfTurns++;
 			}
 			
 			else if (finalResult1 < 15 && finalResult2 >= 15 && finalResult3 < 15)
 			{
+				System.out.println("6");	
 				damage1 = baCardsArray2[0].getAttack();
 				health1 = baCardsArray[1].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[1].setHealth(health1);
 				System.out.println(baCardsArray[1].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -4587,16 +7157,18 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[1].getName());
 					actionHistory.append("\n");
+					ai1AttackedBa2 = true;
 				}
 				numberOfTurns++;
 			}
 			
 			else if (finalResult1 < 15 && finalResult2 < 15 && finalResult3 >= 15)
 			{
+				System.out.println("7");	
 				damage1 = baCardsArray2[0].getAttack();
 				health1 = baCardsArray[2].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[2].setHealth(health1);
 				System.out.println(baCardsArray[2].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -4621,19 +7193,21 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[2].getName());
 					actionHistory.append("\n");
+					ai1AttackedBa3 = true;
 				}
 				numberOfTurns++;
 			}
 			
 			else if (finalResult1 <= 5 && finalResult2 <= 5 && finalResult3 <= 5)
 			{
+				System.out.println("8");	
 				int randomSelection = (int)(Math.random() * 2);
 				if (randomSelection == 0)
 				{
 					damage1 = baCardsArray2[0].getAttack();
 					health1 = baCardsArray[0].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
+					health1 = health1 - damage1;
 					baCardsArray[0].setHealth(health1);
 					System.out.println(baCardsArray[0].getHealth());
 					placeCards.setText("AI is choosing one of your cards to attack...");
@@ -4658,6 +7232,7 @@ public class GameplayScreen{
 						System.out.println("Card lost " + damage1 + " health");
 						actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
 						actionHistory.append("\n");
+						ai1AttackedBa1 = true;
 					}
 					numberOfTurns++;
 				}
@@ -4667,7 +7242,7 @@ public class GameplayScreen{
 					damage1 = baCardsArray2[0].getAttack();
 					health1 = baCardsArray[1].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
+					health1 = health1 - damage1;
 					baCardsArray[1].setHealth(health1);
 					System.out.println(baCardsArray[1].getHealth());
 					placeCards.setText("AI is choosing one of your cards to attack...");
@@ -4692,6 +7267,7 @@ public class GameplayScreen{
 						System.out.println("Card lost " + damage1 + " health");
 						actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[1].getName());
 						actionHistory.append("\n");
+						ai1AttackedBa2 = true;
 					}
 					numberOfTurns++;
 				}
@@ -4701,7 +7277,7 @@ public class GameplayScreen{
 					damage1 = baCardsArray2[0].getAttack();
 					health1 = baCardsArray[2].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
+					health1 = health1 - damage1;
 					baCardsArray[2].setHealth(health1);
 					System.out.println(baCardsArray[2].getHealth());
 					placeCards.setText("AI is choosing one of your cards to attack...");
@@ -4726,163 +7302,172 @@ public class GameplayScreen{
 						System.out.println("Card lost " + damage1 + " health");
 						actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[2].getName());
 						actionHistory.append("\n");
+						ai1AttackedBa3 = true;
+					}
+					numberOfTurns++;
+				}
+			}
+				
+			else if (finalResult1 <= 5 && finalResult2 <= 5 && finalResult3 > 5)
+			{
+				System.out.println("9");	
+				int randomSelection2 = (int)(Math.random() * 1);
+				if (randomSelection2 == 0)
+				{
+					damage1 = baCardsArray2[0].getAttack();
+					health1 = baCardsArray[0].getHealth();
+					System.out.println(health1);
+					health1 = health1 - damage1;
+					baCardsArray[0].setHealth(health1);
+					System.out.println(baCardsArray[0].getHealth());
+					placeCards.setText("AI is choosing one of your cards to attack...");
+					if (health1 <= 0)
+					{
+						System.out.println("Card died");
+						actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[0].getName());
+						actionHistory.append("\n");
+						numberOfUserBaCards--;
+						userBa1Taken = false;
+						Timer delay2 = new Timer();
+						delay2.schedule(new TimerTask() {
+								public void run() {
+									userArenaCard1.setVisible(false);
+								}
+						}, 2000);	
+						totalAiCoins += baCardsArray[0].getCoinsDropped();
+						aiCoinsLabel.setText("" + totalAiCoins);
+					}
+					else 
+					{
+						System.out.println("Card lost " + damage1 + " health");
+						actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
+						actionHistory.append("\n");
+						ai1AttackedBa1 = true;
 					}
 					numberOfTurns++;
 				}
 				
-				else if (finalResult1 <= 5 && finalResult2 <= 5 && finalResult3 > 5)
+				else if (randomSelection2 == 1)
 				{
-					int randomSelection2 = (int)(Math.random() * 1);
-					if (randomSelection2 == 0)
+					damage1 = baCardsArray2[0].getAttack();
+					health1 = baCardsArray[1].getHealth();
+					System.out.println(health1);
+					health1 = health1 - damage1;
+					baCardsArray[1].setHealth(health1);
+					System.out.println(baCardsArray[1].getHealth());
+					placeCards.setText("AI is choosing one of your cards to attack...");
+					if (health1 <= 0)
 					{
-						damage1 = baCardsArray2[0].getAttack();
-						health1 = baCardsArray[0].getHealth();
-						System.out.println(health1);
-						health1 -= damage1;
-						baCardsArray[0].setHealth(health1);
-						System.out.println(baCardsArray[0].getHealth());
-						placeCards.setText("AI is choosing one of your cards to attack...");
-						if (health1 <= 0)
-						{
-							System.out.println("Card died");
-							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[0].getName());
-							actionHistory.append("\n");
-							numberOfUserBaCards--;
-							userBa1Taken = false;
-							Timer delay2 = new Timer();
-							delay2.schedule(new TimerTask() {
-									public void run() {
-										userArenaCard1.setVisible(false);
-									}
-							}, 2000);	
-							totalAiCoins += baCardsArray[0].getCoinsDropped();
-							aiCoinsLabel.setText("" + totalAiCoins);
-						}
-						else 
-						{
-							System.out.println("Card lost " + damage1 + " health");
-							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
-							actionHistory.append("\n");
-						}
-						numberOfTurns++;
+						System.out.println("Card died");
+						actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[0].getName());
+						actionHistory.append("\n");
+						numberOfUserBaCards--;
+						userBa2Taken = false;
+						Timer delay2 = new Timer();
+						delay2.schedule(new TimerTask() {
+								public void run() {
+									userArenaCard2.setVisible(false);
+								}
+						}, 2000);	
+						totalAiCoins += baCardsArray[1].getCoinsDropped();
+						aiCoinsLabel.setText("" + totalAiCoins);
 					}
-					
-					else if (randomSelection2 == 1)
+					else 
 					{
-						damage1 = baCardsArray2[0].getAttack();
-						health1 = baCardsArray[1].getHealth();
-						System.out.println(health1);
-						health1 -= damage1;
-						baCardsArray[1].setHealth(health1);
-						System.out.println(baCardsArray[1].getHealth());
-						placeCards.setText("AI is choosing one of your cards to attack...");
-						if (health1 <= 0)
-						{
-							System.out.println("Card died");
-							actionHistory.append(baCardsArray[1].getName() + " was killed by " + baCardsArray2[0].getName());
-							actionHistory.append("\n");
-							numberOfUserBaCards--;
-							userBa2Taken = false;
-							Timer delay2 = new Timer();
-							delay2.schedule(new TimerTask() {
-									public void run() {
-										userArenaCard2.setVisible(false);
-									}
-							}, 2000);	
-							totalAiCoins += baCardsArray[1].getCoinsDropped();
-							aiCoinsLabel.setText("" + totalAiCoins);
-						}
-						else 
-						{
-							System.out.println("Card lost " + damage1 + " health");
-							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[1].getName());
-							actionHistory.append("\n");
-						}
-						numberOfTurns++;
+						System.out.println("Card lost " + damage1 + " health");
+						actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[1].getName());
+						actionHistory.append("\n");
+						ai1AttackedBa2 = true;
 					}
+					numberOfTurns++;
+				}
+			}
+				
+			else if (finalResult1 <= 5 && finalResult2 > 5 && finalResult3 <= 5)
+			{
+				System.out.println("10");	
+				int randomSelection2 = (int)(Math.random() * 1);
+				if (randomSelection2 == 0)
+				{
+					damage1 = baCardsArray2[0].getAttack();
+					health1 = baCardsArray[0].getHealth();
+					System.out.println(health1);
+					health1 = health1 - damage1;
+					baCardsArray[0].setHealth(health1);
+					System.out.println(baCardsArray[0].getHealth());
+					placeCards.setText("AI is choosing one of your cards to attack...");
+					if (health1 <= 0)
+					{
+						System.out.println("Card died");
+						actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[0].getName());
+						actionHistory.append("\n");
+						numberOfUserBaCards--;
+						userBa1Taken = false;
+						Timer delay2 = new Timer();
+						delay2.schedule(new TimerTask() {
+								public void run() {
+									userArenaCard1.setVisible(false);
+								}
+						}, 2000);	
+						totalAiCoins += baCardsArray[0].getCoinsDropped();
+						aiCoinsLabel.setText("" + totalAiCoins);
+					}
+					else 
+					{
+						System.out.println("Card lost " + damage1 + " health");
+						actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
+						actionHistory.append("\n");
+						ai1AttackedBa1 = true;
+					}
+					numberOfTurns++;
 				}
 				
-				else if (finalResult1 <= 5 && finalResult2 > 5 && finalResult3 <= 5)
+				else if (randomSelection2 == 1)
 				{
-					int randomSelection2 = (int)(Math.random() * 1);
-					if (randomSelection2 == 0)
+					damage1 = baCardsArray2[0].getAttack();
+					health1 = baCardsArray[2].getHealth();
+					System.out.println(health1);
+					health1 = health1 - damage1;
+					baCardsArray[2].setHealth(health1);
+					System.out.println(baCardsArray[2].getHealth());
+					placeCards.setText("AI is choosing one of your cards to attack...");
+					if (health1 <= 0)
 					{
-						damage1 = baCardsArray2[0].getAttack();
-						health1 = baCardsArray[0].getHealth();
-						System.out.println(health1);
-						health1 -= damage1;
-						baCardsArray[0].setHealth(health1);
-						System.out.println(baCardsArray[0].getHealth());
-						placeCards.setText("AI is choosing one of your cards to attack...");
-						if (health1 <= 0)
-						{
-							System.out.println("Card died");
-							actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[0].getName());
-							actionHistory.append("\n");
-							numberOfUserBaCards--;
-							userBa1Taken = false;
-							Timer delay2 = new Timer();
-							delay2.schedule(new TimerTask() {
-									public void run() {
-										userArenaCard1.setVisible(false);
-									}
-							}, 2000);	
-							totalAiCoins += baCardsArray[0].getCoinsDropped();
-							aiCoinsLabel.setText("" + totalAiCoins);
-						}
-						else 
-						{
-							System.out.println("Card lost " + damage1 + " health");
-							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
-							actionHistory.append("\n");
-						}
-						numberOfTurns++;
+						System.out.println("Card died");
+						actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[0].getName());
+						actionHistory.append("\n");
+						numberOfUserBaCards--;
+						userBa3Taken = false;
+						Timer delay2 = new Timer();
+						delay2.schedule(new TimerTask() {
+								public void run() {
+									userArenaCard3.setVisible(false);
+								}
+						}, 2000);	
+						totalAiCoins += baCardsArray[2].getCoinsDropped();
+						aiCoinsLabel.setText("" + totalAiCoins);
 					}
-					
-					else if (randomSelection2 == 1)
+					else 
 					{
-						damage1 = baCardsArray2[0].getAttack();
-						health1 = baCardsArray[2].getHealth();
-						System.out.println(health1);
-						health1 -= damage1;
-						baCardsArray[2].setHealth(health1);
-						System.out.println(baCardsArray[2].getHealth());
-						placeCards.setText("AI is choosing one of your cards to attack...");
-						if (health1 <= 0)
-						{
-							System.out.println("Card died");
-							actionHistory.append(baCardsArray[2].getName() + " was killed by " + baCardsArray2[0].getName());
-							actionHistory.append("\n");
-							numberOfUserBaCards--;
-							userBa3Taken = false;
-							Timer delay2 = new Timer();
-							delay2.schedule(new TimerTask() {
-									public void run() {
-										userArenaCard3.setVisible(false);
-									}
-							}, 2000);	
-							totalAiCoins += baCardsArray[2].getCoinsDropped();
-							aiCoinsLabel.setText("" + totalAiCoins);
-						}
-						else 
-						{
-							System.out.println("Card lost " + damage1 + " health");
-							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[2].getName());
-							actionHistory.append("\n");
-						}
-						numberOfTurns++;
+						System.out.println("Card lost " + damage1 + " health");
+						actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[2].getName());
+						actionHistory.append("\n");
+						ai1AttackedBa3 = true;
 					}
+					numberOfTurns++;
 				}
+			}
 				
 				else if (finalResult1 > 5 && finalResult2 <= 5 && finalResult3 <= 5)
 				{
+					System.out.println("11");	
 					int randomSelection2 = (int)(Math.random() * 1);
 					if (randomSelection2 == 0)
 					{
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -4907,6 +7492,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -4916,7 +7502,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -4941,6 +7527,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -4948,13 +7535,14 @@ public class GameplayScreen{
 				
 				else if (finalResult1 >= 15 && finalResult2 >= 15 && finalResult3 >= 15)
 				{
+					System.out.println("12");	
 					int randomSelection3 = (int)(Math.random() * 2);
 					if (randomSelection3 == 0)
 					{
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -4979,6 +7567,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -4988,7 +7577,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5013,6 +7602,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5022,7 +7612,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5047,6 +7637,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5054,13 +7645,14 @@ public class GameplayScreen{
 				
 				else if (finalResult1 >= 15 && finalResult2 >= 15 && finalResult3 < 15)
 				{
+					System.out.println("13");	
 					int randomSelection3 = (int)(Math.random() * 1);
 					if (randomSelection3 == 0)
 					{
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5085,6 +7677,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5094,7 +7687,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5119,6 +7712,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5126,13 +7720,14 @@ public class GameplayScreen{
 				
 				else if (finalResult1 >= 15 && finalResult2 < 15 && finalResult3 >= 15)
 				{
+					System.out.println("14");	
 					int randomSelection3 = (int)(Math.random() * 1);
 					if (randomSelection3 == 0)
 					{
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5157,6 +7752,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5166,7 +7762,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5191,6 +7787,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5198,13 +7795,14 @@ public class GameplayScreen{
 				
 				else if (finalResult1 < 15 && finalResult2 >= 15 && finalResult3 >= 15)
 				{
+					System.out.println("15");	
 					int randomSelection3 = (int)(Math.random() * 1);
 					if (randomSelection3 == 0)
 					{
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5229,6 +7827,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5238,7 +7837,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5263,6 +7862,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5270,12 +7870,13 @@ public class GameplayScreen{
 				
 				else if ((finalResult1 > 5 && finalResult1 < 15) && (finalResult2 > 5 && finalResult2 < 15) && (finalResult3 > 5 && finalResult3 < 15))
 				{
+					System.out.println("16");	
 					if ((10 - finalResult1) <= (10 - finalResult2) || (finalResult1 - 10) <= (finalResult2 - 10) && (10 - finalResult1) <= (10 - finalResult3) || (finalResult1 - 10) <= (finalResult3 - 10))
 					{
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5300,16 +7901,18 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
 					
 					else if ((10 - finalResult2) <= (10 - finalResult1) || (finalResult2 - 10) <= (finalResult1 - 10) && (10 - finalResult2) <= (10 - finalResult3) || (finalResult2 - 10) <= (finalResult3 - 10))
 					{
+						System.out.println("17");	
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5334,16 +7937,18 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
 					
 					else if ((10 - finalResult3) <= (10 - finalResult1) || (finalResult3 - 10) <= (finalResult1 - 10) && (10 - finalResult3) <= (10 - finalResult2) || (finalResult3 - 10) <= (finalResult2 - 10))
 					{
+						System.out.println("18");	
 						damage1 = baCardsArray2[0].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5368,22 +7973,90 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai1AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
 				}
-			}
+				else 
+				{
+					damage1 = baCardsArray2[0].getAttack();
+					health1 = baCardsArray[0].getHealth();
+					System.out.println(health1);
+					health1 = health1 - damage1;
+					baCardsArray[0].setHealth(health1);
+					System.out.println(baCardsArray[0].getHealth());
+					placeCards.setText("AI is choosing one of your cards to attack...");
+					if (health1 <= 0)
+					{
+						System.out.println("Card died");
+						actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[0].getName());
+						actionHistory.append("\n");
+						numberOfUserBaCards--;
+						userBa1Taken = false;
+						Timer delay2 = new Timer();
+						delay2.schedule(new TimerTask() {
+								public void run() {
+									userArenaCard1.setVisible(false);
+								}
+						}, 2000);	
+						totalAiCoins += baCardsArray[0].getCoinsDropped();
+						aiCoinsLabel.setText("" + totalAiCoins);
+					}
+					else 
+					{
+						System.out.println("Card lost " + damage1 + " health");
+						actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[0].getAttack() + " damage to " + baCardsArray[0].getName());
+						actionHistory.append("\n");
+						ai1AttackedBa1 = true;
+					}
+					numberOfTurns++;
+				}
 		}
 		
 		else if (ba5Used)
 		{
 			System.out.println("POOL2");
-			if (finalResult1 <= 5 && finalResult2 > 5 && finalResult3 > 5)
+			if (finalResult2 == finalResult1 && finalResult2 == finalResult3)
 			{
 				damage1 = baCardsArray2[1].getAttack();
 				health1 = baCardsArray[0].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
+				baCardsArray[0].setHealth(health1);
+				System.out.println(baCardsArray[0].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[1].getName());
+					actionHistory.append("\n");
+					numberOfUserBaCards--;
+					userBa1Taken = false;
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard1.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[1].getCoinsDropped();
+					aiCoinsLabel.setText("" + totalAiCoins);
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[0].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
+					actionHistory.append("\n");
+					ai2AttackedBa1 = true;
+				}
+				numberOfTurns++;
+			}
+			else if (finalResult1 <= 5 && finalResult2 > 5 && finalResult3 > 5)
+			{
+				damage1 = baCardsArray2[1].getAttack();
+				health1 = baCardsArray[0].getHealth();
+				System.out.println(health1);
+				health1 = health1 - damage1;
 				baCardsArray[0].setHealth(health1);
 				System.out.println(baCardsArray[0].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5408,6 +8081,7 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
 					actionHistory.append("\n");
+					ai2AttackedBa1 = true;
 				}
 				numberOfTurns++;
 			}
@@ -5417,7 +8091,7 @@ public class GameplayScreen{
 				damage1 = baCardsArray2[1].getAttack();
 				health1 = baCardsArray[1].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[1].setHealth(health1);
 				System.out.println(baCardsArray[1].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5442,6 +8116,7 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
 					actionHistory.append("\n");
+					ai2AttackedBa2 = true;
 				}
 				numberOfTurns++;
 			}
@@ -5451,7 +8126,7 @@ public class GameplayScreen{
 				damage1 = baCardsArray2[1].getAttack();
 				health1 = baCardsArray[2].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[2].setHealth(health1);
 				System.out.println(baCardsArray[2].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5476,6 +8151,7 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
 					actionHistory.append("\n");
+					ai2AttackedBa3 = true;
 				}
 				numberOfTurns++;
 			}
@@ -5485,7 +8161,7 @@ public class GameplayScreen{
 				damage1 = baCardsArray2[1].getAttack();
 				health1 = baCardsArray[0].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[0].setHealth(health1);
 				System.out.println(baCardsArray[0].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5510,6 +8186,7 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
 					actionHistory.append("\n");
+					ai2AttackedBa1 = true;
 				}
 				numberOfTurns++;
 			}
@@ -5519,7 +8196,7 @@ public class GameplayScreen{
 				damage1 = baCardsArray2[1].getAttack();
 				health1 = baCardsArray[1].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[1].setHealth(health1);
 				System.out.println(baCardsArray[1].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5544,6 +8221,7 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
 					actionHistory.append("\n");
+					ai2AttackedBa2 = true;
 				}
 				numberOfTurns++;
 			}
@@ -5553,7 +8231,7 @@ public class GameplayScreen{
 				damage1 = baCardsArray2[1].getAttack();
 				health1 = baCardsArray[2].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[2].setHealth(health1);
 				System.out.println(baCardsArray[2].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5578,6 +8256,7 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
 					actionHistory.append("\n");
+					ai2AttackedBa3 = true;
 				}
 				numberOfTurns++;
 			}
@@ -5590,7 +8269,7 @@ public class GameplayScreen{
 					damage1 = baCardsArray2[1].getAttack();
 					health1 = baCardsArray[0].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
+					health1 = health1 - damage1;
 					baCardsArray[0].setHealth(health1);
 					System.out.println(baCardsArray[0].getHealth());
 					placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5615,6 +8294,7 @@ public class GameplayScreen{
 						System.out.println("Card lost " + damage1 + " health");
 						actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
 						actionHistory.append("\n");
+						ai2AttackedBa1 = true;
 					}
 					numberOfTurns++;
 				}
@@ -5624,7 +8304,7 @@ public class GameplayScreen{
 					damage1 = baCardsArray2[1].getAttack();
 					health1 = baCardsArray[1].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
+					health1 = health1 - damage1;
 					baCardsArray[1].setHealth(health1);
 					System.out.println(baCardsArray[1].getHealth());
 					placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5649,6 +8329,7 @@ public class GameplayScreen{
 						System.out.println("Card lost " + damage1 + " health");
 						actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
 						actionHistory.append("\n");
+						ai2AttackedBa2 = true;
 					}
 					numberOfTurns++;
 				}
@@ -5658,7 +8339,7 @@ public class GameplayScreen{
 					damage1 = baCardsArray2[1].getAttack();
 					health1 = baCardsArray[2].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
+					health1 = health1 - damage1;
 					baCardsArray[2].setHealth(health1);
 					System.out.println(baCardsArray[2].getHealth());
 					placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5683,9 +8364,11 @@ public class GameplayScreen{
 						System.out.println("Card lost " + damage1 + " health");
 						actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
 						actionHistory.append("\n");
+						ai2AttackedBa3 = true;
 					}
 					numberOfTurns++;
 				}
+			}
 				
 				else if (finalResult1 <= 5 && finalResult2 <= 5 && finalResult3 > 5)
 				{
@@ -5695,7 +8378,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5720,6 +8403,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5729,7 +8413,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5754,6 +8438,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5767,7 +8452,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5792,6 +8477,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5801,7 +8487,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5826,6 +8512,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5839,7 +8526,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5864,6 +8551,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5873,7 +8561,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5898,6 +8586,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5911,7 +8600,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5936,6 +8625,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5945,7 +8635,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -5970,6 +8660,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -5979,7 +8670,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6004,6 +8695,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6017,7 +8709,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6042,6 +8734,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6051,7 +8744,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6076,6 +8769,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6089,7 +8783,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6114,6 +8808,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6123,7 +8818,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6148,6 +8843,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6161,7 +8857,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6186,6 +8882,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6195,7 +8892,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6220,6 +8917,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6229,10 +8927,11 @@ public class GameplayScreen{
 				{
 					if ((10 - finalResult1) <= (10 - finalResult2) || (finalResult1 - 10) <= (finalResult2 - 10)  && (10 - finalResult1) <= (10 - finalResult3) || (finalResult1 - 10) <= (finalResult3 - 10))
 					{
+						System.out.println("103!");
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6257,16 +8956,18 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
 					
 					else if ((10 - finalResult2) <= (10 - finalResult1) || (finalResult2 - 10) <= (finalResult1 - 10) && (10 - finalResult2) <= (10 - finalResult3) || (finalResult2 - 10) <= (finalResult3 - 10))
 					{
+						System.out.println("104!");
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6291,16 +8992,18 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
 					
 					else if ((10 - finalResult3) <= (10 - finalResult1) || (finalResult3 - 10) <= (finalResult1 - 10) && (10 - finalResult3) <= (10 - finalResult2) || (finalResult3 - 10) <= (finalResult2 - 10))
 					{
+						System.out.println("105!");
 						damage1 = baCardsArray2[1].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6325,22 +9028,57 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai2AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
 				}
-			}
+				else 
+				{
+					System.out.println("107!");
+					damage1 = baCardsArray2[1].getAttack();
+					health1 = baCardsArray[0].getHealth();
+					System.out.println(health1);
+					health1 = health1 - damage1;
+					baCardsArray[0].setHealth(health1);
+					System.out.println(baCardsArray[0].getHealth());
+					placeCards.setText("AI is choosing one of your cards to attack...");
+					if (health1 <= 0)
+					{
+						System.out.println("Card died");
+						actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[1].getName());
+						actionHistory.append("\n");
+						numberOfUserBaCards--;
+						userBa1Taken = false;
+						Timer delay2 = new Timer();
+						delay2.schedule(new TimerTask() {
+								public void run() {
+									userArenaCard1.setVisible(false);
+								}
+						}, 2000);	
+						totalAiCoins += baCardsArray[0].getCoinsDropped();
+						aiCoinsLabel.setText("" + totalAiCoins);
+					}
+					else 
+					{
+						System.out.println("Card lost " + damage1 + " health");
+						actionHistory.append(baCardsArray2[1].getName() + " did " + baCardsArray2[1].getAttack() + " damage to " + baCardsArray[0].getName());
+						actionHistory.append("\n");
+						ai2AttackedBa1 = true;
+					}
+					numberOfTurns++;
+				}
 		}
 		
 		else if (ba6Used)
 		{
 			System.out.println("POOL3");
-			if (finalResult1 <= 5 && finalResult2 > 5 && finalResult3 > 5)
+			if (finalResult3 == finalResult1 && finalResult3 == finalResult2)
 			{
 				damage1 = baCardsArray2[2].getAttack();
 				health1 = baCardsArray[0].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[0].setHealth(health1);
 				System.out.println(baCardsArray[0].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6365,6 +9103,41 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
 					actionHistory.append("\n");
+					ai3AttackedBa1 = true;
+				}
+				numberOfTurns++;
+			}
+			else if (finalResult1 <= 5 && finalResult2 > 5 && finalResult3 > 5)
+			{
+				damage1 = baCardsArray2[2].getAttack();
+				health1 = baCardsArray[0].getHealth();
+				System.out.println(health1);
+				health1 = health1 - damage1;
+				baCardsArray[0].setHealth(health1);
+				System.out.println(baCardsArray[0].getHealth());
+				placeCards.setText("AI is choosing one of your cards to attack...");
+				if (health1 <= 0)
+				{
+					System.out.println("Card died");
+					actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[2].getName());
+					actionHistory.append("\n");
+					numberOfUserBaCards--;
+					userBa1Taken = false;
+					Timer delay2 = new Timer();
+					delay2.schedule(new TimerTask() {
+							public void run() {
+								userArenaCard1.setVisible(false);
+							}
+					}, 2000);	
+					totalAiCoins += baCardsArray[0].getCoinsDropped();
+					aiCoinsLabel.setText("" + totalAiCoins);
+				}
+				else 
+				{
+					System.out.println("Card lost " + damage1 + " health");
+					actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
+					actionHistory.append("\n");
+					ai3AttackedBa1 = true;
 				}
 				numberOfTurns++;
 			}
@@ -6374,7 +9147,7 @@ public class GameplayScreen{
 				damage1 = baCardsArray2[2].getAttack();
 				health1 = baCardsArray[1].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[1].setHealth(health1);
 				System.out.println(baCardsArray[1].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6399,6 +9172,7 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
 					actionHistory.append("\n");
+					ai3AttackedBa2 = true;
 				}
 				numberOfTurns++;
 			}
@@ -6408,7 +9182,7 @@ public class GameplayScreen{
 				damage1 = baCardsArray2[2].getAttack();
 				health1 = baCardsArray[2].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[2].setHealth(health1);
 				System.out.println(baCardsArray[2].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6433,6 +9207,7 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
 					actionHistory.append("\n");
+					ai3AttackedBa3 = true;
 				}
 				numberOfTurns++;
 			}
@@ -6442,7 +9217,7 @@ public class GameplayScreen{
 				damage1 = baCardsArray2[2].getAttack();
 				health1 = baCardsArray[0].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[0].setHealth(health1);
 				System.out.println(baCardsArray[0].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6467,6 +9242,7 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
 					actionHistory.append("\n");
+					ai3AttackedBa1 = true;
 				}
 				numberOfTurns++;
 			}
@@ -6476,7 +9252,7 @@ public class GameplayScreen{
 				damage1 = baCardsArray2[2].getAttack();
 				health1 = baCardsArray[1].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[1].setHealth(health1);
 				System.out.println(baCardsArray[1].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6501,6 +9277,7 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
 					actionHistory.append("\n");
+					ai3AttackedBa2 = true;
 				}
 				numberOfTurns++;
 			}
@@ -6510,7 +9287,7 @@ public class GameplayScreen{
 				damage1 = baCardsArray2[2].getAttack();
 				health1 = baCardsArray[2].getHealth();
 				System.out.println(health1);
-				health1 -= damage1;
+				health1 = health1 - damage1;
 				baCardsArray[2].setHealth(health1);
 				System.out.println(baCardsArray[2].getHealth());
 				placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6535,6 +9312,7 @@ public class GameplayScreen{
 					System.out.println("Card lost " + damage1 + " health");
 					actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
 					actionHistory.append("\n");
+					ai3AttackedBa3 = true;
 				}
 				numberOfTurns++;
 			}
@@ -6547,7 +9325,7 @@ public class GameplayScreen{
 					damage1 = baCardsArray2[2].getAttack();
 					health1 = baCardsArray[0].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
+					health1 = health1 - damage1;
 					baCardsArray[0].setHealth(health1);
 					System.out.println(baCardsArray[0].getHealth());
 					placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6572,6 +9350,7 @@ public class GameplayScreen{
 						System.out.println("Card lost " + damage1 + " health");
 						actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
 						actionHistory.append("\n");
+						ai3AttackedBa1 = true;
 					}
 					numberOfTurns++;
 				}
@@ -6581,7 +9360,7 @@ public class GameplayScreen{
 					damage1 = baCardsArray2[2].getAttack();
 					health1 = baCardsArray[1].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
+					health1 = health1 - damage1;
 					baCardsArray[1].setHealth(health1);
 					System.out.println(baCardsArray[1].getHealth());
 					placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6606,6 +9385,7 @@ public class GameplayScreen{
 						System.out.println("Card lost " + damage1 + " health");
 						actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
 						actionHistory.append("\n");
+						ai3AttackedBa2 = true;
 					}
 					numberOfTurns++;
 				}
@@ -6615,7 +9395,7 @@ public class GameplayScreen{
 					damage1 = baCardsArray2[2].getAttack();
 					health1 = baCardsArray[2].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
+					health1 = health1 - damage1;
 					baCardsArray[2].setHealth(health1);
 					System.out.println(baCardsArray[2].getHealth());
 					placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6640,9 +9420,11 @@ public class GameplayScreen{
 						System.out.println("Card lost " + damage1 + " health");
 						actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
 						actionHistory.append("\n");
+						ai3AttackedBa3 = true;
 					}
 					numberOfTurns++;
 				}
+			}
 				
 				else if (finalResult1 <= 5 && finalResult2 <= 5 && finalResult3 > 5)
 				{
@@ -6652,7 +9434,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6677,6 +9459,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6686,7 +9469,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6711,6 +9494,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6724,7 +9508,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6749,6 +9533,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6758,7 +9543,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6783,6 +9568,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6796,7 +9582,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6821,6 +9607,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6830,7 +9617,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6855,6 +9642,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6868,7 +9656,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6893,6 +9681,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6902,7 +9691,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6927,6 +9716,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6936,7 +9726,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6961,6 +9751,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -6974,7 +9765,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -6999,6 +9790,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -7008,7 +9800,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -7033,6 +9825,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -7046,7 +9839,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -7071,6 +9864,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -7080,7 +9874,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -7105,6 +9899,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -7118,7 +9913,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -7143,6 +9938,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -7152,7 +9948,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -7177,6 +9973,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
@@ -7189,7 +9986,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[0].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[0].setHealth(health1);
 						System.out.println(baCardsArray[0].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -7214,6 +10011,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa1 = true;
 						}
 						numberOfTurns++;
 					}
@@ -7223,7 +10021,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[1].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[1].setHealth(health1);
 						System.out.println(baCardsArray[1].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -7248,6 +10046,7 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[1].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa2 = true;
 						}
 						numberOfTurns++;
 					}
@@ -7257,7 +10056,7 @@ public class GameplayScreen{
 						damage1 = baCardsArray2[2].getAttack();
 						health1 = baCardsArray[2].getHealth();
 						System.out.println(health1);
-						health1 -= damage1;
+						health1 = health1 - damage1;
 						baCardsArray[2].setHealth(health1);
 						System.out.println(baCardsArray[2].getHealth());
 						placeCards.setText("AI is choosing one of your cards to attack...");
@@ -7282,26 +10081,77 @@ public class GameplayScreen{
 							System.out.println("Card lost " + damage1 + " health");
 							actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[2].getName());
 							actionHistory.append("\n");
+							ai3AttackedBa3 = true;
 						}
 						numberOfTurns++;
 					}
 				}
-			}
+				else 
+				{
+					damage1 = baCardsArray2[2].getAttack();
+					health1 = baCardsArray[0].getHealth();
+					System.out.println(health1);
+					health1 = health1 - damage1;
+					baCardsArray[0].setHealth(health1);
+					System.out.println(baCardsArray[0].getHealth());
+					placeCards.setText("AI is choosing one of your cards to attack...");
+					if (health1 <= 0)
+					{
+						System.out.println("Card died");
+						actionHistory.append(baCardsArray[0].getName() + " was killed by " + baCardsArray2[2].getName());
+						actionHistory.append("\n");
+						numberOfUserBaCards--;
+						userBa1Taken = false;
+						Timer delay2 = new Timer();
+						delay2.schedule(new TimerTask() {
+								public void run() {
+									userArenaCard1.setVisible(false);
+								}
+						}, 2000);	
+						totalAiCoins += baCardsArray[0].getCoinsDropped();
+						aiCoinsLabel.setText("" + totalAiCoins);
+					}
+					else 
+					{
+						System.out.println("Card lost " + damage1 + " health");
+						actionHistory.append(baCardsArray2[2].getName() + " did " + baCardsArray2[2].getAttack() + " damage to " + baCardsArray[0].getName());
+						actionHistory.append("\n");
+						ai3AttackedBa1 = true;
+					}
+					numberOfTurns++;
+				}
 		}
+		shopButton.setEnabled(true);
+		timer.cancel();
+		secondsRemaining = 30;
+		userTurns();
+	}
+	
+	public static void userTurns()
+	{
 		Timer delay = new Timer();
 		delay.schedule(new TimerTask() {
 				public void run() {
 					String message = "It's your turn!";
 			        JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-			        userTurns();
 				}
-		}, 3000);
-		timer.cancel();
-		secondsRemaining = 30;
-	}
-	
-	public static void userTurns()
-	{
+		}, 2000);
+		if (totalAiCards == 0 && numberOfAiBaCards == 0)
+		{
+			String message = "Congratulations. You won! The main menu screen will now open once you press OK...";
+	        JOptionPane.showMessageDialog(frame, message, "User Win", JOptionPane.INFORMATION_MESSAGE);
+	        frame.setVisible(false);
+			MainMenuScreen ms = new MainMenuScreen();
+			ms.showMainMenuScreen();
+		}
+		else if (totalUserCards == 0 && numberOfUserBaCards == 0)
+		{
+			String message = "Oh no. Unfortunately, you have lost! The main menu screen will now open once you press OK...";
+	        JOptionPane.showMessageDialog(frame, message, "AI Win", JOptionPane.INFORMATION_MESSAGE);
+	        frame.setVisible(false);
+			MainMenuScreen ms = new MainMenuScreen();
+			ms.showMainMenuScreen();
+		}
 		aiArenaCard1.setVisible(true);
 		aiArenaCard1.setEnabled(true);
 		aiArenaCard2.setVisible(true);
@@ -7406,10 +10256,11 @@ public class GameplayScreen{
 				attackAiAC3.setVisible(false);
 				if (ba1Used)
 				{
+					ba1Used = false;
 					damage1 = baCardsArray[0].getAttack();
 					health1 = baCardsArray2[0].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
+					health1 = health1 - damage1;
 					baCardsArray2[0].setHealth(health1);
 					System.out.println(baCardsArray2[0].getHealth());
 					if (health1 <= 0)
@@ -7429,132 +10280,137 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard4_1 = aiCard1_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check1 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check1 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check1 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check1 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check1 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check1 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check1 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check1 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+						shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard4_1 = aiCard1_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton();
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							System.out.println("LAbAbAb2");
+							frame.getContentPane().add(aiArenaCard1);									
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check1 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton();
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							System.out.println("LAbAbAb3");
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check1 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton();
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							System.out.println("LAbAbAb4");
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check1 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton();
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							System.out.println("LAbAbAb5");
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check1 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton();
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							System.out.println("LAbAbAb6");
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check1 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton();
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							System.out.println("LAbAbAb7");
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check1 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton();
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							System.out.println("LAbAbAb8");
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check1 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton();
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							System.out.println("LAbAbAb9");
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check1 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -7571,12 +10427,7 @@ public class GameplayScreen{
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
 						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 						userAttackedBa1 = true;
 					}
 					aiArenaCard1.setVisible(true);
@@ -7590,10 +10441,11 @@ public class GameplayScreen{
 				}
 				else if (ba2Used)
 				{
+					ba2Used = false;
 					damage1 = baCardsArray[1].getAttack();
 					health1 = baCardsArray2[0].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
+					health1 = health1 - damage1;
 					baCardsArray2[0].setHealth(health1);
 					System.out.println(baCardsArray2[0].getHealth());
 					if (health1 <= 0)
@@ -7604,127 +10456,121 @@ public class GameplayScreen{
 						totalUserCoins += baCardsArray2[0].getCoinsDropped();
 						userCoinsLabel.setText("" + totalUserCoins);
 						aiArenaCard1.setVisible(false);
-						String message = "It's the AI's turn!";
-		                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard4_1 = aiCard1_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check1 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check1 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check1 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check1 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check1 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check1 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check1 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check1 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+		                shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard4_1 = aiCard1_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check1 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check1 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check1 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check1 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check1 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check1 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check1 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check1 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -7740,13 +10586,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-							public void run() {
-								String message = "It's the AI's turn!";
-					            JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-							}
-						}, 1000);
+						shopButton.setEnabled(false);
 		                userAttackedBa1 = true;
 					}
 					aiArenaCard1.setVisible(true);
@@ -7760,10 +10600,11 @@ public class GameplayScreen{
 				}
 				else if (ba3Used)
 				{
+					ba3Used = false;
 					damage1 = baCardsArray[2].getAttack();
 					health1 = baCardsArray2[0].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
+					health1 = health1 - damage1;
 					baCardsArray2[0].setHealth(health1);
 					System.out.println(baCardsArray2[0].getHealth());
 					if (health1 <= 0)
@@ -7774,127 +10615,121 @@ public class GameplayScreen{
 						totalUserCoins += baCardsArray2[0].getCoinsDropped();
 						userCoinsLabel.setText("" + totalUserCoins);
 						aiArenaCard1.setVisible(false);
-						String message = "It's the AI's turn!";
-		                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard4_1 = aiCard1_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check1 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check1 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check1 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check1 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check1 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check1 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check1 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard1 = new JButton(arenaCard4_3);
-										aiArenaCard1.setBounds(528, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard1);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check1 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+		                shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard4_1 = aiCard1_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check1 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check1 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check1 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check1 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check1 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check1 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check1 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard1 = new JButton(arenaCard4_3);
+							aiArenaCard1.setBounds(528, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard1);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check1 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -7910,13 +10745,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 						userAttackedBa1 = true;
 					}
 					aiArenaCard1.setVisible(true);
@@ -7940,11 +10769,12 @@ public class GameplayScreen{
 				attackAiAC3.setVisible(false);
 				if (ba1Used)
 				{
+					ba1Used = false;
 					damage1 = baCardsArray[0].getAttack();
 					health1 = baCardsArray2[1].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
-					baCardsArray2[0].setHealth(health1);
+					health1 = health1 - damage1;
+					baCardsArray2[1].setHealth(health1);
 					System.out.println(baCardsArray2[1].getHealth());
 					if (health1 <= 0)
 					{
@@ -7954,127 +10784,121 @@ public class GameplayScreen{
 						totalUserCoins += baCardsArray2[1].getCoinsDropped();
 						userCoinsLabel.setText("" + totalUserCoins);
 						aiArenaCard2.setVisible(false);
-						String message = "It's the AI's turn!";
-		                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard4_1 = aiCard1_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check2 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check2 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check2 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check2 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check2 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check2 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check2 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check2 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+		                shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard4_1 = aiCard1_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check2 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check2 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check2 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check2 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check2 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check2 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check2 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check2 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -8090,13 +10914,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 						userAttackedBa2 = true;
 					}
 					aiArenaCard1.setVisible(true);
@@ -8110,11 +10928,12 @@ public class GameplayScreen{
 				}
 				else if (ba2Used)
 				{
+					ba2Used = false;
 					damage1 = baCardsArray[1].getAttack();
 					health1 = baCardsArray2[1].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
-					baCardsArray2[0].setHealth(health1);
+					health1 = health1 - damage1;
+					baCardsArray2[1].setHealth(health1);
 					System.out.println(baCardsArray2[1].getHealth());
 					if (health1 <= 0)
 					{
@@ -8124,127 +10943,121 @@ public class GameplayScreen{
 						totalUserCoins += baCardsArray2[1].getCoinsDropped();
 						userCoinsLabel.setText("" + totalUserCoins);
 						aiArenaCard2.setVisible(false);
-						String message = "It's the AI's turn!";
-		                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard4_1 = aiCard1_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check2 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check2 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check2 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check2 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check2 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check2 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check2 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check2 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+		                shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard4_1 = aiCard1_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check2 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check2 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check2 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check2 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check2 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check2 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check2 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check2 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -8260,13 +11073,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 						userAttackedBa2 = true;
 					}
 					aiArenaCard1.setVisible(true);
@@ -8280,11 +11087,12 @@ public class GameplayScreen{
 				}
 				else if (ba3Used)
 				{
+					ba3Used = false;
 					damage1 = baCardsArray[2].getAttack();
 					health1 = baCardsArray2[1].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
-					baCardsArray2[0].setHealth(health1);
+					health1 = health1 - damage1;
+					baCardsArray2[1].setHealth(health1);
 					System.out.println(baCardsArray2[1].getHealth());
 					if (health1 <= 0)
 					{
@@ -8294,127 +11102,121 @@ public class GameplayScreen{
 						totalUserCoins += baCardsArray2[1].getCoinsDropped();
 						userCoinsLabel.setText("" + totalUserCoins);
 						aiArenaCard2.setVisible(false);
-						String message = "It's the AI's turn!";
-		                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard4_1 = aiCard1_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check2 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check2 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check2 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check2 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check2 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check2 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check2 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard2 = new JButton(arenaCard4_3);
-										aiArenaCard2.setBounds(634, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard2);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check2 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+		                shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard4_1 = aiCard1_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check2 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check2 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check2 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check2 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check2 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check2 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check2 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard2 = new JButton(arenaCard4_3);
+							aiArenaCard2.setBounds(634, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard2);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check2 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -8430,13 +11232,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 						userAttackedBa2 = true;
 					}
 					aiArenaCard1.setVisible(true);
@@ -8460,11 +11256,12 @@ public class GameplayScreen{
 				attackAiAC3.setVisible(false);
 				if (ba1Used)
 				{
+					ba1Used = false;
 					damage1 = baCardsArray[0].getAttack();
 					health1 = baCardsArray2[2].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
-					baCardsArray2[0].setHealth(health1);
+					health1 = health1 - damage1;
+					baCardsArray2[2].setHealth(health1);
 					System.out.println(baCardsArray2[2].getHealth());
 					if (health1 <= 0)
 					{
@@ -8474,127 +11271,121 @@ public class GameplayScreen{
 						totalUserCoins += baCardsArray2[2].getCoinsDropped();
 						userCoinsLabel.setText("" + totalUserCoins);
 						aiArenaCard3.setVisible(false);
-						String message = "It's the AI's turn!";
-		                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard4_1 = aiCard1_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check3 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check3 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check3 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check3 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check3 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check3 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check3 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check3 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+		                shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard4_1 = aiCard1_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check3 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check3 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check3 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check3 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check3 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check3 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check3 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check3 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -8610,13 +11401,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 						userAttackedBa3 = true;
 					}
 					aiArenaCard1.setVisible(true);
@@ -8630,11 +11415,12 @@ public class GameplayScreen{
 				}
 				else if (ba2Used)
 				{
+					ba2Used = false;
 					damage1 = baCardsArray[1].getAttack();
 					health1 = baCardsArray2[2].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
-					baCardsArray2[0].setHealth(health1);
+					health1 = health1 - damage1;
+					baCardsArray2[2].setHealth(health1);
 					System.out.println(baCardsArray2[2].getHealth());
 					if (health1 <= 0)
 					{
@@ -8644,127 +11430,121 @@ public class GameplayScreen{
 						totalUserCoins += baCardsArray2[2].getCoinsDropped();
 						userCoinsLabel.setText("" + totalUserCoins);
 						aiArenaCard3.setVisible(false);
-						String message = "It's the AI's turn!";
-		                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard4_1 = aiCard1_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check3 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check3 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check3 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check3 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check3 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check3 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check3 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check3 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+		                shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard4_1 = aiCard1_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check3 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check3 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check3 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check3 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check3 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check3 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check3 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check3 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -8780,13 +11560,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 						userAttackedBa3 = true;
 					}
 					aiArenaCard1.setVisible(true);
@@ -8800,11 +11574,12 @@ public class GameplayScreen{
 				}
 				else if (ba3Used)
 				{
+					ba3Used = false;
 					damage1 = baCardsArray[2].getAttack();
 					health1 = baCardsArray2[2].getHealth();
 					System.out.println(health1);
-					health1 -= damage1;
-					baCardsArray2[0].setHealth(health1);
+					health1 = health1 - damage1;
+					baCardsArray2[2].setHealth(health1);
 					System.out.println(baCardsArray2[2].getHealth());
 					if (health1 <= 0)
 					{
@@ -8814,127 +11589,121 @@ public class GameplayScreen{
 						totalUserCoins += baCardsArray2[2].getCoinsDropped();
 						userCoinsLabel.setText("" + totalUserCoins);
 						aiArenaCard3.setVisible(false);
-						String message = "It's the AI's turn!";
-		                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-						Timer delay2 = new Timer();
-						delay2.schedule(new TimerTask() {
-								public void run() {
-									if (availableAiCards[aiCardsUsed] == 0)
-							        {
-							        	Image arenaCard4_1 = aiCard1_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard1.setEnabled(false);
-										check3 = 0;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 1)
-							        {
-							        	Image arenaCard4_1 = aiCard2_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard2.setEnabled(false);
-										check3 = 1;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 2)
-							        {
-							        	Image arenaCard4_1 = aiCard3_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard3.setEnabled(false);
-										check3 = 2;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 3)
-							        {
-							        	Image arenaCard4_1 = aiCard4_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard4.setEnabled(false);
-										check3 = 3;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 4)
-							        {
-							        	Image arenaCard4_1 = aiCard5_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard5.setEnabled(false);
-										check3 = 4;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 5)
-							        {
-							        	Image arenaCard4_1 = aiCard6_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard6.setEnabled(false);
-										check3 = 5;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 6)
-							        {
-							        	Image arenaCard4_1 = aiCard7_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard7.setEnabled(false);
-										check3 = 6;
-										totalAiCards--;
-							        }
-									else if (availableAiCards[aiCardsUsed] == 7)
-							        {
-							        	Image arenaCard4_1 = aiCard8_1.getImage();
-										Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-										ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
-										
-										aiArenaCard3 = new JButton(arenaCard4_3);
-										aiArenaCard3.setBounds(740, 206, 94, 150);
-										frame.getContentPane().add(aiArenaCard3);
-										frame.repaint();
-										aiCard8.setEnabled(false);
-										check3 = 7;
-										totalAiCards--;
-							        }
-									aiCardsUsed++;
-									setAiValues();
-								}
-						}, 2000);
+		                shopButton.setEnabled(false);
+						if (availableAiCards[aiCardsUsed] == 0)
+				        {
+				        	Image arenaCard4_1 = aiCard1_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard1.setEnabled(false);
+							check3 = 0;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 1)
+				        {
+				        	Image arenaCard4_1 = aiCard2_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard2.setEnabled(false);
+							check3 = 1;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 2)
+				        {
+				        	Image arenaCard4_1 = aiCard3_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard3.setEnabled(false);
+							check3 = 2;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 3)
+				        {
+				        	Image arenaCard4_1 = aiCard4_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard4.setEnabled(false);
+							check3 = 3;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 4)
+				        {
+				        	Image arenaCard4_1 = aiCard5_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard5.setEnabled(false);
+							check3 = 4;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 5)
+				        {
+				        	Image arenaCard4_1 = aiCard6_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard6.setEnabled(false);
+							check3 = 5;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 6)
+				        {
+				        	Image arenaCard4_1 = aiCard7_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard7.setEnabled(false);
+							check3 = 6;
+							totalAiCards--;
+				        }
+						else if (availableAiCards[aiCardsUsed] == 7)
+				        {
+				        	Image arenaCard4_1 = aiCard8_1.getImage();
+							Image arenaCard4_2 = arenaCard4_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+							ImageIcon arenaCard4_3 = new ImageIcon(arenaCard4_2);
+							
+							aiArenaCard3 = new JButton(arenaCard4_3);
+							aiArenaCard3.setBounds(740, 206, 94, 150);
+							frame.getContentPane().add(aiArenaCard3);
+							frame.repaint();
+							aiCard8.setEnabled(false);
+							check3 = 7;
+							totalAiCards--;
+				        }
+						aiCardsUsed++;
+						setAiValues();
 					}
 					else 
 					{
@@ -8950,13 +11719,7 @@ public class GameplayScreen{
 						attackAiAC2.setEnabled(false);
 						attackAiAC3.setVisible(false);
 						attackAiAC3.setEnabled(false);
-						Timer delay1 = new Timer();
-						delay1.schedule(new TimerTask() {
-								public void run() {
-									String message = "It's the AI's turn!";
-					                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-								}
-						}, 1000);
+						shopButton.setEnabled(false);
 						userAttackedBa3 = true;
 					}
 					aiArenaCard1.setVisible(true);
@@ -8988,6 +11751,9 @@ public class GameplayScreen{
 		battleArenaCards = 0;
 		numberOfUserBaCards = 0;
 		numberOfAiBaCards = 0;
+		
+		totalUserCoins = readUserCoins;
+		totalAiCoins = readAiCoins;
 		
 		frame = new JFrame();
 		frame.getContentPane().setLayout(null);
@@ -9127,7 +11893,7 @@ public class GameplayScreen{
 		
 		frame.getContentPane().setBackground(new Color(156, 246, 232));
 		
-		JButton shopButton = new JButton("Shop");
+		shopButton = new JButton("Shop");
 		shopButton.setBounds(18, 611, 149, 45);
 		frame.getContentPane().add(shopButton);
 		shopButton.setEnabled(false);
@@ -9139,6 +11905,7 @@ public class GameplayScreen{
 				timer.cancel();
 				frame.setVisible(false);
 				write();
+				write2();
 				ShopScreen ss = new ShopScreen();
 				ss.showShopScreen();
 			}
@@ -9158,10 +11925,6 @@ public class GameplayScreen{
 				ms.showMainMenuScreen();
 			}
 		});
-		
-		JButton aiAbility = new JButton("AI Ability");
-		aiAbility.setBounds(264, 44, 94, 150);
-		frame.getContentPane().add(aiAbility);
 		
 		attackAiAC1 = new JButton("ATTACK");
 		attackAiAC1.setBounds(528, 356, 94, 13);
@@ -9204,147 +11967,232 @@ public class GameplayScreen{
 		{
 			public void actionPerformed (ActionEvent e) 
 			{
-				selectCard1.setEnabled(false);				
-				Image arenaCard_1 = userCard1_1.getImage();
-				Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-				ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
-				
-				if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
 				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					useAC1.setVisible(true);
-					useAC1.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
 				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+				else 
 				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					useAC2.setVisible(true);
-					useAC2.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
+					selectCard1.setEnabled(false);				
+					Image arenaCard_1 = userCard1_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					aiCheck1();
 				}
-				else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard3 = new JButton(arenaCard_3);
-					userArenaCard3.setBounds(740, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard3);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC3.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa3Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC2.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				battleArenaCards++;
-				numberOfUserBaCards++;
-				totalUserCards--;
-				aiCheck1();
 			}
 		});
 		
@@ -9357,147 +12205,232 @@ public class GameplayScreen{
 		{
 			public void actionPerformed (ActionEvent e) 
 			{
-				selectCard2.setEnabled(false);				
-				Image arenaCard_1 = userCard2_1.getImage();
-				Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-				ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
-				
-				if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
 				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					useAC1.setVisible(true);
-					useAC1.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
 				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+				else 
 				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					useAC2.setVisible(true);
-					useAC2.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
+					selectCard2.setEnabled(false);				
+					Image arenaCard_1 = userCard2_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					aiCheck1();
 				}
-				else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard3 = new JButton(arenaCard_3);
-					userArenaCard3.setBounds(740, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard3);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC3.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa3Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC2.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				battleArenaCards++;
-				numberOfUserBaCards++;
-				totalUserCards--;
-				aiCheck1();
 			}
 		});
 		
@@ -9510,147 +12443,232 @@ public class GameplayScreen{
 		{
 			public void actionPerformed (ActionEvent e) 
 			{
-				selectCard3.setEnabled(false);				
-				Image arenaCard_1 = userCard3_1.getImage();
-				Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-				ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
-				
-				if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
 				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					useAC1.setVisible(true);
-					useAC1.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
 				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+				else 
 				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					useAC2.setVisible(true);
-					useAC2.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
+					selectCard3.setEnabled(false);				
+					Image arenaCard_1 = userCard3_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					aiCheck1();
 				}
-				else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard3 = new JButton(arenaCard_3);
-					userArenaCard3.setBounds(740, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard3);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC3.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa3Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC2.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				battleArenaCards++;
-				numberOfUserBaCards++;
-				totalUserCards--;
-				aiCheck1();
 			}
 		});
 		
@@ -9663,147 +12681,232 @@ public class GameplayScreen{
 		{
 			public void actionPerformed (ActionEvent e) 
 			{
-				selectCard4.setEnabled(false);				
-				Image arenaCard_1 = userCard4_1.getImage();
-				Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-				ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
-				
-				if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
 				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					useAC1.setVisible(true);
-					useAC1.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
 				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+				else 
 				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					useAC2.setVisible(true);
-					useAC2.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
+					selectCard4.setEnabled(false);				
+					Image arenaCard_1 = userCard4_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					aiCheck1();
 				}
-				else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard3 = new JButton(arenaCard_3);
-					userArenaCard3.setBounds(740, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard3);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC3.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa3Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC2.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				battleArenaCards++;
-				numberOfUserBaCards++;
-				totalUserCards--;
-				aiCheck1();
 			}
 		});
 		
@@ -9816,147 +12919,232 @@ public class GameplayScreen{
 		{
 			public void actionPerformed (ActionEvent e) 
 			{
-				selectCard5.setEnabled(false);				
-				Image arenaCard_1 = userCard5_1.getImage();
-				Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-				ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
-				
-				if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
 				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					useAC1.setVisible(true);
-					useAC1.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
 				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+				else 
 				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					useAC2.setVisible(true);
-					useAC2.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
+					selectCard5.setEnabled(false);				
+					Image arenaCard_1 = userCard5_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					aiCheck1();
 				}
-				else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard3 = new JButton(arenaCard_3);
-					userArenaCard3.setBounds(740, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard3);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC3.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa3Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC2.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				battleArenaCards++;
-				numberOfUserBaCards++;
-				totalUserCards--;
-				aiCheck1();
 			}
 		});
 		
@@ -9969,147 +13157,232 @@ public class GameplayScreen{
 		{
 			public void actionPerformed (ActionEvent e) 
 			{
-				selectCard6.setEnabled(false);				
-				Image arenaCard_1 = userCard6_1.getImage();
-				Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-				ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
-				
-				if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
 				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					useAC1.setVisible(true);
-					useAC1.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
 				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+				else 
 				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					useAC2.setVisible(true);
-					useAC2.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
+					selectCard6.setEnabled(false);				
+					Image arenaCard_1 = userCard6_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					aiCheck1();
 				}
-				else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard3 = new JButton(arenaCard_3);
-					userArenaCard3.setBounds(740, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard3);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC3.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa3Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC2.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				battleArenaCards++;
-				numberOfUserBaCards++;
-				totalUserCards--;
-				aiCheck1();
 			}
 		});
 		
@@ -10122,147 +13395,232 @@ public class GameplayScreen{
 		{
 			public void actionPerformed (ActionEvent e) 
 			{
-				selectCard7.setEnabled(false);				
-				Image arenaCard_1 = userCard7_1.getImage();
-				Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-				ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
-				
-				if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
 				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					useAC1.setVisible(true);
-					useAC1.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
 				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+				else 
 				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					useAC2.setVisible(true);
-					useAC2.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
+					selectCard7.setEnabled(false);				
+					Image arenaCard_1 = userCard7_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					aiCheck1();
 				}
-				else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard3 = new JButton(arenaCard_3);
-					userArenaCard3.setBounds(740, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard3);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC3.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa3Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC2.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				battleArenaCards++;
-				numberOfUserBaCards++;
-				totalUserCards--;
-				aiCheck1();
 			}
 		});
 		
@@ -10275,147 +13633,232 @@ public class GameplayScreen{
 		{
 			public void actionPerformed (ActionEvent e) 
 			{
-				selectCard8.setEnabled(false);				
-				Image arenaCard_1 = userCard8_1.getImage();
-				Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
-				ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
-				
-				if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
 				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					useAC1.setVisible(true);
-					useAC1.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
 				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+				else 
 				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					useAC2.setVisible(true);
-					useAC2.setEnabled(false);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
+					selectCard8.setEnabled(false);				
+					Image arenaCard_1 = userCard8_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					aiCheck1();
 				}
-				else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard3 = new JButton(arenaCard_3);
-					userArenaCard3.setBounds(740, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard3);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC3.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa3Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
-				{
-					userArenaCard2 = new JButton(arenaCard_3);
-					userArenaCard2.setBounds(634, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard2);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC2.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa2Taken = true;
-				}
-				else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
-				{
-					userArenaCard1 = new JButton(arenaCard_3);
-					userArenaCard1.setBounds(528, 368, 94, 150);
-					frame.getContentPane().add(userArenaCard1);
-					frame.repaint();
-					endTurn.setEnabled(true);
-					placeCards.setVisible(false);
-					useAC1.setVisible(true);
-					useAC1.setEnabled(true);
-					useAC2.setEnabled(true);
-					useAC3.setEnabled(true);
-					health = user1Health;
-					attack = user1Attack;
-					coinsDropped = user1CoinsDropped;
-					name = user1Name;
-					tier = user1Tier;
-					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
-					userBa1Taken = true;
-				}
-				battleArenaCards++;
-				numberOfUserBaCards++;
-				totalUserCards--;
-				aiCheck1();
 			}
 		});
 		

@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 public class GameplayScreen{
 	
+	static JButton aiCoin;
 	static JLabel actionHistoryTitle;
 	static JButton userDraw;
 	static String shopVisited = "";
@@ -4203,6 +4204,7 @@ public class GameplayScreen{
 		{
 			String message = "Select the AI battle arena card that you want to attack with!";
 			JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
+			removeAllActionListeners(aiArenaCard1);
 			aiArenaCard1.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -4210,6 +4212,7 @@ public class GameplayScreen{
 					spAttack = baCardsArray2[0].getAttack();	
 				}
 			});
+			removeAllActionListeners(aiArenaCard2);
 			aiArenaCard2.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -4217,6 +4220,7 @@ public class GameplayScreen{
 					spAttack = baCardsArray2[1].getAttack();	
 				}
 			});
+			removeAllActionListeners(aiArenaCard3);
 			aiArenaCard3.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -4231,6 +4235,7 @@ public class GameplayScreen{
 					        JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
 						}
 				}, 1000);
+			removeAllActionListeners(aiArenaCard1);
 	        aiArenaCard1.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -4407,6 +4412,7 @@ public class GameplayScreen{
 					}
 				}
 			});
+	        removeAllActionListeners(aiArenaCard2);
 	        aiArenaCard2.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -4583,6 +4589,7 @@ public class GameplayScreen{
 					}
 				}
 			});
+	        removeAllActionListeners(aiArenaCard3);
 	        aiArenaCard3.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -6593,8 +6600,10 @@ public class GameplayScreen{
 	{
 		if (numberOfTurns % 2 == 0)
 		{
+			System.out.println("GARTTTT");
 			String message = "Pick one of your cards in the battle arena to become invisible to any attacks for 1 turn!";
 	        JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
+	        removeAllActionListeners(userArenaCard1);
 	        userArenaCard1.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -6605,6 +6614,7 @@ public class GameplayScreen{
 					holographicHideaway1Used = true;
 				}
 			});
+	        removeAllActionListeners(userArenaCard2);
 	        userArenaCard2.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -6615,6 +6625,7 @@ public class GameplayScreen{
 					holographicHideaway2Used = true;
 				}
 			});
+	        removeAllActionListeners(userArenaCard3);
 	        userArenaCard3.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -6626,6 +6637,7 @@ public class GameplayScreen{
 				}
 			});
 	        numberOfTurns++;
+	        System.out.println("ARTTTT");
 			firstAiDecision();
 		}
 		else  // AI turn
@@ -6662,6 +6674,7 @@ public class GameplayScreen{
 		{
 			String message = "Pick one of your cards in the battle arena to heal by 3 health!";
 	        JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
+	        removeAllActionListeners(userArenaCard1);
 	        userArenaCard1.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -6672,6 +6685,7 @@ public class GameplayScreen{
 					actionHistory.append("\n");
 				}
 			});
+	        removeAllActionListeners(userArenaCard2);
 	        userArenaCard2.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -6682,6 +6696,7 @@ public class GameplayScreen{
 					actionHistory.append("\n");
 				}
 			});
+	        removeAllActionListeners(userArenaCard3);
 	        userArenaCard3.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -6760,6 +6775,7 @@ public class GameplayScreen{
 		{
 			String message = "Pick one of your cards in the battle arena to heal by 1 health for the next 2 turns!";
 	        JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
+	        removeAllActionListeners(userArenaCard1);
 	        userArenaCard1.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -6770,6 +6786,7 @@ public class GameplayScreen{
 					actionHistory.append("\n");
 				}
 			});
+	        removeAllActionListeners(userArenaCard2);
 	        userArenaCard2.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -6780,6 +6797,7 @@ public class GameplayScreen{
 					actionHistory.append("\n");
 				}
 			});
+	        removeAllActionListeners(userArenaCard3);
 	        userArenaCard3.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -6829,6 +6847,7 @@ public class GameplayScreen{
 		{
 			String message = "Select an AI card to instantly decrease their health by 4!";
 	        JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
+	        removeAllActionListeners(aiArenaCard1);
 	        aiArenaCard1.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -7005,6 +7024,7 @@ public class GameplayScreen{
 					}
 				}
 			});
+	        removeAllActionListeners(aiArenaCard2);
 	        aiArenaCard2.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -7181,6 +7201,7 @@ public class GameplayScreen{
 					}
 				}
 			});
+	        removeAllActionListeners(aiArenaCard3);
 	        aiArenaCard3.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -7443,6 +7464,7 @@ public class GameplayScreen{
 		{
 			String message = "Select an AI card to instantly increase the amount of coins they drop when they are killed by 2!";
 	        JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
+	        removeAllActionListeners(aiArenaCard1);
 	        aiArenaCard1.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -7453,6 +7475,7 @@ public class GameplayScreen{
 					actionHistory.append("\n");
 				}
 			});
+	        removeAllActionListeners(aiArenaCard2);
 	        aiArenaCard2.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -7463,6 +7486,7 @@ public class GameplayScreen{
 					actionHistory.append("\n");
 				}
 			});
+	        removeAllActionListeners(aiArenaCard3);
 	        aiArenaCard3.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -7565,6 +7589,7 @@ public class GameplayScreen{
 		{
 			String message = "Select one of your cards to swap with a card from the original deck of 20!";
 	        JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
+	        removeAllActionListeners(userArenaCard1);
 	        userArenaCard1.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -7771,6 +7796,7 @@ public class GameplayScreen{
 					userBa1Taken = true;
 				}
 			});
+	        removeAllActionListeners(userArenaCard2);
 	        userArenaCard2.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -7977,6 +8003,7 @@ public class GameplayScreen{
 					userBa2Taken = true;
 				}
 			});
+	        removeAllActionListeners(userArenaCard3);
 	        userArenaCard3.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent e) 
@@ -8801,7 +8828,7 @@ public class GameplayScreen{
 					String message1 = "";
 				}
 		}, 1000);
-		if (totalAiCards == 0 && numberOfAiBaCards == 0)
+		if (totalAiCards == 0)
 		{
 			String message = "Congratulations. You won! The main menu screen will now open once you press OK...";
 	        JOptionPane.showMessageDialog(frame, message, "User Win", JOptionPane.INFORMATION_MESSAGE);
@@ -8811,7 +8838,7 @@ public class GameplayScreen{
 			MainMenuScreen ms = new MainMenuScreen();
 			ms.showMainMenuScreen();
 		}
-		else if (totalUserCards == 0 && numberOfUserBaCards == 0)
+		else if (totalUserCards == 0)
 		{
 			String message = "Oh no. Unfortunately, you have lost! The main menu screen will now open once you press OK...";
 	        JOptionPane.showMessageDialog(frame, message, "AI Win", JOptionPane.INFORMATION_MESSAGE);
@@ -12224,6 +12251,14 @@ public class GameplayScreen{
         JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
+	static void removeAllActionListeners(JButton button) 
+	{
+	    for (ActionListener al : button.getActionListeners()) 
+	    {
+	        button.removeActionListener(al);
+	    }
+	}
+	
 	public static void userTurns()
 	{
 		System.out.println(numberOfTurns+ "LALALLA");
@@ -12294,6 +12329,57 @@ public class GameplayScreen{
 			userCountdown();
 		}
 		
+		removeAllActionListeners(useAbility1);
+		useAbility1.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				userAbility.setVisible(false);
+				useAbility1.setVisible(false);
+				if (abilityName.equals("Sock Puppetry"))
+				{
+					useSockPuppetry();
+				}
+				else if (abilityName.equals("Inverted Reflection"))
+				{
+					useInvertedReflection();
+				}
+				else if (abilityName.equals("Holographic Hideaway"))
+				{
+					useHolographicHideaway();
+				}
+				else if (abilityName.equals("Malicious Mend"))
+				{
+					useMaliciousMend();
+				}
+				else if (abilityName.equals("Reprehensive Rejuvenation"))
+				{
+					useReprehensiveRejuvenation();
+				}
+				else if (abilityName.equals("Sinister Serenity"))
+				{
+					useSinisterSerenity();
+				}
+				else if (abilityName.equals("Nefarious Nibbles"))
+				{
+					useNefariousNibbles();
+				}
+				else if (abilityName.equals("Sneaky Smooch"))
+				{
+					useSneakySmooch();
+				}
+				else if (abilityName.equals("Quantum Quake"))
+				{
+					useQuantumQuake();
+				}
+				else if (abilityName.equals("Subatomic Swap"))
+				{
+					useSubatomicSwap();
+				}
+			}
+		});
+		
+		removeAllActionListeners(useAC1);
 		useAC1.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent e) 
@@ -12314,6 +12400,7 @@ public class GameplayScreen{
 			}
 		});
 		
+		removeAllActionListeners(useAC2);
 		useAC2.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent e) 
@@ -12334,6 +12421,7 @@ public class GameplayScreen{
 			}
 		});
 		
+		removeAllActionListeners(useAC3);
 		useAC3.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent e) 
@@ -12353,7 +12441,7 @@ public class GameplayScreen{
 				attackAiAC3.setEnabled(true);
 			}
 		});
-		
+		removeAllActionListeners(attackAiAC1);
 		attackAiAC1.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent e) 
@@ -12914,7 +13002,7 @@ public class GameplayScreen{
 				}
 			}
 		});
-		
+		removeAllActionListeners(attackAiAC2);
 		attackAiAC2.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent e) 
@@ -13449,7 +13537,7 @@ public class GameplayScreen{
 				}
 			}
 		});
-		
+		removeAllActionListeners(attackAiAC3);
 		attackAiAC3.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent e) 
@@ -14050,6 +14138,18 @@ public class GameplayScreen{
 		useAbility1.setBounds(264, 690, 94, 21);
 		frame.getContentPane().add(useAbility1);
 		useAbility1.setVisible(false);
+		aiCoinsLabel = new JLabel("0");
+		aiCoinsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		aiCoinsLabel.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 16));
+		aiCoinsLabel.setBounds(220, 20, 36, 21);
+		frame.getContentPane().add(aiCoinsLabel);
+		ImageIcon aiCoin1 = new ImageIcon("resources/images/coin.png");
+		Image aiCoin2 = aiCoin1.getImage();
+        Image aiCoin3 = aiCoin2.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        ImageIcon aiCoin4 = new ImageIcon(aiCoin3);
+		aiCoin = new JButton(aiCoin4);
+		aiCoin.setBounds(181, 12, 30, 30);
+		frame.getContentPane().add(aiCoin);
 	}
 	
 	/**
@@ -14108,11 +14208,6 @@ public class GameplayScreen{
 		ac10Purchased = ac10PurchasedCheck;	
 		totalUserCoins = readUserCoins;
 		totalAiCoins = readAiCoins;
-		if (numberOfTurns > 0)
-		{
-			userCoinsLabel.setText("" + totalUserCoins);
-			aiCoinsLabel.setText("" + totalAiCoins);
-		}
 		
 		for (int count = 0; count < 8; count++)
 		{
@@ -14945,6 +15040,8 @@ public class GameplayScreen{
 		
 		if (shopVisited.equals("Yes"))
 		{
+			userCoinsLabel.setText("" + totalUserCoins);
+			aiCoinsLabel.setText("" + totalAiCoins);
 			userCountdown();
 			userTurns();
 		}
@@ -14954,6 +15051,7 @@ public class GameplayScreen{
 		frame.getContentPane().add(shopButton);
 		shopButton.setEnabled(false);
 		
+		removeAllActionListeners(shopButton);
 		shopButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent e) 
@@ -17023,6 +17121,7 @@ public class GameplayScreen{
 		endTurn.setVisible(false);
 		endTurn.setEnabled(false);
 		
+		removeAllActionListeners(endTurn);
 		endTurn.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent e) 
@@ -17054,55 +17153,6 @@ public class GameplayScreen{
 		frame.getContentPane().add(useAbility1);
 		useAbility1.setVisible(false);
 		
-		useAbility1.addActionListener(new ActionListener()
-		{
-			public void actionPerformed (ActionEvent e) 
-			{
-				userAbility.setVisible(false);
-				useAbility1.setVisible(false);
-				if (abilityName.equals("Sock Puppetry"))
-				{
-					useSockPuppetry();
-				}
-				else if (abilityName.equals("Inverted Reflection"))
-				{
-					useInvertedReflection();
-				}
-				else if (abilityName.equals("Holographic Hideaway"))
-				{
-					useHolographicHideaway();
-				}
-				else if (abilityName.equals("Malicious Mend"))
-				{
-					useMaliciousMend();
-				}
-				else if (abilityName.equals("Reprehensive Rejuvenation"))
-				{
-					useReprehensiveRejuvenation();
-				}
-				else if (abilityName.equals("Sinister Serenity"))
-				{
-					useSinisterSerenity();
-				}
-				else if (abilityName.equals("Nefarious Nibbles"))
-				{
-					useNefariousNibbles();
-				}
-				else if (abilityName.equals("Sneaky Smooch"))
-				{
-					useSneakySmooch();
-				}
-				else if (abilityName.equals("Quantum Quake"))
-				{
-					useQuantumQuake();
-				}
-				else if (abilityName.equals("Subatomic Swap"))
-				{
-					useSubatomicSwap();
-				}
-			}
-		});
-		
 		ImageIcon userCoin1 = new ImageIcon("resources/images/coin.png");
 		Image userCoin2 = userCoin1.getImage();
         Image userCoin3 = userCoin2.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
@@ -17123,7 +17173,7 @@ public class GameplayScreen{
         Image aiCoin3 = aiCoin2.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon aiCoin4 = new ImageIcon(aiCoin3);
         
-        JButton aiCoin = new JButton(aiCoin4);
+        aiCoin = new JButton(aiCoin4);
 		aiCoin.setBounds(181, 12, 30, 30);
 		frame.getContentPane().add(aiCoin);
 		
@@ -17133,6 +17183,7 @@ public class GameplayScreen{
 		aiCoinsLabel.setBounds(220, 20, 36, 21);
 		frame.getContentPane().add(aiCoinsLabel);
 		
+		removeAllActionListeners(closeInfo);
 		closeInfo.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent e) 

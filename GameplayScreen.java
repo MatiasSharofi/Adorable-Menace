@@ -39,6 +39,8 @@ public class GameplayScreen{
 	static int readSSTurn = 0;
 	static int readSS2Turn = 0;
 	static int readAiCardsUsed = 0;
+	static String readUserBa1Taken = "";
+	static String readUserBa2Taken = "";
 	
 	static JButton selectCard1;
 	static JButton selectCard2;
@@ -4150,7 +4152,7 @@ public class GameplayScreen{
 			{
 				if (baCardsArray2[0].getHealth() >= 2 || baCardsArray2[1].getHealth() >= 2 || baCardsArray2[2].getHealth() >= 2)
 				{
-					purchaseSinisterSerenity = true;
+					purchaseSinisterSerenity = false;
 				}
 				else if ((baCardsArray2[0].getTier() >= 5 && baCardsArray2[0].getHealth() <= 2) || (baCardsArray2[1].getTier() >= 5 && baCardsArray2[1].getHealth() <= 2) || (baCardsArray2[2].getTier() >= 5 && baCardsArray2[2].getHealth() <= 2))
 				{
@@ -4410,6 +4412,8 @@ public class GameplayScreen{
 						attackAiAC3.setEnabled(false);
 						shopButton.setEnabled(false);
 					}
+					numberOfTurns++;
+					firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(aiArenaCard2);
@@ -4587,6 +4591,8 @@ public class GameplayScreen{
 						attackAiAC3.setEnabled(false);
 						shopButton.setEnabled(false);
 					}
+					numberOfTurns++;
+					firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(aiArenaCard3);
@@ -4764,10 +4770,10 @@ public class GameplayScreen{
 						attackAiAC3.setEnabled(false);
 						shopButton.setEnabled(false);
 					}
+					numberOfTurns++;
+					firstAiDecision();
 				}
 			});
-			numberOfTurns++;
-			firstAiDecision();
 		}
 		
 		else // AI turn
@@ -6612,6 +6618,9 @@ public class GameplayScreen{
 					actionHistory.append("Holographic Hideaway used on " + baCardsArray[0].getName());				
 					actionHistory.append("\n");
 					holographicHideaway1Used = true;
+					numberOfTurns++;
+			        System.out.println("ARTTTT");
+					firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(userArenaCard2);
@@ -6623,6 +6632,9 @@ public class GameplayScreen{
 					actionHistory.append("Holographic Hideaway used on " + baCardsArray[1].getName());				
 					actionHistory.append("\n");
 					holographicHideaway2Used = true;
+					numberOfTurns++;
+			        System.out.println("ARTTTT");
+					firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(userArenaCard3);
@@ -6634,11 +6646,11 @@ public class GameplayScreen{
 					actionHistory.append("Holographic Hideaway used on " + baCardsArray[2].getName());				
 					actionHistory.append("\n");
 					holographicHideaway3Used = true;
+					numberOfTurns++;
+			        System.out.println("ARTTTT");
+					firstAiDecision();
 				}
 			});
-	        numberOfTurns++;
-	        System.out.println("ARTTTT");
-			firstAiDecision();
 		}
 		else  // AI turn
 		{
@@ -6683,6 +6695,8 @@ public class GameplayScreen{
 					baCardsArray[0].setHealth(mmHealth);
 					actionHistory.append("Malicious Mend used on " + baCardsArray[0].getName() + ". Health increased to " + baCardsArray[0].getHealth());				
 					actionHistory.append("\n");
+					numberOfTurns++;
+					firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(userArenaCard2);
@@ -6694,6 +6708,8 @@ public class GameplayScreen{
 					baCardsArray[1].setHealth(mmHealth);
 					actionHistory.append("Malicious Mend used on " + baCardsArray[1].getName() + ". Health increased to " + baCardsArray[1].getHealth());				
 					actionHistory.append("\n");
+					numberOfTurns++;
+					firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(userArenaCard3);
@@ -6705,10 +6721,10 @@ public class GameplayScreen{
 					baCardsArray[2].setHealth(mmHealth);
 					actionHistory.append("Malicious Mend used on " + baCardsArray[2].getName() + ". Health increased to " + baCardsArray[2].getHealth());				
 					actionHistory.append("\n");
+					numberOfTurns++;
+					firstAiDecision();
 				}
 			});
-	        numberOfTurns++;
-			firstAiDecision();
 		}
 		else // AI turn
 		{
@@ -6784,6 +6800,9 @@ public class GameplayScreen{
 					baCardsArray[0].setHealth(ssHealth);
 					actionHistory.append("Sinister Serenity used on " + baCardsArray[0].getName() + ". Health increased to " + baCardsArray[0].getHealth());				
 					actionHistory.append("\n");
+					ssTurn++;
+					numberOfTurns++;
+					firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(userArenaCard2);
@@ -6795,6 +6814,9 @@ public class GameplayScreen{
 					baCardsArray[1].setHealth(ssHealth);
 					actionHistory.append("Sinister Serenity used on " + baCardsArray[1].getName() + ". Health increased to " + baCardsArray[1].getHealth());				
 					actionHistory.append("\n");
+					ssTurn++;
+					numberOfTurns++;
+					firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(userArenaCard3);
@@ -6806,11 +6828,11 @@ public class GameplayScreen{
 					baCardsArray[2].setHealth(ssHealth);
 					actionHistory.append("Sinister Serenity used on " + baCardsArray[2].getName() + ". Health increased to " + baCardsArray[2].getHealth());				
 					actionHistory.append("\n");
+					ssTurn++;
+					numberOfTurns++;
+					firstAiDecision();
 				}
 			});
-	        ssTurn++;
-	        numberOfTurns++;
-			firstAiDecision();
 		}
 		else // AI turn
 		{
@@ -7022,6 +7044,8 @@ public class GameplayScreen{
 						attackAiAC3.setEnabled(false);
 						shopButton.setEnabled(false);
 					}
+					numberOfTurns++;
+					firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(aiArenaCard2);
@@ -7199,6 +7223,8 @@ public class GameplayScreen{
 						attackAiAC3.setEnabled(false);
 						shopButton.setEnabled(false);
 					}
+					numberOfTurns++;
+					firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(aiArenaCard3);
@@ -7376,10 +7402,10 @@ public class GameplayScreen{
 						attackAiAC3.setEnabled(false);
 						shopButton.setEnabled(false);
 					}
+					numberOfTurns++;
+					firstAiDecision();
 				}
 			});
-	        numberOfTurns++;
-	        firstAiDecision();
 		} 
 		else // AI turn
 		{
@@ -7473,6 +7499,8 @@ public class GameplayScreen{
 					baCardsArray2[0].setCoinsDropped(ss2CoinsDropped);
 					actionHistory.append("Sneaky Smooch applied to " + baCardsArray2[0].getName());				
 					actionHistory.append("\n");
+					numberOfTurns++;
+				    firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(aiArenaCard2);
@@ -7484,6 +7512,8 @@ public class GameplayScreen{
 					baCardsArray2[1].setCoinsDropped(ss2CoinsDropped);
 					actionHistory.append("Sneaky Smooch applied to " + baCardsArray2[1].getName());				
 					actionHistory.append("\n");
+					numberOfTurns++;
+				    firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(aiArenaCard3);
@@ -7495,10 +7525,10 @@ public class GameplayScreen{
 					baCardsArray2[2].setCoinsDropped(ss2CoinsDropped);
 					actionHistory.append("Sneaky Smooch applied to " + baCardsArray2[2].getName());				
 					actionHistory.append("\n");
+					numberOfTurns++;
+				    firstAiDecision();
 				}
 			});
-	        numberOfTurns++;
-	        firstAiDecision();
 		}
 		else // AI turn
 		{
@@ -7794,6 +7824,8 @@ public class GameplayScreen{
 					tier = sub1Tier;
 					baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
 					userBa1Taken = true;
+					numberOfTurns++;
+			        firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(userArenaCard2);
@@ -8001,6 +8033,8 @@ public class GameplayScreen{
 					tier = sub1Tier;
 					baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
 					userBa2Taken = true;
+					numberOfTurns++;
+			        firstAiDecision();
 				}
 			});
 	        removeAllActionListeners(userArenaCard3);
@@ -8208,10 +8242,10 @@ public class GameplayScreen{
 					tier = sub1Tier;
 					baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
 					userBa2Taken = true;
+					numberOfTurns++;
+			        firstAiDecision();
 				}
 			});
-	        numberOfTurns++;
-	        firstAiDecision();
 		}
 		else // AI turn
 		{
@@ -12261,6 +12295,1964 @@ public class GameplayScreen{
 	
 	public static void userTurns()
 	{
+		removeAllActionListeners(selectCard1);
+		selectCard1.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				automaticInsertionCards[0] = true;
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
+				{
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
+				}
+				else 
+				{
+					selectCard1.setEnabled(false);				
+					Image arenaCard_1 = userCard1_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC3.setEnabled(false);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+						ba3Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user1Health;
+						attack = user1Attack;
+						coinsDropped = user1CoinsDropped;
+						name = user1Name;
+						tier = user1Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					userCard1Enabled = "No";
+					aiCheck1();
+				}
+			}
+		});
+		selectCard2 = new JButton("SELECT");
+		selectCard2.setBounds(476, 690, 94, 21);
+		frame.getContentPane().add(selectCard2);
+		selectCard2.setVisible(false);
+		
+		selectCard2.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				automaticInsertionCards[1] = true;
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
+				{
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
+				}
+				else 
+				{
+					selectCard2.setEnabled(false);				
+					Image arenaCard_1 = userCard2_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC3.setEnabled(false);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+						ba3Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user2Health;
+						attack = user2Attack;
+						coinsDropped = user2CoinsDropped;
+						name = user2Name;
+						tier = user2Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					userCard2Enabled = "No";
+					aiCheck1();
+				}
+			}
+		});
+		
+		selectCard3 = new JButton("SELECT");
+		selectCard3.setBounds(584, 690, 94, 21);
+		frame.getContentPane().add(selectCard3);
+		selectCard3.setVisible(false);
+		
+		selectCard3.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				automaticInsertionCards[2] = true;
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
+				{
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
+				}
+				else 
+				{
+					selectCard3.setEnabled(false);				
+					Image arenaCard_1 = userCard3_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+						ba3Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user3Health;
+						attack = user3Attack;
+						coinsDropped = user3CoinsDropped;
+						name = user3Name;
+						tier = user3Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					userCard3Enabled = "No";
+					aiCheck1();
+				}
+			}
+		});
+		
+		selectCard4 = new JButton("SELECT");
+		selectCard4.setBounds(688, 690, 94, 21);
+		frame.getContentPane().add(selectCard4);
+		selectCard4.setVisible(false);
+		
+		selectCard4.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				automaticInsertionCards[3] = true;
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
+				{
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
+				}
+				else 
+				{
+					selectCard4.setEnabled(false);				
+					Image arenaCard_1 = userCard4_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+						ba3Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user4Health;
+						attack = user4Attack;
+						coinsDropped = user4CoinsDropped;
+						name = user4Name;
+						tier = user4Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					userCard4Enabled = "No";
+					aiCheck1();
+				}
+			}
+		});
+		
+		selectCard5 = new JButton("SELECT");
+		selectCard5.setBounds(794, 690, 94, 21);
+		frame.getContentPane().add(selectCard5);
+		selectCard5.setVisible(false);
+		
+		selectCard5.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				automaticInsertionCards[4] = true;
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
+				{
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
+				}
+				else 
+				{
+					selectCard5.setEnabled(false);				
+					Image arenaCard_1 = userCard5_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+						ba3Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user5Health;
+						attack = user5Attack;
+						coinsDropped = user5CoinsDropped;
+						name = user5Name;
+						tier = user5Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					userCard5Enabled = "No";
+					aiCheck1();
+				}
+			}
+		});
+		
+		selectCard6 = new JButton("SELECT");
+		selectCard6.setBounds(900, 690, 94, 21);
+		frame.getContentPane().add(selectCard6);
+		selectCard6.setVisible(false);
+		
+		selectCard6.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				automaticInsertionCards[5] = true;
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
+				{
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
+				}
+				else 
+				{
+					selectCard6.setEnabled(false);				
+					Image arenaCard_1 = userCard6_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+						ba3Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user6Health;
+						attack = user6Attack;
+						coinsDropped = user6CoinsDropped;
+						name = user6Name;
+						tier = user6Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					userCard6Enabled = "No";
+					aiCheck1();
+				}
+			}
+		});
+		
+		selectCard7 = new JButton("SELECT");
+		selectCard7.setBounds(1006, 690, 94, 21);
+		frame.getContentPane().add(selectCard7);
+		selectCard7.setVisible(false);
+		
+		selectCard7.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				automaticInsertionCards[6] = true;
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
+				{
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
+				}
+				else 
+				{
+					selectCard7.setEnabled(false);				
+					Image arenaCard_1 = userCard7_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+						ba3Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user7Health;
+						attack = user7Attack;
+						coinsDropped = user7CoinsDropped;
+						name = user7Name;
+						tier = user7Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					userCard7Enabled = "No";
+					aiCheck1();
+				}
+			}
+		});
+		
+		selectCard8 = new JButton("SELECT");
+		selectCard8.setBounds(1112, 690, 94, 21);
+		frame.getContentPane().add(selectCard8);
+		selectCard8.setVisible(false);
+		
+		selectCard8.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				automaticInsertionCards[7] = true;
+				if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == true)
+				{
+					String message = "You already have 3 battle arena cards.";
+			        JOptionPane.showMessageDialog(frame, message, "Warning!", JOptionPane.WARNING_MESSAGE);
+				}
+				else 
+				{
+					selectCard8.setEnabled(false);				
+					Image arenaCard_1 = userCard8_1.getImage();
+					Image arenaCard_2 = arenaCard_1.getScaledInstance(94, 150, Image.SCALE_SMOOTH);
+					ImageIcon arenaCard_3 = new ImageIcon(arenaCard_2);
+					
+					if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						useAC1.setVisible(true);
+						useAC1.setEnabled(false);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == false)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						useAC2.setVisible(true);
+						useAC2.setEnabled(false);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard3 = new JButton(arenaCard_3);
+						userArenaCard3.setBounds(740, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard3);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC3.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[2] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[2].setHealth(health);
+							baCardsArray[2].setAttack(attack);
+							baCardsArray[2].setCoinsDropped(coinsDropped);
+							baCardsArray[2].setName(name);
+							baCardsArray[2].setTier(tier);
+						}
+						userBa3Taken = true;
+						ba3Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					else if (userBa1Taken == true && userBa2Taken == false && userBa3Taken == true)
+					{
+						userArenaCard2 = new JButton(arenaCard_3);
+						userArenaCard2.setBounds(634, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard2);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC2.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[1] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[1].setHealth(health);
+							baCardsArray[1].setAttack(attack);
+							baCardsArray[1].setCoinsDropped(coinsDropped);
+							baCardsArray[1].setName(name);
+							baCardsArray[1].setTier(tier);
+						}
+						userBa2Taken = true;
+						ba2Enabled = "Yes";
+					}
+					else if (userBa1Taken == false && userBa2Taken == true && userBa3Taken == false)
+					{
+						userArenaCard1 = new JButton(arenaCard_3);
+						userArenaCard1.setBounds(528, 368, 94, 150);
+						frame.getContentPane().add(userArenaCard1);
+						frame.repaint();
+						endTurn.setEnabled(true);
+						placeCards.setVisible(false);
+						useAC1.setVisible(true);
+						useAC1.setEnabled(true);
+						useAC2.setEnabled(true);
+						useAC3.setEnabled(true);
+						health = user8Health;
+						attack = user8Attack;
+						coinsDropped = user8CoinsDropped;
+						name = user8Name;
+						tier = user8Tier;
+						if (numberOfTurns == 0)
+						{
+							baCardsArray[0] = new userCard (health, attack, coinsDropped, name, tier);
+						}
+						else 
+						{
+							baCardsArray[0].setHealth(health);
+							baCardsArray[0].setAttack(attack);
+							baCardsArray[0].setCoinsDropped(coinsDropped);
+							baCardsArray[0].setName(name);
+							baCardsArray[0].setTier(tier);
+						}
+						userBa1Taken = true;
+						ba1Enabled = "Yes";
+					}
+					battleArenaCards++;
+					numberOfUserBaCards++;
+					totalUserCards--;
+					userCard8Enabled = "No";
+					aiCheck1();
+				}
+			}
+		});
 		System.out.println(numberOfTurns+ "LALALLA");
 		aiArenaCard1.setEnabled(true);
 		aiArenaCard2.setEnabled(true);
@@ -14138,7 +16130,7 @@ public class GameplayScreen{
 		useAbility1.setBounds(264, 690, 94, 21);
 		frame.getContentPane().add(useAbility1);
 		useAbility1.setVisible(false);
-		aiCoinsLabel = new JLabel("0");
+		aiCoinsLabel = new JLabel("");
 		aiCoinsLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		aiCoinsLabel.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 16));
 		aiCoinsLabel.setBounds(220, 20, 36, 21);
@@ -17162,7 +19154,7 @@ public class GameplayScreen{
 		userCoin.setBounds(181, 682, 30, 30);
 		frame.getContentPane().add(userCoin);
 		
-		userCoinsLabel = new JLabel("0");
+		userCoinsLabel = new JLabel("" + totalUserCoins);
 		userCoinsLabel.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 16));
 		userCoinsLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		userCoinsLabel.setBounds(220, 690, 36, 21);
@@ -17177,7 +19169,7 @@ public class GameplayScreen{
 		aiCoin.setBounds(181, 12, 30, 30);
 		frame.getContentPane().add(aiCoin);
 		
-		aiCoinsLabel = new JLabel("0");
+		aiCoinsLabel = new JLabel("" + totalAiCoins);
 		aiCoinsLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		aiCoinsLabel.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 16));
 		aiCoinsLabel.setBounds(220, 20, 36, 21);

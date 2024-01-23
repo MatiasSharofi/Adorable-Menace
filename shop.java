@@ -1,37 +1,174 @@
 import java.awt.EventQueue;
-import javax.swing.JOptionPane;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
+import java.awt.Image;
+
+import javax.swing.JFrame;
+import java.awt.Panel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import java.awt.Label;
+import java.awt.Color;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.awt.event.ActionEvent;
+import javax.swing.JRadioButton;
 
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.JButton;
-import java.awt.Color;
-
-public class MainMenuScreen {
-
-	static int wins = 0;
-	static int losses = 0;
-	static int readWins = 0;
-	static int readLosses = 0;
+public class ShopScreen {
 	
-	public static void write3()
+	static JFrame frame;
+	
+	static JButton closeInfo;
+	
+	static String shopVisited = "";
+	static String readShopVisited = "";
+	static String userAbilityUsed = "";
+	static String aiAbilityUsed = "";
+	static String readUserAbilityUsed = "";
+	static String readAiAbilityUsed = "";
+	static JButton purchase1;
+	static JButton purchase2;
+	static JButton purchase3;
+	static JButton purchase4;
+	static JButton purchase5;
+	static JButton purchase6;
+	static JButton purchase7;
+	static JButton purchase8;
+	static JButton purchase9;
+	static JButton purchase10;
+	static JLabel userCoinsLabel;
+	static ImageIcon abilityCard1_1;
+	static ImageIcon abilityCard2_1;
+	static ImageIcon abilityCard3_1;
+	static ImageIcon abilityCard4_1;
+	static ImageIcon abilityCard5_1;
+	static ImageIcon abilityCard6_1;
+	static ImageIcon abilityCard7_1;
+	static ImageIcon abilityCard8_1;
+	static ImageIcon abilityCard9_1;
+	static ImageIcon abilityCard10_1;
+	static JButton abilityCard1;
+	static JButton abilityCard2;
+	static JButton abilityCard3;
+	static JButton abilityCard4;
+	static JButton abilityCard5;
+	static JButton abilityCard6;
+	static JButton abilityCard7;
+	static JButton abilityCard8;
+	static JButton abilityCard9;
+	static JButton abilityCard10;
+	static JButton cardInfo;
+	
+	static String ac1PurchasedCheck = "";
+	static String ac2PurchasedCheck = "";
+	static String ac3PurchasedCheck = "";
+	static String ac4PurchasedCheck = "";
+	static String ac5PurchasedCheck = "";
+	static String ac6PurchasedCheck = "";
+	static String ac7PurchasedCheck = "";
+	static String ac8PurchasedCheck = "";
+	static String ac9PurchasedCheck = "";
+	static String ac10PurchasedCheck = "";
+	static String ac1Purchased = "";
+	static String ac2Purchased = "";
+	static String ac3Purchased = "";
+	static String ac4Purchased = "";
+	static String ac5Purchased = "";
+	static String ac6Purchased = "";
+	static String ac7Purchased = "";
+	static String ac8Purchased = "";
+	static String ac9Purchased = "";
+	static String ac10Purchased = "";
+	static String ba1Enabled = "";
+	static String ba2Enabled = "";
+	static String ba3Enabled = "";
+	static String ba4Enabled = "";
+	static String ba5Enabled = "";
+	static String ba6Enabled = "";
+	static String ba1EnabledCheck = "";
+	static String ba2EnabledCheck = "";
+	static String ba3EnabledCheck = "";
+	static String ba4EnabledCheck = "";
+	static String ba5EnabledCheck = "";
+	static String ba6EnabledCheck = "";
+	static String card1 = "";
+	static String newCard1 = "";
+	static String card2 = "";
+	static String newCard2 = "";
+	static String card3 = "";
+	static String newCard3 = "";
+	static String card4 = "";
+	static String newCard4 = "";
+	static String card5 = "";
+	static String newCard5 = "";
+	static String card6 = "";
+	static String newCard6 = "";
+	static String card7 = "";
+	static String newCard7 = "";
+	static String card8 = "";
+	static String newCard8 = "";
+	static String card9 = "";
+	static String newCard9 = "";
+	static String card10 = "";
+	static String newCard10 = "";
+	static String card11 = "";
+	static String newCard11 = "";
+	static String card12 = "";
+	static String newCard12 = "";
+	static String card13 = "";
+	static String newCard13 = "";
+	static String card14 = "";
+	static String newCard14 = "";
+	static String card15 = "";
+	static String newCard15 = "";
+	static String card16 = "";
+	static String newCard16 = "";
+	static String cardsDrawn;
+	static String cardsDrawnCheck;
+	static Timer timer; // Timer as a class member
+    static int secondsRemaining;
+    static JLabel timerLabel; // Assuming you have a JLabel for displaying the timer
+    static Timer countdownTimer;
+    static int readUserCoins = 0;
+	static int readAiCoins = 0;
+	static int totalUserCoins;
+	static int totalAiCoins;
+	static int updateTime = 30;
+	
+	static int coins = 0; // variable to hold amount of coins
+	static int abilityCard = 0; // variable to track what ability card is selected (0 is none)
+	// need to replace this data with data from read and write
+	
+	public static void write2()
 	{
 		try // Try is necessary for PrintWriter as exceptions can be generated without it
 	    {
 	      PrintWriter output; // Object to connect to file for write command
-	      output = new PrintWriter (new FileWriter("main menu.txt")); // Instantiate the object and create text file "student_data.txt" 
-	      output.println(wins);
-	      output.println(losses);
+	      output = new PrintWriter (new FileWriter("shop.txt")); // Instantiate the object and create text file "student_data.txt" 
+	      output.println(ac1Purchased);
+	      output.println(ac2Purchased);
+	      output.println(ac3Purchased);
+	      output.println(ac4Purchased);
+	      output.println(ac5Purchased);
+	      output.println(ac6Purchased);
+	      output.println(ac7Purchased);
+	      output.println(ac8Purchased);
+	      output.println(ac9Purchased);
+	      output.println(ac10Purchased);
+	      output.println(secondsRemaining);
+	      output.println(totalUserCoins);
+	      output.println(totalAiCoins);
+	      output.println(userAbilityUsed);
+	      output.println(aiAbilityUsed);
+	      output.println(shopVisited);
 	      output.close(); // Close the file
 	    }
 	    catch (Exception e) // Catch is necessary for try/catch block due to exceptions
@@ -40,16 +177,30 @@ public class MainMenuScreen {
 	    }
 	}
 	
-	public static void read3()
+	public static void read2()
 	{
 		try // Try is necessary for BufferedReader as exceptions can be generated without it
 	    {
-	      BufferedReader input = new BufferedReader (new FileReader("main menu.txt")); // Instantiate the object and connect it to text file "student_data.txt"
+	      BufferedReader input = new BufferedReader (new FileReader("shop.txt")); // Instantiate the object and connect it to text file "student_data.txt"
 	      String line = input.readLine(); // read new line and assign it to line
 	      if (line != null) 
 	      { // If there is data within the text file (even blank strings), code below will run 
-	    	 readWins = Integer.parseInt(line);
-	    	 readLosses = Integer.parseInt(input.readLine());
+	    	 ac1PurchasedCheck = line;
+	    	 ac2PurchasedCheck = input.readLine();
+	    	 ac3PurchasedCheck = input.readLine();
+	    	 ac4PurchasedCheck = input.readLine();
+	    	 ac5PurchasedCheck = input.readLine();
+	    	 ac6PurchasedCheck = input.readLine();
+	    	 ac7PurchasedCheck = input.readLine();
+	    	 ac8PurchasedCheck = input.readLine();
+	    	 ac9PurchasedCheck = input.readLine();
+	    	 ac10PurchasedCheck = input.readLine();
+	    	 updateTime = Integer.parseInt(input.readLine());
+	    	 readUserCoins = Integer.parseInt(input.readLine());
+	    	 readAiCoins = Integer.parseInt(input.readLine());
+	    	 readUserAbilityUsed = input.readLine();
+	    	 readAiAbilityUsed = input.readLine();
+	    	 readShopVisited = input.readLine();
 	      }
 	        input.close(); // Close the file
 	    }
@@ -59,131 +210,936 @@ public class MainMenuScreen {
 	    }
 	}
 	
-    public static void showMainMenuScreen() 
-    {
-        JFrame frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(128, 0, 128));
-		frame.setBounds(0, 0, 1920, 1080);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // close the frame when 'X' is pressed
+	public static void userCountdown()
+	{
+		timerLabel = new JLabel("Time remaining: ");
+		timerLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		timerLabel.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		timerLabel.setBounds(25, 5, 251, 77);
+	    frame.getContentPane().add(timerLabel);
+	    
+        timerLabel.setText("Time remaining: " + secondsRemaining + " seconds");
+
+        // Initialize the timer
+        timer = new Timer();
+        timer.schedule(new TimerTask(){
+            @Override
+            public void run() {
+                secondsRemaining--;
+                timerLabel.setText("Time remaining: " + secondsRemaining + " seconds");
+                if (secondsRemaining <= 0) {
+                    timer.cancel();
+                    secondsRemaining = 30;
+                }
+            }   
+        }, 0, 1000);
+    }
+
+	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
+	public static void showShopScreen()
+	{
+		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(247, 186, 232));
+		frame.setBackground(new Color(184, 235, 169));
+		frame.setBounds(100, 100, 1400,800);
 		frame.getContentPane().setLayout(null);
 		
-		read3();
+		read2();
 		
-		wins = readWins;
-		losses = readLosses;
-		
-		JLabel titleLabel = new JLabel("Adorable Menace: Feral Friends");
-		titleLabel.setForeground(new Color(0, 0, 0));
-		titleLabel.setBackground(new Color(240, 240, 240));
-		titleLabel.setFont(new Font("Wide Latin", Font.BOLD | Font.ITALIC, 20));
-		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel.setBounds(451, 24, 637, 32);
-		frame.getContentPane().add(titleLabel);
-		
-		JLabel titleLabel2 = new JLabel("A Strategy Card Game");
-		titleLabel2.setForeground(new Color(0, 0, 0));
-		titleLabel2.setFont(new Font("Times New Roman", Font.BOLD, 17));
-		titleLabel2.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel2.setBounds(672, 56, 196, 23);
-		frame.getContentPane().add(titleLabel2);
-		
-		JButton startButton = new JButton("NEW GAME");
-		startButton.setBackground(new Color(240, 240, 240));
-		startButton.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
-		startButton.setBounds(681, 128, 177, 77);
-		frame.getContentPane().add(startButton);
-		
-		JButton helpButton = new JButton("HELP");
-		helpButton.setBackground(new Color(240, 240, 240));
-		helpButton.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
-		helpButton.setBounds(681, 225, 177, 77);
-		frame.getContentPane().add(helpButton);
-		
-		JButton statsButton = new JButton("STATS");
-		statsButton.setBackground(new Color(240, 240, 240));
-		statsButton.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
-		statsButton.setBounds(681, 323, 177, 77);
-		frame.getContentPane().add(statsButton);
-		
-		statsButton.addActionListener(new ActionListener()
+		userAbilityUsed = readUserAbilityUsed;
+		if (userAbilityUsed.equals("Yes"))
 		{
-			public void actionPerformed (ActionEvent e) 
-			{
-				String message = "<html> Wins : " + wins
-                		+ "<br> Losses: " + losses
-                		+ "</html>";
-                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
+			JOptionPane.showMessageDialog(null, "You already have an ability card in your slot in the 'Gameplay' screen! Please use it before trying to purchase another one...");
+			abilityCard1.setEnabled(false);
+			abilityCard2.setEnabled(false);
+			abilityCard3.setEnabled(false);
+			abilityCard4.setEnabled(false);
+			abilityCard5.setEnabled(false);
+			abilityCard6.setEnabled(false);
+			abilityCard7.setEnabled(false);
+			abilityCard8.setEnabled(false);
+			abilityCard9.setEnabled(false);
+			abilityCard10.setEnabled(false);
+			purchase1.setEnabled(false);
+			purchase2.setEnabled(false);
+			purchase3.setEnabled(false);
+			purchase4.setEnabled(false);
+			purchase5.setEnabled(false);
+			purchase6.setEnabled(false);
+			purchase7.setEnabled(false);
+			purchase8.setEnabled(false);
+			purchase9.setEnabled(false);
+			purchase10.setEnabled(false);
+		}
+		aiAbilityUsed = readAiAbilityUsed;
+		shopVisited = readShopVisited;
 		
-		JButton quitButton = new JButton("QUIT");
-		quitButton.setBackground(new Color(240, 240, 240));
-		quitButton.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
-		quitButton.setBounds(681, 424, 177, 77);
-		frame.getContentPane().add(quitButton);
-		frame.setVisible(true); // show the frame
-		
-		startButton.addActionListener(new ActionListener()
+		userCoinsLabel = new JLabel("0");
+		userCoinsLabel.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 16));
+		userCoinsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		userCoinsLabel.setBounds(655, 28, 75, 36);
+		frame.getContentPane().add(userCoinsLabel);
+		secondsRemaining = updateTime;
+		userCountdown();
+		totalUserCoins = readUserCoins;
+		totalAiCoins = readAiCoins;
+		if (totalUserCoins > 0)
 		{
-			public void actionPerformed (ActionEvent e) 
-			{
-				String message = "<html> Before the game begins, please take note of how turns will work!"
-                		+ "<br> You will have the first turn, where you must click the 'Draw 8 Cards' button"
-                		+ "<br> From there, you will select your battle arena cards and then you will be forced to attack the AI's battle arena cards before the 30-second countdown timer runs out."
-                		+ "<br> If this timer ever runs out during one of your turns, you will lose that turn."
-                		+ "<br> After this, there will be a pop-up on the screen showing you that it is the AI's turn."
-                		+ "<br> The AI will make a decision after about 2 seconds. After this, another pop-up will be displayed telling you that it's now your turn!"
-                		+ "<br> The timer will continue to run if you ever go to the shop screen during your turn."
-                		+ "<br> If you are truly ready to play Feral Friends, click the 'OK' button below this message!"
-                		+ "</html>";
-                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-                write3();
+			userCoinsLabel.setText("" + totalUserCoins);
+		}		
+		ac1Purchased = ac1PurchasedCheck;
+		if (ac1Purchased.equals("Yes"))
+		{
+			abilityCard1.setEnabled(false);
+			purchase1.setEnabled(false);
+		}
+		ac2Purchased = ac2PurchasedCheck;
+		if (ac2Purchased.equals("Yes"))
+		{
+			abilityCard2.setEnabled(false);
+			purchase2.setEnabled(false);
+		}
+		ac3Purchased = ac3PurchasedCheck;
+		if (ac3Purchased.equals("Yes"))
+		{
+			abilityCard3.setEnabled(false);
+			purchase3.setEnabled(false);
+		}
+		ac4Purchased = ac4PurchasedCheck;
+		if (ac4Purchased.equals("Yes"))
+		{
+			abilityCard4.setEnabled(false);
+			purchase4.setEnabled(false);
+		}
+		ac5Purchased = ac5PurchasedCheck;
+		if (ac5Purchased.equals("Yes"))
+		{
+			abilityCard5.setEnabled(false);
+			purchase5.setEnabled(false);
+		}
+		ac6Purchased = ac6PurchasedCheck;
+		if (ac6Purchased.equals("Yes"))
+		{
+			abilityCard6.setEnabled(false);
+			purchase6.setEnabled(false);
+		}
+		ac7Purchased = ac7PurchasedCheck;
+		if (ac7Purchased.equals("Yes"))
+		{
+			abilityCard7.setEnabled(false);
+			purchase7.setEnabled(false);
+		}
+		ac8Purchased = ac8PurchasedCheck;
+		if (ac8Purchased.equals("Yes"))
+		{
+			abilityCard8.setEnabled(false);
+			purchase8.setEnabled(false);
+		}
+		ac9Purchased = ac9PurchasedCheck;
+		if (ac9Purchased.equals("Yes"))
+		{
+			abilityCard9.setEnabled(false);
+			purchase9.setEnabled(false);
+		}
+		ac10Purchased = ac10PurchasedCheck;
+		if (ac10Purchased.equals("Yes"))
+		{
+			abilityCard10.setEnabled(false);
+			purchase10.setEnabled(false);
+		}
+		
+		ImageIcon userCoin1 = new ImageIcon("resources/images/coin.png");
+		Image userCoin2 = userCoin1.getImage();
+        Image userCoin3 = userCoin2.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        ImageIcon userCoin4 = new ImageIcon(userCoin3);
+        
+        JButton userCoin = new JButton(userCoin4);
+		userCoin.setBounds(620, 28, 30, 30);
+		frame.getContentPane().add(userCoin);
+		
+		JLabel shopTitle = new JLabel("SHOP");
+		shopTitle.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 20));
+		shopTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		shopTitle.setBounds(600, 6, 186, 16);
+		frame.getContentPane().add(shopTitle);
+		
+		JButton battleArenaButton = new JButton("Battle Arena");
+		battleArenaButton.setBounds(6, 631, 212, 49);
+		frame.getContentPane().add(battleArenaButton);
+		battleArenaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				shopVisited = "Yes";
+				write2();
 				frame.setVisible(false);
 				GameplayScreen gs = new GameplayScreen();
 				gs.showGameplayScreen();
 			}
 		});
 		
-		helpButton.addActionListener(new ActionListener() 
+		JTextArea shopCardInfo = new JTextArea();
+		shopCardInfo.setBounds(6, 456, 305, 137);
+		shopCardInfo.setLineWrap(true);
+		shopCardInfo.setWrapStyleWord(true);
+		shopCardInfo.setVisible(false);
+		frame.getContentPane().add(shopCardInfo);
+		
+		JButton forfeitButton = new JButton("Forfeit");
+		forfeitButton.setBounds(6, 683, 212, 49);
+		frame.getContentPane().add(forfeitButton);
+		forfeitButton.addActionListener(new ActionListener() { // adding action listen
+	           public void actionPerformed(ActionEvent e) { 
+	        	   JOptionPane.showMessageDialog(forfeitButton, "","Press OK to return to Main Menu", 0);
+	        	   frame.setVisible(false);
+	        	   MainMenuScreen ms = new MainMenuScreen();
+	        	   ms.showMainMenuScreen();
+	           }
+	       });
+		
+		abilityCard1_1 = new ImageIcon("resources/images/sock puppetry.jpg");
+		Image abilityCard1_2 = abilityCard1_1.getImage();
+        Image abilityCard1_3 = abilityCard1_2.getScaledInstance(140, 249, Image.SCALE_SMOOTH);
+        ImageIcon abilityCard1_4 = new ImageIcon(abilityCard1_3);
+        
+        abilityCard1 = new JButton(abilityCard1_4);
+		abilityCard1.setBounds(324, 70, 140, 249);
+		frame.getContentPane().add(abilityCard1);
+		
+		abilityCard1.addActionListener(new ActionListener()
 		{
-            public void actionPerformed(ActionEvent e) 
-            {
-                // Display a message dialog with multiple lines of text
-                String message = "<html> Feral Friends is an action-packed card game that uses logic and strategy-based tactics to determine a winner."
-                		+ "<br> You will be matched up with the smartest AI, so play well!"
-                		+ "<br> Your deck and your opponent's deck are random each game, so make use with what you are dealt."
-                		+ "<br> Creature cards will display an image along with the creature’s attributes and various attacks, how much health they have, the amount of damage they deal, and the coins that will be dropped if they are killed."
-                		+ "<br> Simply click on a card's image in order to see these attributes in detail."
-                		+ "<br> To place cards into the battle arena to attack your opponent, click the 'SELECT' button underneath the card in your deck. It will automatically be placed inside an open slot in the battle arena."
-                		+ "<br> Attacking the opponent is easy! Simply click the 'USE' button underneath a battle arena card and click the 'ATTACK' button underneath one of your opponent's battle arena cards. Their health will go down automatically!"
-                		+ "<br> Refer to the 'Action History' text area after your moves and your opponent's moves so you know exactly what was attacked and the damage it did."
-                		+ "<br> The game WILL NOT tell you the stats of your cards or your opponent's cards in the battle arena, so you will have to remember the stats of every battle arena card!"
-                		+ "<br> Ability cards are bonus cards which are purchased in the Shop portion of the game."
-                		+ "<br> Prior to each turn, you will have the ability to go to the Shop and purchase ability cards with the coins you have amassed."
-                		+ "<br> These ability cards will provide you with invaluable attacks and defenses that can greatly impact the trajectory of the game."
-                		+ "<br> Both you and yur opponent can only hold 1 ability card at a time, meaning you will NOT be able to purchase another ability card before you use your current one."
-                		+ "<br> Once ability cards are purchased and used, they cannot be used again. Make sure to save your coins for good ability cards but don't wait too long, otherwise, your opponent will purchase them!"
-                		+ "<br> Your opponent will use its ability card right away, because it senses a disadvantage. Don't get flustered! Keep strategizing accordingly."
-                		+ "<br> The objective of the game is to defeat all 8 of your opponent's cards before your 8 are depleted. Make sure you strategize well so that you have good cards at the final stages of the game."
-                		+ "<br> Without further ado, good luck and enjoy Feral Friends!"
-                		+ "</html>";
-                JOptionPane.showMessageDialog(frame, message, "Help And Information", JOptionPane.INFORMATION_MESSAGE);
-            }
+			public void actionPerformed (ActionEvent e) 
+			{
+				closeInfo.setVisible(true);
+				abilityCard1.setEnabled(false);
+				abilityCard2.setEnabled(false);
+				abilityCard3.setEnabled(false);
+				abilityCard4.setEnabled(false);
+				abilityCard5.setEnabled(false);
+				abilityCard6.setEnabled(false);
+				abilityCard7.setEnabled(false);
+				abilityCard8.setEnabled(false);
+				abilityCard9.setEnabled(false);
+				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
+				shopCardInfo.setEnabled(false);
+				
+				Image cardInfo_1 = abilityCard1_1.getImage();
+				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
+				ImageIcon cardInfo_3 = new ImageIcon(cardInfo_2);
+				
+				cardInfo = new JButton(cardInfo_3);
+				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Sock Puppetry allows you to control one of your opponent's creature cards in the battle arena for one turn and make it attack its own side. "
+						+ "Cost: 6 coins");
+				frame.getContentPane().add(cardInfo);
+			}
 		});
 		
-		quitButton.addActionListener(new ActionListener() 
+		abilityCard2_1 = new ImageIcon("resources/images/inverted reflection.jpg");
+		Image abilityCard2_2 = abilityCard2_1.getImage();
+        Image abilityCard2_3 = abilityCard2_2.getScaledInstance(140, 249, Image.SCALE_SMOOTH);
+        ImageIcon abilityCard2_4 = new ImageIcon(abilityCard2_3);
+        
+        abilityCard2 = new JButton(abilityCard2_4);
+		abilityCard2.setBounds(469, 70, 140, 249);
+		frame.getContentPane().add(abilityCard2);
+		
+		abilityCard2.addActionListener(new ActionListener()
 		{
-            public void actionPerformed(ActionEvent e) 
-            {
-                System.exit(0);
-            }
+			public void actionPerformed (ActionEvent e) 
+			{
+				closeInfo.setVisible(true);
+				abilityCard1.setEnabled(false);
+				abilityCard2.setEnabled(false);
+				abilityCard3.setEnabled(false);
+				abilityCard4.setEnabled(false);
+				abilityCard5.setEnabled(false);
+				abilityCard6.setEnabled(false);
+				abilityCard7.setEnabled(false);
+				abilityCard8.setEnabled(false);
+				abilityCard9.setEnabled(false);
+				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
+				shopCardInfo.setEnabled(false);
+				
+				Image cardInfo_1 = abilityCard2_1.getImage();
+				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
+				ImageIcon cardInfo_3 = new ImageIcon(cardInfo_2);
+				
+				cardInfo = new JButton(cardInfo_3);
+				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Inverted Reflection reflects all damage from your opponent's previous turn back to the source for one turn. "
+						+ "Whatever damage was done to your card by the opponent is reversed, meaning your opponent’s card will lose health and your card will gain the same amount of health. "
+						+ "Cost: 9 coins");
+				frame.getContentPane().add(cardInfo);
+			}
 		});
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        showMainMenuScreen();
-    }
+		
+		abilityCard3_1 = new ImageIcon("resources/images/holographic hideaway.jpg");
+		Image abilityCard3_2 = abilityCard3_1.getImage();
+        Image abilityCard3_3 = abilityCard3_2.getScaledInstance(140, 249, Image.SCALE_SMOOTH);
+        ImageIcon abilityCard3_4 = new ImageIcon(abilityCard3_3);
+        
+        abilityCard3 = new JButton(abilityCard3_4);
+		abilityCard3.setBounds(612, 70, 140, 249);
+		frame.getContentPane().add(abilityCard3);
+		
+		abilityCard3.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				closeInfo.setVisible(true);
+				abilityCard1.setEnabled(false);
+				abilityCard2.setEnabled(false);
+				abilityCard3.setEnabled(false);
+				abilityCard4.setEnabled(false);
+				abilityCard5.setEnabled(false);
+				abilityCard6.setEnabled(false);
+				abilityCard7.setEnabled(false);
+				abilityCard8.setEnabled(false);
+				abilityCard9.setEnabled(false);
+				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
+				shopCardInfo.setEnabled(false);
+				
+				Image cardInfo_1 = abilityCard3_1.getImage();
+				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
+				ImageIcon cardInfo_3 = new ImageIcon(cardInfo_2);
+				
+				cardInfo = new JButton(cardInfo_3);
+				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Holographic Hideaway allows one of your creature cards in the battle arena to become 'invisible' for one turn, becoming immune to attacks and abilities. "
+						+ "Cost: 4 coins");
+				frame.getContentPane().add(cardInfo);
+			}
+		});
+		
+		abilityCard4_1 = new ImageIcon("resources/images/malicious mend.jpg");
+		Image abilityCard4_2 = abilityCard4_1.getImage();
+        Image abilityCard4_3 = abilityCard4_2.getScaledInstance(140, 249, Image.SCALE_SMOOTH);
+        ImageIcon abilityCard4_4 = new ImageIcon(abilityCard4_3);
+        
+        abilityCard4 = new JButton(abilityCard4_4);
+		abilityCard4.setBounds(755, 70, 140, 249);
+		frame.getContentPane().add(abilityCard4);
+		
+		abilityCard4.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				closeInfo.setVisible(true);
+				abilityCard1.setEnabled(false);
+				abilityCard2.setEnabled(false);
+				abilityCard3.setEnabled(false);
+				abilityCard4.setEnabled(false);
+				abilityCard5.setEnabled(false);
+				abilityCard6.setEnabled(false);
+				abilityCard7.setEnabled(false);
+				abilityCard8.setEnabled(false);
+				abilityCard9.setEnabled(false);
+				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
+				shopCardInfo.setEnabled(false);
+				
+				Image cardInfo_1 = abilityCard4_1.getImage();
+				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
+				ImageIcon cardInfo_3 = new ImageIcon(cardInfo_2);
+				
+				cardInfo = new JButton(cardInfo_3);
+				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Malicious Mend heals one of your creature cards in the battle arena by 3 health."
+						+ "Cost: 6 coins");
+				frame.getContentPane().add(cardInfo);
+			}
+		});
+		
+		abilityCard5_1 = new ImageIcon("resources/images/reprehensive rejuvenation.jpg");
+		Image abilityCard5_2 = abilityCard5_1.getImage();
+        Image abilityCard5_3 = abilityCard5_2.getScaledInstance(140, 249, Image.SCALE_SMOOTH);
+        ImageIcon abilityCard5_4 = new ImageIcon(abilityCard5_3);
+        
+        abilityCard5 = new JButton(abilityCard5_4);
+		abilityCard5.setBounds(900, 70, 140, 249);
+		frame.getContentPane().add(abilityCard5);
+		
+		abilityCard5.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				closeInfo.setVisible(true);
+				abilityCard1.setEnabled(false);
+				abilityCard2.setEnabled(false);
+				abilityCard3.setEnabled(false);
+				abilityCard4.setEnabled(false);
+				abilityCard5.setEnabled(false);
+				abilityCard6.setEnabled(false);
+				abilityCard7.setEnabled(false);
+				abilityCard8.setEnabled(false);
+				abilityCard9.setEnabled(false);
+				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
+				shopCardInfo.setEnabled(false);
+				
+				Image cardInfo_1 = abilityCard5_1.getImage();
+				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
+				ImageIcon cardInfo_3 = new ImageIcon(cardInfo_2);
+				
+				cardInfo = new JButton(cardInfo_3);
+				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Reprehensive Rejuvenation heals all of your creatures in the battle arena by 2 health levels. "
+						+ "Cost: 11 coins");
+				frame.getContentPane().add(cardInfo);
+			}
+		});
+		
+		abilityCard6_1 = new ImageIcon("resources/images/sinister serenity.jpg");
+		Image abilityCard6_2 = abilityCard6_1.getImage();
+        Image abilityCard6_3 = abilityCard6_2.getScaledInstance(140, 249, Image.SCALE_SMOOTH);
+        ImageIcon abilityCard6_4 = new ImageIcon(abilityCard6_3);
+        
+        abilityCard6 = new JButton(abilityCard6_4);
+		abilityCard6.setBounds(324, 349, 140, 249);
+		shopCardInfo.append("");
+		frame.getContentPane().add(abilityCard6);
+		
+		abilityCard6.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				closeInfo.setVisible(true);
+				abilityCard1.setEnabled(false);
+				abilityCard2.setEnabled(false);
+				abilityCard3.setEnabled(false);
+				abilityCard4.setEnabled(false);
+				abilityCard5.setEnabled(false);
+				abilityCard6.setEnabled(false);
+				abilityCard7.setEnabled(false);
+				abilityCard8.setEnabled(false);
+				abilityCard9.setEnabled(false);
+				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
+				shopCardInfo.setEnabled(false);
+				
+				Image cardInfo_1 = abilityCard6_1.getImage();
+				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
+				ImageIcon cardInfo_3 = new ImageIcon(cardInfo_2);
+				
+				cardInfo = new JButton(cardInfo_3);
+				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Sinister Serenity heals one of your creature cards in the battle arena by 1 health for the next 2 turns.\n"
+						+ "Cost: 3 coins");
+				frame.getContentPane().add(cardInfo);
+			}
+		});
+		
+		abilityCard7_1 = new ImageIcon("resources/images/nefarious nibbles.jpg");
+		Image abilityCard7_2 = abilityCard7_1.getImage();
+        Image abilityCard7_3 = abilityCard7_2.getScaledInstance(140, 249, Image.SCALE_SMOOTH);
+        ImageIcon abilityCard7_4 = new ImageIcon(abilityCard7_3);
+        
+        abilityCard7 = new JButton(abilityCard7_4);
+		abilityCard7.setBounds(469, 349, 140, 249);
+		shopCardInfo.append("");
+		frame.getContentPane().add(abilityCard7);
+		
+		abilityCard7.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				closeInfo.setVisible(true);
+				abilityCard1.setEnabled(false);
+				abilityCard2.setEnabled(false);
+				abilityCard3.setEnabled(false);
+				abilityCard4.setEnabled(false);
+				abilityCard5.setEnabled(false);
+				abilityCard6.setEnabled(false);
+				abilityCard7.setEnabled(false);
+				abilityCard8.setEnabled(false);
+				abilityCard9.setEnabled(false);
+				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
+				shopCardInfo.setEnabled(false);
+				
+				Image cardInfo_1 = abilityCard7_1.getImage();
+				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
+				ImageIcon cardInfo_3 = new ImageIcon(cardInfo_2);
+				
+				cardInfo = new JButton(cardInfo_3);
+				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Nefarious Nibbles instantly takes 4 health from one of your opponent’s creatures in the battle arena. "
+						+ "Cost: 8 coins");
+				frame.getContentPane().add(cardInfo);
+			}
+		});
+		
+		abilityCard8_1 = new ImageIcon("resources/images/sneaky smooch.jpg");
+		Image abilityCard8_2 = abilityCard8_1.getImage();
+        Image abilityCard8_3 = abilityCard8_2.getScaledInstance(140, 249, Image.SCALE_SMOOTH);
+        ImageIcon abilityCard8_4 = new ImageIcon(abilityCard8_3);
+        
+        abilityCard8 = new JButton(abilityCard8_4);
+		abilityCard8.setBounds(612, 349, 140, 249);
+		shopCardInfo.append("");
+		frame.getContentPane().add(abilityCard8);
+		
+		abilityCard8.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				closeInfo.setVisible(true);
+				abilityCard1.setEnabled(false);
+				abilityCard2.setEnabled(false);
+				abilityCard3.setEnabled(false);
+				abilityCard4.setEnabled(false);
+				abilityCard5.setEnabled(false);
+				abilityCard6.setEnabled(false);
+				abilityCard7.setEnabled(false);
+				abilityCard8.setEnabled(false);
+				abilityCard9.setEnabled(false);
+				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
+				shopCardInfo.setEnabled(false);
+				
+				Image cardInfo_1 = abilityCard8_1.getImage();
+				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
+				ImageIcon cardInfo_3 = new ImageIcon(cardInfo_2);
+				
+				cardInfo = new JButton(cardInfo_3);
+				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Sneaky Smooch an opponent's creature in the battle arena drop 2 more coins if they are killed."
+						+ "Cost: 9 coins");
+				frame.getContentPane().add(cardInfo);
+			}
+		});
+		
+		abilityCard9_1 = new ImageIcon("resources/images/quantum quake.jpg");
+		Image abilityCard9_2 = abilityCard9_1.getImage();
+        Image abilityCard9_3 = abilityCard9_2.getScaledInstance(140, 249, Image.SCALE_SMOOTH);
+        ImageIcon abilityCard9_4 = new ImageIcon(abilityCard9_3);
+        
+        abilityCard9 = new JButton(abilityCard9_4);
+		abilityCard9.setBounds(755, 349, 140, 249);
+		frame.getContentPane().add(abilityCard9);
+		
+		abilityCard9.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				closeInfo.setVisible(true);
+				abilityCard1.setEnabled(false);
+				abilityCard2.setEnabled(false);
+				abilityCard3.setEnabled(false);
+				abilityCard4.setEnabled(false);
+				abilityCard5.setEnabled(false);
+				abilityCard6.setEnabled(false);
+				abilityCard7.setEnabled(false);
+				abilityCard8.setEnabled(false);
+				abilityCard9.setEnabled(false);
+				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
+				shopCardInfo.setEnabled(false);
+				
+				Image cardInfo_1 = abilityCard9_1.getImage();
+				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
+				ImageIcon cardInfo_3 = new ImageIcon(cardInfo_2);
+				
+				cardInfo = new JButton(cardInfo_3);
+				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Quantum Quake deals 3 damage to every creature card in the battle arena (both players)."
+						+ "Cost: 12 coins");
+				frame.getContentPane().add(cardInfo);
+			}
+		});
+		
+		abilityCard10_1 = new ImageIcon("resources/images/subatomic swap.jpg");
+		Image abilityCard10_2 = abilityCard10_1.getImage();
+        Image abilityCard10_3 = abilityCard10_2.getScaledInstance(140, 249, Image.SCALE_SMOOTH);
+        ImageIcon abilityCard10_4 = new ImageIcon(abilityCard10_3);
+        
+        abilityCard10 = new JButton(abilityCard10_4);
+		abilityCard10.setBounds(900, 349, 140, 249);
+		frame.getContentPane().add(abilityCard10);
+		
+		abilityCard10.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				closeInfo.setVisible(true);
+				abilityCard1.setEnabled(false);
+				abilityCard2.setEnabled(false);
+				abilityCard3.setEnabled(false);
+				abilityCard4.setEnabled(false);
+				abilityCard5.setEnabled(false);
+				abilityCard6.setEnabled(false);
+				abilityCard7.setEnabled(false);
+				abilityCard8.setEnabled(false);
+				abilityCard9.setEnabled(false);
+				abilityCard10.setEnabled(false);
+				shopCardInfo.setVisible(true);
+				shopCardInfo.setEnabled(false);
+				
+				Image cardInfo_1 = abilityCard10_1.getImage();
+				Image cardInfo_2 = cardInfo_1.getScaledInstance(250, 400, Image.SCALE_SMOOTH);
+				ImageIcon cardInfo_3 = new ImageIcon(cardInfo_2);
+				
+				cardInfo = new JButton(cardInfo_3);
+				cardInfo.setBounds(6, 44, 250, 400);
+				shopCardInfo.append("Subatomic Swap allows you to swap one of your battle arena cards for a card from the original deck of 20"
+						+ "Cost 8 coins");
+				frame.getContentPane().add(cardInfo);
+			}
+		});
+		
+		closeInfo = new JButton("CLOSE INFO");
+		closeInfo.setBounds(91, 598, 127, 21);
+		frame.getContentPane().add(closeInfo);
+		
+		purchase1 = new JButton("PURCHASE (6)");
+		purchase1.setBounds(324, 318, 140, 21);
+		frame.getContentPane().add(purchase1);
+		purchase1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (totalUserCoins < 6) {
+					JOptionPane.showMessageDialog(null, "You do not have enough coins to purchase Sock Puppetry.");
+				}
+				else if (abilityCard != 0) {
+					JOptionPane.showMessageDialog(null, "You cannot purchase a new ability card because you currently have an unused ability card.");
+				}
+				else {
+					totalUserCoins -= 6;
+					abilityCard = 1;
+					userCoinsLabel.setText("" + totalUserCoins);
+					ac1Purchased = "Yes";
+					timer.cancel();
+					abilityCard1.setEnabled(false);
+					purchase1.setEnabled(false);
+					purchase2.setEnabled(false);
+					purchase3.setEnabled(false);
+					purchase4.setEnabled(false);
+					purchase5.setEnabled(false);
+					purchase6.setEnabled(false);
+					purchase7.setEnabled(false);
+					purchase8.setEnabled(false);
+					purchase9.setEnabled(false);
+					purchase10.setEnabled(false);
+				}
+			}
+		});
+		
+		purchase2 = new JButton("PURCHASE (9)");
+		purchase2.setBounds(469, 318, 140, 21);
+		frame.getContentPane().add(purchase2);
+		purchase2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (totalUserCoins < 9) {
+					JOptionPane.showMessageDialog(null, "You do not have enough coins to purchase Inverted Reflection.");
+				}
+				else if (abilityCard != 0) {
+					JOptionPane.showMessageDialog(null, "You cannot purchase a new ability card because you currently have an unused ability card.");
+				}
+				else {
+					totalUserCoins -= 9;
+					abilityCard = 2;
+					userCoinsLabel.setText("" + totalUserCoins);
+					ac2Purchased = "Yes";
+					timer.cancel();
+					abilityCard2.setEnabled(false);
+					purchase1.setEnabled(false);
+					purchase2.setEnabled(false);
+					purchase3.setEnabled(false);
+					purchase4.setEnabled(false);
+					purchase5.setEnabled(false);
+					purchase6.setEnabled(false);
+					purchase7.setEnabled(false);
+					purchase8.setEnabled(false);
+					purchase9.setEnabled(false);
+					purchase10.setEnabled(false);
+				}
+			}
+		});
+		
+		purchase3 = new JButton("PURCHASE (4)");
+		purchase3.setBounds(612, 318, 140, 21);
+		frame.getContentPane().add(purchase3);
+		purchase3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (totalUserCoins < 4) {
+					JOptionPane.showMessageDialog(null, "You do not have enough coins to purchase Holographic Hideaway.");
+				}
+				else if (abilityCard != 0) {
+					JOptionPane.showMessageDialog(null, "You cannot purchase a new ability card because you currently have an unused ability card.");
+				}
+				else {
+					totalUserCoins -= 4;
+					abilityCard = 3;
+					userCoinsLabel.setText("" + totalUserCoins);
+					ac3Purchased = "Yes";
+					timer.cancel();
+					abilityCard3.setEnabled(false);
+					purchase1.setEnabled(false);
+					purchase2.setEnabled(false);
+					purchase3.setEnabled(false);
+					purchase4.setEnabled(false);
+					purchase5.setEnabled(false);
+					purchase6.setEnabled(false);
+					purchase7.setEnabled(false);
+					purchase8.setEnabled(false);
+					purchase9.setEnabled(false);
+					purchase10.setEnabled(false);
+				}
+			}
+		});
+		
+		purchase4 = new JButton("PURCHASE (6)");
+		purchase4.setBounds(755, 318, 140, 21);
+		frame.getContentPane().add(purchase4);
+		purchase4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (totalUserCoins < 6) {
+					JOptionPane.showMessageDialog(null, "You do not have enough coins to purchase Malicious Mend.");
+				}
+				else if (abilityCard != 0) {
+					JOptionPane.showMessageDialog(null, "You cannot purchase a new ability card because you currently have an unused ability card.");
+				}
+				else {
+					totalUserCoins -= 6;
+					abilityCard = 4;
+					userCoinsLabel.setText("" + totalUserCoins);
+					ac4Purchased = "Yes";
+					timer.cancel();
+					abilityCard4.setEnabled(false);
+					purchase1.setEnabled(false);
+					purchase2.setEnabled(false);
+					purchase3.setEnabled(false);
+					purchase4.setEnabled(false);
+					purchase5.setEnabled(false);
+					purchase6.setEnabled(false);
+					purchase7.setEnabled(false);
+					purchase8.setEnabled(false);
+					purchase9.setEnabled(false);
+					purchase10.setEnabled(false);
+				}
+			}
+		});
+		
+		purchase5 = new JButton("PURCHASE (11)");
+		purchase5.setBounds(900, 318, 140, 21);
+		frame.getContentPane().add(purchase5);
+		purchase5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (totalUserCoins < 11) {
+					JOptionPane.showMessageDialog(null, "You do not have enough coins to purchase Reprehensive Rejuvenation.");
+				}
+				else if (abilityCard != 0) {
+					JOptionPane.showMessageDialog(null, "You cannot purchase a new ability card because you currently have an unused ability card.");
+				}
+				else {
+					totalUserCoins -= 11;
+					abilityCard = 5;
+					userCoinsLabel.setText("" + totalUserCoins);
+					ac5Purchased = "Yes";
+					timer.cancel();
+					abilityCard5.setEnabled(false);
+					purchase1.setEnabled(false);
+					purchase2.setEnabled(false);
+					purchase3.setEnabled(false);
+					purchase4.setEnabled(false);
+					purchase5.setEnabled(false);
+					purchase6.setEnabled(false);
+					purchase7.setEnabled(false);
+					purchase8.setEnabled(false);
+					purchase9.setEnabled(false);
+					purchase10.setEnabled(false);
+				}
+			}
+		});
+		
+		purchase6 = new JButton("PURCHASE (3)");
+		purchase6.setBounds(324, 598, 140, 21);
+		frame.getContentPane().add(purchase6);
+		purchase6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (totalUserCoins < 3) {
+					JOptionPane.showMessageDialog(null, "You do not have enough coins to purchase Sinister Serenity.");
+				}
+				else if (abilityCard != 0) {
+					JOptionPane.showMessageDialog(null, "You cannot purchase a new ability card because you currently have an unused ability card.");
+				}
+				else {
+					totalUserCoins -= 3;
+					abilityCard = 6;
+					userCoinsLabel.setText("" + totalUserCoins);
+					ac6Purchased = "Yes";
+					timer.cancel();
+					abilityCard6.setEnabled(false);
+					purchase1.setEnabled(false);
+					purchase2.setEnabled(false);
+					purchase3.setEnabled(false);
+					purchase4.setEnabled(false);
+					purchase5.setEnabled(false);
+					purchase6.setEnabled(false);
+					purchase7.setEnabled(false);
+					purchase8.setEnabled(false);
+					purchase9.setEnabled(false);
+					purchase10.setEnabled(false);
+				}
+			}
+		});
+		
+		purchase7 = new JButton("PURCHASE (8)");
+		purchase7.setBounds(469, 598, 140, 21);
+		frame.getContentPane().add(purchase7);
+		purchase7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (totalUserCoins < 8) {
+					JOptionPane.showMessageDialog(null, "You do not have enough coins to purchase Nefarious Nibbles.");
+				}
+				else if (abilityCard != 0) {
+					JOptionPane.showMessageDialog(null, "You cannot purchase a new ability card because you currently have an unused ability card.");
+				}
+				else {
+					totalUserCoins -= 8;
+					abilityCard = 7;
+					userCoinsLabel.setText("" + totalUserCoins);
+					ac7Purchased = "Yes";
+					timer.cancel();
+					abilityCard7.setEnabled(false);
+					purchase1.setEnabled(false);
+					purchase2.setEnabled(false);
+					purchase3.setEnabled(false);
+					purchase4.setEnabled(false);
+					purchase5.setEnabled(false);
+					purchase6.setEnabled(false);
+					purchase7.setEnabled(false);
+					purchase8.setEnabled(false);
+					purchase9.setEnabled(false);
+					purchase10.setEnabled(false);
+				}
+			}
+		});
+		
+		purchase8 = new JButton("PURCHASE (9)");
+		purchase8.setBounds(612, 598, 140, 21);
+		frame.getContentPane().add(purchase8);
+		purchase8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (totalUserCoins < 9) {
+					JOptionPane.showMessageDialog(null, "You do not have enough coins to purchase Sneaky Smooch.");
+				}
+				else if (abilityCard != 0) {
+					JOptionPane.showMessageDialog(null, "You cannot purchase a new ability card because you currently have an unused ability card.");
+				}
+				else {
+					totalUserCoins -= 9;
+					abilityCard = 8;
+					userCoinsLabel.setText("" + totalUserCoins);
+					ac8Purchased = "Yes";
+					timer.cancel();
+					abilityCard8.setEnabled(false);
+					purchase1.setEnabled(false);
+					purchase2.setEnabled(false);
+					purchase3.setEnabled(false);
+					purchase4.setEnabled(false);
+					purchase5.setEnabled(false);
+					purchase6.setEnabled(false);
+					purchase7.setEnabled(false);
+					purchase8.setEnabled(false);
+					purchase9.setEnabled(false);
+					purchase10.setEnabled(false);
+				}
+			}
+		});
+		
+		purchase9 = new JButton("PURCHASE (12)");
+		purchase9.setBounds(755, 598, 140, 21);
+		frame.getContentPane().add(purchase9);
+		purchase9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (totalUserCoins < 12) {
+					JOptionPane.showMessageDialog(null, "You do not have enough coins to purchase Quantum Quake.");
+				}
+				else if (abilityCard != 0) {
+					JOptionPane.showMessageDialog(null, "You cannot purchase a new ability card because you currently have an unused ability card.");
+				}
+				else {
+					totalUserCoins -= 12;
+					abilityCard = 9;
+					userCoinsLabel.setText("" + totalUserCoins);
+					ac9Purchased = "Yes";
+					timer.cancel();
+					abilityCard9.setEnabled(false);
+					purchase1.setEnabled(false);
+					purchase2.setEnabled(false);
+					purchase3.setEnabled(false);
+					purchase4.setEnabled(false);
+					purchase5.setEnabled(false);
+					purchase6.setEnabled(false);
+					purchase7.setEnabled(false);
+					purchase8.setEnabled(false);
+					purchase9.setEnabled(false);
+					purchase10.setEnabled(false);
+				}
+			}
+		});
+		
+		purchase10 = new JButton("PURCHASE (8)");
+		purchase10.setBounds(900, 598, 140, 21);
+		frame.getContentPane().add(purchase10);
+		purchase10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (totalUserCoins < 8) {
+					JOptionPane.showMessageDialog(null, "You do not have enough coins to purchase Subatomic Swap.");
+				}
+				else if (abilityCard != 0) {
+					JOptionPane.showMessageDialog(null, "You cannot purchase a new ability card because you currently have an unused ability card.");
+				}
+				else {
+					totalUserCoins -= 8;
+					abilityCard = 10;
+					userCoinsLabel.setText("" + totalUserCoins);
+					ac10Purchased = "Yes";
+					timer.cancel();
+					abilityCard10.setEnabled(false);
+					purchase1.setEnabled(false);
+					purchase2.setEnabled(false);
+					purchase3.setEnabled(false);
+					purchase4.setEnabled(false);
+					purchase5.setEnabled(false);
+					purchase6.setEnabled(false);
+					purchase7.setEnabled(false);
+					purchase8.setEnabled(false);
+					purchase9.setEnabled(false);
+					purchase10.setEnabled(false);
+				}
+			}
+		});
+		
+		closeInfo.setVisible(false);
+		
+		closeInfo.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent e) 
+			{
+				cardInfo.setVisible(false);
+				closeInfo.setVisible(false);
+				abilityCard1.setEnabled(true);
+				abilityCard2.setEnabled(true);
+				abilityCard3.setEnabled(true);
+				abilityCard4.setEnabled(true);
+				abilityCard5.setEnabled(true);
+				abilityCard6.setEnabled(true);
+				abilityCard7.setEnabled(true);
+				abilityCard8.setEnabled(true);
+				abilityCard9.setEnabled(true);
+				abilityCard10.setEnabled(true);
+				shopCardInfo.setVisible(false);
+				shopCardInfo.setText("");
+			}
+		});
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+	}
 }
